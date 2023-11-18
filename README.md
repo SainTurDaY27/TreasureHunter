@@ -1,8 +1,6 @@
 # TreasureHunter
 
 ## Description
-A first-person single-player psychologocal horror where you play as a high school student who works part-time as a shopkeeper at an antique store that has a reputation for supernatural phenomena. You have to find and destroy a Paranormal Item hidden in the new arrival goods. If you can’t make it before 5 am, you will be haunted and have to survive until the sun rise.
-
 A single-player Metroidvania 2D game with adaptive gameplay and a lot of challenges. You will play as a treasure hunter who goes into the Cave of Eyes to find treasures so he can sell them and become rich. The goal of this game is to find all the treasures and come back alive.
 
 ### Prerequisites
