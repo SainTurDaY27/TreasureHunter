@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour
     private TouchingDirections _touchingDirections;
     public float walkSpeed = 1f;
     public float runSpeed = 2f;
-    public float jumpImpulse = 20f;
+    public float jumpImpulse = 10f;
+    public float jumpCutMultiplier = .5f;
+    public float fallGravityMultiplier = 2f;
+    public float gravityScale = 1f;
     private Vector2 _moveInput;
 
 
@@ -89,7 +92,11 @@ public class PlayerController : MonoBehaviour
         if (context.started && _touchingDirections.IsGround)
         {
             _animator.SetTrigger(AnimationStrings.jumpTrigger);
-            _rb.velocity = new Vector2(_rb.velocity.x, jumpImpulse);
+            _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
+            // _rb.velocity = new Vector2(_rb.velocity.x, jumpImpulse);
+        } else if (context.canceled)
+        {
+            _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
         }
     }
 
@@ -102,6 +109,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             _rb.velocity = new Vector2(0, _rb.velocity.y);
+        }
+
+        // Jump gravity
+        if (_rb.velocity.y < 0)
+        {
+            _rb.gravityScale = gravityScale * fallGravityMultiplier;
+        }
+        else
+        {
+            _rb.gravityScale = gravityScale;
         }
     }
 
