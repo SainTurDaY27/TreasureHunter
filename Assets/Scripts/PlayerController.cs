@@ -91,12 +91,20 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started && _touchingDirections.IsGround)
         {
-            _animator.SetTrigger(AnimationStrings.jumpTrigger);
+            _animator.SetTrigger(AnimationStrings.JumpTrigger);
             _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
             // _rb.velocity = new Vector2(_rb.velocity.x, jumpImpulse);
         } else if (context.canceled)
         {
             _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            _animator.SetTrigger(AnimationStrings.AttackTrigger);
         }
     }
 

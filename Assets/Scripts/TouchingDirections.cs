@@ -43,7 +43,7 @@ public class TouchingDirections : MonoBehaviour
         private set
         {
             isOnCeiling = value;
-            _animator.SetBool(AnimationStrings.isOnCeiling, value);
+            _animator.SetBool(AnimationStrings.IsOnCeiling, value);
 
         }
     }
@@ -54,7 +54,7 @@ public class TouchingDirections : MonoBehaviour
         private set
         {
             isOnWall = value;
-            _animator.SetBool(AnimationStrings.isOnWall, value);
+            _animator.SetBool(AnimationStrings.IsOnWall, value);
 
         }
     }
@@ -66,7 +66,7 @@ public class TouchingDirections : MonoBehaviour
         private set
         {
             isGrounded = value;
-            _animator.SetBool(AnimationStrings.isGrounded, value);
+            _animator.SetBool(AnimationStrings.IsGrounded, value);
         }
     }
 }
