@@ -377,6 +377,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5d409004a4d4c1e84413cc9c42bee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageableHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8943873105033932659}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnHit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  damageableDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  healthChange:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 6
   health: 6
   isAlive: 1
@@ -393,7 +414,7 @@ GameObject:
   - component: {fileID: 4174106858791058321}
   - component: {fileID: 1691887752517564261}
   - component: {fileID: 4152578300095977238}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SwordAttack_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,6 +499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36eaa44acfb65422f892fce127bf621e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDamage: 1
+  knockback: {x: 2, y: 0}
 --- !u!1 &9138204995362272085
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +511,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3022385660937061049}
   - component: {fileID: 1298381429147451209}
-  m_Layer: 0
+  - component: {fileID: 2108702591006887357}
+  m_Layer: 8
   m_Name: SwordAttack_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,3 +586,17 @@ PolygonCollider2D:
       - {x: 1.6421478, y: 0.027596593}
       - {x: 1.5699215, y: 0.77889603}
   m_UseDelaunayMesh: 0
+--- !u!114 &2108702591006887357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9138204995362272085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36eaa44acfb65422f892fce127bf621e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 1
+  knockback: {x: 2, y: 3}

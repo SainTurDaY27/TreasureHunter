@@ -108,6 +108,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnHit(int damage, Vector2 knockback)
+    {
+        _rb.velocity = new Vector2(knockback.x, _rb.velocity.y + knockback.y);
+    }
+
     private void FixedUpdate()
     {
         if (IsMoving)
