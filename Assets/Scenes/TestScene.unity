@@ -5457,17 +5457,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4411409083621801835, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
-      propertyPath: invicibilityTime
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 46.23
+      value: 16.8
       objectReference: {fileID: 0}
     - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.98
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
       propertyPath: m_LocalPosition.z
