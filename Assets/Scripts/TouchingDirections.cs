@@ -7,7 +7,7 @@ using Vector2 = UnityEngine.Vector2;
 public class TouchingDirections : MonoBehaviour
 {
     public ContactFilter2D castFilter;
-    private CapsuleCollider2D touchingCol; // It is easier to fix the result this way
+    private Collider2D _touchingCol; // It is easier to fix the result this way
     private Animator _animator;
 
     private RaycastHit2D[] groundHits = new RaycastHit2D[5];
@@ -25,15 +25,15 @@ public class TouchingDirections : MonoBehaviour
 
     private void Awake()
     {
-        touchingCol = GetComponent<CapsuleCollider2D>();
+        _touchingCol = GetComponent<Collider2D>();
         _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
-        IsGround = touchingCol.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
-        IsOnWall = touchingCol.Cast(wallCheckDirection, castFilter, wallHits, wallCheckDistance) > 0;
-        IsOnCeiling = touchingCol.Cast(Vector2.up, castFilter, ceilingHits, ceilingCheckDistance) > 0;
+        IsGround = _touchingCol.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
+        IsOnWall = _touchingCol.Cast(wallCheckDirection, castFilter, wallHits, wallCheckDistance) > 0;
+        IsOnCeiling = _touchingCol.Cast(Vector2.up, castFilter, ceilingHits, ceilingCheckDistance) > 0;
 
     }
 
