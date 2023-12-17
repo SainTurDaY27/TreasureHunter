@@ -51,7 +51,6 @@ namespace Enemies
 
         private void FlipDirection()
         {
-            Debug.Log("Flip direction");
             if (WalkDirection == WalkableDirection.Left)
             {
                 WalkDirection = WalkableDirection.Right;
@@ -103,23 +102,23 @@ namespace Enemies
                 FlipDirection();
             }
 
-            // if (_touchingDirections.IsGround)
-            // {
-            //     _rb.velocity = new Vector2(walkSpeed * WalkDirectionVector.x, _rb.velocity.y);
-            // }
+            if (_touchingDirections.IsGround)
+            {
+                _rb.velocity = new Vector2(walkSpeed * WalkDirectionVector.x, _rb.velocity.y);
+            }
 
-            if ( /*CanMove &&*/ _touchingDirections.IsGround)
-            {
-                float xVelocity =
-                    Mathf.Clamp(_rb.velocity.x + (walkAcceleration * _walkDirectionVector.x * Time.deltaTime), -maxSpeed,
-                        maxSpeed);
-                _rb.velocity = new Vector2(xVelocity, _rb.velocity.y);
-                
-            }
-            else
-            {
-                _rb.velocity = new Vector2(Mathf.Lerp(_rb.velocity.x, 0, walkStopRate), _rb.velocity.y);
-            }
+            // if ( /*CanMove &&*/ _touchingDirections.IsGround)
+            // {
+            //     float xVelocity =
+            //         Mathf.Clamp(_rb.velocity.x + (walkAcceleration * _walkDirectionVector.x * Time.deltaTime), -maxSpeed,
+            //             maxSpeed);
+            //     _rb.velocity = new Vector2(xVelocity, _rb.velocity.y);
+            //     
+            // }
+            // else
+            // {
+            //     _rb.velocity = new Vector2(Mathf.Lerp(_rb.velocity.x, 0, walkStopRate), _rb.velocity.y);
+            // }
         }
     }
 }

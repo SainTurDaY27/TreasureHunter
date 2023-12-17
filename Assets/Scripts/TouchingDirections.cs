@@ -49,8 +49,6 @@ public class TouchingDirections : MonoBehaviour
     {
         IsGround = touchingCol.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
         IsOnWall = touchingCol.Cast(wallCheckDirection, castFilter, wallHits, wallCheckDistance) > 0;
-        Debug.Log($"Game object local scale: {gameObject.transform.localScale.x}");
-        Debug.Log($"Wall Check Direction: {wallCheckDirection.x}");
         IsOnCeiling = touchingCol.Cast(Vector2.up, castFilter, ceilingHits, ceilingCheckDistance) > 0;
 
     }
@@ -72,7 +70,6 @@ public class TouchingDirections : MonoBehaviour
         private set
         {
             isOnWall = value;
-            if (value) Debug.Log("IT IS ON A FUCKING WALL");
             _animator.SetBool(AnimationStrings.IsOnWall, value);
 
         }
