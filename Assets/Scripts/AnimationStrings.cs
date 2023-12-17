@@ -8,5 +8,6 @@ public static class AnimationStrings
     internal static readonly string JumpTrigger = "jump";
     internal static readonly string AttackTrigger = "attack";
     internal static readonly string HitTrigger = "hit";
-    
+    internal static readonly string LockVelocity = "lockVelocity";
+    internal static readonly string CanMove = "canMove";
 }

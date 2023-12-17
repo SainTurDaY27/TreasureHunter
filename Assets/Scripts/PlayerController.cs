@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private Animator _animator;
     private TouchingDirections _touchingDirections;
+    private Damageable _damageable;
     public float walkSpeed = 1f;
     public float runSpeed = 2f;
     public float jumpImpulse = 10f;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
             return 0;
         }
     }
+
     public bool IsMoving
     {
         get => _animator.GetBool(AnimationStrings.IsMoving);
@@ -60,21 +62,24 @@ public class PlayerController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _damageable = GetComponent<Damageable>();
         _touchingDirections = GetComponent<TouchingDirections>();
     }
+
+    public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
 
     public void OnMove(InputAction.CallbackContext context)
     {
         _moveInput = context.ReadValue<Vector2>();
-        // if (IsAlive)
-        // {
-        IsMoving = _moveInput != Vector2.zero;
-        SetFacingDirection(_moveInput);
-        // }
-        // else
-        // {
-        //     IsMoving = false;
-        // }
+        if (IsAlive)
+        {
+            IsMoving = _moveInput != Vector2.zero;
+            SetFacingDirection(_moveInput);
+        }
+        else
+        {
+            IsMoving = false;
+        }
     }
 
     public void OnRun(InputAction.CallbackContext context)
@@ -82,11 +87,13 @@ public class PlayerController : MonoBehaviour
         if (context.started && _touchingDirections.IsGround)
         {
             _isRunning = true;
-        } else if (context.canceled)
+        }
+        else if (context.canceled)
         {
             _isRunning = false;
         }
     }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started && _touchingDirections.IsGround)
@@ -94,7 +101,8 @@ public class PlayerController : MonoBehaviour
             _animator.SetTrigger(AnimationStrings.JumpTrigger);
             _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
             // _rb.velocity = new Vector2(_rb.velocity.x, jumpImpulse);
-        } else if (context.canceled)
+        }
+        else if (context.canceled)
         {
             _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
         }
@@ -110,18 +118,24 @@ public class PlayerController : MonoBehaviour
 
     public void OnHit(int damage, Vector2 knockback)
     {
-        _rb.velocity = new Vector2(knockback.x, _rb.velocity.y + knockback.y);
+        if (IsAlive)
+        {
+            _rb.velocity = new Vector2(knockback.x, _rb.velocity.y + knockback.y);
+        }
     }
 
     private void FixedUpdate()
     {
-        if (IsMoving)
+        if (!_damageable.LockVelocity)
         {
-            _rb.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb.velocity.y);
-        }
-        else
-        {
-            _rb.velocity = new Vector2(0, _rb.velocity.y);
+            if (IsMoving)
+            {
+                _rb.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb.velocity.y);
+            }
+            else
+            {
+                _rb.velocity = new Vector2(0, _rb.velocity.y);
+            }
         }
 
         // Jump gravity

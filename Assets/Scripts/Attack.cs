@@ -19,7 +19,7 @@ public class Attack : MonoBehaviour
                 transform.parent.localScale.x > 0 ? knockback : new Vector2(-knockback.x, knockback.y);
             if (damageable.Hit(attackDamage, actualKnockback))
             {
-                Debug.Log("Hit");
+                // Debug.Log("Hit");
             }
         }
 

@@ -92,8 +92,102 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noColliderRemains:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6091773865603509511}
+        m_TargetAssemblyTypeName: Enemies.SimpleWalkingEnemy, Assembly-CSharp
+        m_MethodName: OnCliffDetected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   detected: []
+--- !u!1 &5718393982028774785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8132560484048027643}
+  - component: {fileID: 1967745310604437847}
+  - component: {fileID: 5235114222857575433}
+  m_Layer: 10
+  m_Name: AttackZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8132560484048027643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718393982028774785}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4799202438142840548}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &1967745310604437847
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718393982028774785}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.010395503, y: -0.2875856}
+  m_Size: {x: 0.85447776, y: 0.42483014}
+  m_Direction: 1
+--- !u!114 &5235114222857575433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718393982028774785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36eaa44acfb65422f892fce127bf621e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 1
+  knockback: {x: 4, y: 0}
 --- !u!1 &6278574706338492791
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +225,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3220795807613493722}
+  - {fileID: 8132560484048027643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7681769143257981243
@@ -271,10 +366,10 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   startOnRight: 0
-  groundDistance: 0.11
-  wallCheckDistance: 0.05
+  groundDistance: 0.05
+  wallCheckDistance: 0.2
   ceilingCheckDistance: 0.05
-  isGrounded: 1
+  isGrounded: 0
   isOnWall: 0
   isOnCeiling: 0
 --- !u!114 &6091773865603509511
@@ -289,10 +384,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158e8b0d68f1e4029807d6772cc7dff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cliffDetectionZone: {fileID: 2929394908082984913}
   walkSpeed: 3
-  walkAcceleration: 5
-  maxSpeed: 3
-  walkStopRate: 0.05
   startOnRight: 0
 --- !u!50 &5237347338010907008
 Rigidbody2D:
@@ -353,6 +446,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.020572131, y: -0.28183708}
-  m_Size: {x: 0.8534982, y: 0.3770287}
+  m_Offset: {x: -0.020572135, y: -0.30021307}
+  m_Size: {x: 0.85349834, y: 0.4137811}
   m_Direction: 1

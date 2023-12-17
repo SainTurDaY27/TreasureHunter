@@ -52,6 +52,12 @@ public class Damageable : MonoBehaviour
     private float _timeSinceHit = 0f;
     public float invicibilityTime = 0.5f;
 
+    public bool LockVelocity
+    {
+        get => _animator.GetBool(AnimationStrings.LockVelocity);
+        set => _animator.SetBool(AnimationStrings.LockVelocity, value);
+    }
+
     void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -80,6 +86,7 @@ public class Damageable : MonoBehaviour
             isInvincible = true; // Never been hit again
 
             _animator.SetTrigger(AnimationStrings.HitTrigger);
+            LockVelocity = true;
             // damageableHit could be null
             damageableHit?.Invoke(attackDamage, knockback);
             // TODO: Add character events

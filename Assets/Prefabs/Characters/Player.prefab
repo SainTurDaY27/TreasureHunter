@@ -359,6 +359,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  startOnRight: 1
   groundDistance: 0.05
   wallCheckDistance: 0.05
   ceilingCheckDistance: 0.05
@@ -500,7 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 1
-  knockback: {x: 20, y: 0}
+  knockback: {x: 2, y: 0}
 --- !u!1 &9138204995362272085
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +564,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
