@@ -1,4 +1,6 @@
+using System.Numerics;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
 
 namespace Enemies
 {
@@ -11,6 +13,8 @@ namespace Enemies
         public float walkAcceleration = 5f;
         public float maxSpeed = 3f;
         public float walkStopRate = 0.05f;
+        public bool startOnRight = true;
+        private Vector2 _walkDirectionVector = Vector2.left;
 
         public enum WalkableDirection
         {
@@ -31,6 +35,14 @@ namespace Enemies
                     var o = gameObject;
                     var oldLocaleScale = o.transform.localScale;
                     o.transform.localScale = new Vector2(oldLocaleScale.x * -1, oldLocaleScale.y);
+                    if (value == WalkableDirection.Right)
+                    {
+                        _walkDirectionVector = Vector2.right;
+                    }
+                    else
+                    {
+                        _walkDirectionVector = Vector2.left;
+                    }
                 }
 
                 _walkDirection = value;
@@ -39,6 +51,7 @@ namespace Enemies
 
         private void FlipDirection()
         {
+            Debug.Log("Flip direction");
             if (WalkDirection == WalkableDirection.Left)
             {
                 WalkDirection = WalkableDirection.Right;
@@ -87,16 +100,21 @@ namespace Enemies
         {
             if (_touchingDirections.IsGround && _touchingDirections.IsOnWall)
             {
-                Debug.Log("Flip direction");
                 FlipDirection();
             }
+
+            // if (_touchingDirections.IsGround)
+            // {
+            //     _rb.velocity = new Vector2(walkSpeed * WalkDirectionVector.x, _rb.velocity.y);
+            // }
 
             if ( /*CanMove &&*/ _touchingDirections.IsGround)
             {
                 float xVelocity =
-                    Mathf.Clamp(_rb.velocity.x + (walkAcceleration * WalkDirectionVector.x * Time.deltaTime), -maxSpeed,
+                    Mathf.Clamp(_rb.velocity.x + (walkAcceleration * _walkDirectionVector.x * Time.deltaTime), -maxSpeed,
                         maxSpeed);
                 _rb.velocity = new Vector2(xVelocity, _rb.velocity.y);
+                
             }
             else
             {

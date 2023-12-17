@@ -270,10 +270,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  groundDistance: 0.05
-  wallCheckDistance: 0.2
+  startOnRight: 0
+  groundDistance: 0.11
+  wallCheckDistance: 0.05
   ceilingCheckDistance: 0.05
-  isGrounded: 0
+  isGrounded: 1
   isOnWall: 0
   isOnCeiling: 0
 --- !u!114 &6091773865603509511
@@ -292,6 +293,7 @@ MonoBehaviour:
   walkAcceleration: 5
   maxSpeed: 3
   walkStopRate: 0.05
+  startOnRight: 0
 --- !u!50 &5237347338010907008
 Rigidbody2D:
   serializedVersion: 4
@@ -351,6 +353,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.015183449, y: -0.0011947751}
-  m_Size: {x: 0.89715385, y: 0.9901153}
-  m_Direction: 0
+  m_Offset: {x: -0.020572131, y: -0.28183708}
+  m_Size: {x: 0.8534982, y: 0.3770287}
+  m_Direction: 1
