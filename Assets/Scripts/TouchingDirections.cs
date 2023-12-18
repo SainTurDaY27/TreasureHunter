@@ -10,9 +10,10 @@ public class TouchingDirections : MonoBehaviour
     private CapsuleCollider2D touchingCol; // It is easier to fix the result this way
     private Animator _animator;
 
-    private RaycastHit2D[] groundHits = new RaycastHit2D[5];
-    private RaycastHit2D[] wallHits = new RaycastHit2D[5];
-    private RaycastHit2D[] ceilingHits = new RaycastHit2D[5];
+    public RaycastHit2D[] groundHits = new RaycastHit2D[5];
+    public RaycastHit2D[] wallHits = new RaycastHit2D[5];
+    public RaycastHit2D[] ceilingHits = new RaycastHit2D[5];
+    public bool startOnRight = true;
     
     public float groundDistance = 0.05f;
     public float wallCheckDistance = 0.2f;
@@ -21,7 +22,22 @@ public class TouchingDirections : MonoBehaviour
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private bool isOnWall = true;
     [SerializeField] private bool isOnCeiling = true;
-    private Vector2 wallCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+
+    private Vector2 wallCheckDirection
+    {
+        get
+        {
+            if (startOnRight)
+            {
+                return gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+            }
+            else
+            {
+                
+                return gameObject.transform.localScale.x > 0 ? Vector2.left : Vector2.right;
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -43,7 +59,7 @@ public class TouchingDirections : MonoBehaviour
         private set
         {
             isOnCeiling = value;
-            _animator.SetBool(AnimationStrings.isOnCeiling, value);
+            _animator.SetBool(AnimationStrings.IsOnCeiling, value);
 
         }
     }
@@ -54,7 +70,7 @@ public class TouchingDirections : MonoBehaviour
         private set
         {
             isOnWall = value;
-            _animator.SetBool(AnimationStrings.isOnWall, value);
+            _animator.SetBool(AnimationStrings.IsOnWall, value);
 
         }
     }
@@ -66,7 +82,7 @@ public class TouchingDirections : MonoBehaviour
         private set
         {
             isGrounded = value;
-            _animator.SetBool(AnimationStrings.isGrounded, value);
+            _animator.SetBool(AnimationStrings.IsGrounded, value);
         }
     }
 }
