@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (context.started && _touchingDirections.IsGround)
+        if (context.started && _touchingDirections.IsGround && IsAlive)
         {
             _isRunning = true;
         }
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && _touchingDirections.IsGround)
+        if (context.started && _touchingDirections.IsGround && IsAlive)
         {
             _animator.SetTrigger(AnimationStrings.JumpTrigger);
             _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
