@@ -13,6 +13,7 @@ namespace Enemies
         private Damageable _damageable;
         private Animator _animator;
         public DetectionZone cliffDetectionZone;
+        public Collider2D contactDamageCollider;
 
         public float walkSpeed = 3f;
 
@@ -103,6 +104,11 @@ namespace Enemies
             _touchingDirections = GetComponent<TouchingDirections>();
             _damageable = GetComponent<Damageable>();
             _animator = GetComponent<Animator>();
+        }
+
+        public void OnDeath()
+        {
+            contactDamageCollider.enabled = false;
         }
 
         // Update is called once per frame
