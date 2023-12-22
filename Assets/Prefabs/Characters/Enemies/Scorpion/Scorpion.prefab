@@ -93,9 +93,9 @@ MonoBehaviour:
   noColliderRemains:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6091773865603509511}
-        m_TargetAssemblyTypeName: Enemies.SimpleWalkingEnemy, Assembly-CSharp
-        m_MethodName: OnCliffDetected
+      - m_Target: {fileID: 7946183953508336309}
+        m_TargetAssemblyTypeName: Enemies.Movements.SimpleWalkingMovement, Assembly-CSharp
+        m_MethodName: FlipDirection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -203,9 +203,11 @@ GameObject:
   - component: {fileID: -1924116621890027433}
   - component: {fileID: 4411409083621801835}
   - component: {fileID: 5915659760076561911}
-  - component: {fileID: 6091773865603509511}
   - component: {fileID: 5237347338010907008}
   - component: {fileID: 4530230731799386384}
+  - component: {fileID: 7946183953508336309}
+  - component: {fileID: 3013272592674120765}
+  - component: {fileID: 873509920544975849}
   m_Layer: 8
   m_Name: Scorpion
   m_TagString: Untagged
@@ -318,8 +320,8 @@ MonoBehaviour:
   damageableHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6091773865603509511}
-        m_TargetAssemblyTypeName: Enemies.SimpleWalkingEnemy, Assembly-CSharp
+      - m_Target: {fileID: 3013272592674120765}
+        m_TargetAssemblyTypeName: KnockbackReceiver, Assembly-CSharp
         m_MethodName: OnHit
         m_Mode: 0
         m_Arguments:
@@ -333,8 +335,8 @@ MonoBehaviour:
   damageableDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6091773865603509511}
-        m_TargetAssemblyTypeName: Enemies.SimpleWalkingEnemy, Assembly-CSharp
+      - m_Target: {fileID: 873509920544975849}
+        m_TargetAssemblyTypeName: Enemies.DisableContactDamageOnDeath, Assembly-CSharp
         m_MethodName: OnDeath
         m_Mode: 1
         m_Arguments:
@@ -386,22 +388,6 @@ MonoBehaviour:
   isGrounded: 0
   isOnWall: 0
   isOnCeiling: 0
---- !u!114 &6091773865603509511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6278574706338492791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158e8b0d68f1e4029807d6772cc7dff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cliffDetectionZone: {fileID: 2929394908082984913}
-  contactDamageCollider: {fileID: 1967745310604437847}
-  walkSpeed: 3
-  startOnRight: 0
 --- !u!50 &5237347338010907008
 Rigidbody2D:
   serializedVersion: 4
@@ -464,3 +450,42 @@ CapsuleCollider2D:
   m_Offset: {x: -0.020572135, y: -0.30021307}
   m_Size: {x: 0.85349834, y: 0.4137811}
   m_Direction: 1
+--- !u!114 &7946183953508336309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6278574706338492791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efed415aa12ac4752ac1c2c36b960180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 3
+  _walkDirection: 0
+--- !u!114 &3013272592674120765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6278574706338492791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed96bfd6184348d9be2028e844a954f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &873509920544975849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6278574706338492791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d27b574eb954ed5a6914af5c912e748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contactDamageCollider: {fileID: 1967745310604437847}

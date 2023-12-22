@@ -93,9 +93,9 @@ MonoBehaviour:
   noColliderRemains:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6436801928857235652}
-        m_TargetAssemblyTypeName: Enemies.SimpleAttackingEnemy, Assembly-CSharp
-        m_MethodName: OnCliffDetected
+      - m_Target: {fileID: 4809839281651926428}
+        m_TargetAssemblyTypeName: Enemies.Movements.SimpleWalkingMovement, Assembly-CSharp
+        m_MethodName: FlipDirection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 1
   isContactDamage: 0
-  knockback: {x: 3, y: 0}
+  knockback: {x: 10, y: 0}
   startRight: 1
 --- !u!1 &4504575632635671607
 GameObject:
@@ -316,8 +316,11 @@ GameObject:
   - component: {fileID: 5544129594434947727}
   - component: {fileID: 5058523330598821291}
   - component: {fileID: 5279435379418332116}
-  - component: {fileID: 6436801928857235652}
   - component: {fileID: 4660732470947244519}
+  - component: {fileID: 2782151058886661502}
+  - component: {fileID: 8079255476107581331}
+  - component: {fileID: 4809839281651926428}
+  - component: {fileID: 5754660371339292742}
   m_Layer: 8
   m_Name: Goblin
   m_TagString: Untagged
@@ -506,8 +509,8 @@ MonoBehaviour:
   damageableHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6436801928857235652}
-        m_TargetAssemblyTypeName: Enemies.SimpleAttackingEnemy, Assembly-CSharp
+      - m_Target: {fileID: 2782151058886661502}
+        m_TargetAssemblyTypeName: KnockbackReceiver, Assembly-CSharp
         m_MethodName: OnHit
         m_Mode: 0
         m_Arguments:
@@ -521,8 +524,8 @@ MonoBehaviour:
   damageableDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6436801928857235652}
-        m_TargetAssemblyTypeName: Enemies.SimpleAttackingEnemy, Assembly-CSharp
+      - m_Target: {fileID: 8079255476107581331}
+        m_TargetAssemblyTypeName: Enemies.DisableContactDamageOnDeath, Assembly-CSharp
         m_MethodName: OnDeath
         m_Mode: 1
         m_Arguments:
@@ -541,23 +544,6 @@ MonoBehaviour:
   isAlive: 1
   isInvincible: 0
   invicibilityTime: 0.5
---- !u!114 &6436801928857235652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4504575632635671607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27ce245c07b64d01bfebf64f1778779c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  contactDamageCollider: {fileID: 4544645939366080323}
-  attackDetectionZone: {fileID: 1422779308350409498}
-  walkSpeed: 5
-  _walkDirection: 1
-  hasTarget: 0
 --- !u!95 &4660732470947244519
 Animator:
   serializedVersion: 5
@@ -579,6 +565,58 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2782151058886661502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4504575632635671607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed96bfd6184348d9be2028e844a954f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8079255476107581331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4504575632635671607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d27b574eb954ed5a6914af5c912e748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contactDamageCollider: {fileID: 4544645939366080323}
+--- !u!114 &4809839281651926428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4504575632635671607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efed415aa12ac4752ac1c2c36b960180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 5
+  _walkDirection: 1
+--- !u!114 &5754660371339292742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4504575632635671607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5431a8c0fdd4d62a1a14a231b256f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDetectionZone: {fileID: 1422779308350409498}
 --- !u!1 &5467804551270328651
 GameObject:
   m_ObjectHideFlags: 0
