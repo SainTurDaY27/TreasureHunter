@@ -10,4 +10,5 @@ public static class AnimationStrings
     internal static readonly string HitTrigger = "hit";
     internal static readonly string LockVelocity = "lockVelocity";
     internal static readonly string CanMove = "canMove";
+    internal static readonly string HasTarget = "hasTarget";
 }
