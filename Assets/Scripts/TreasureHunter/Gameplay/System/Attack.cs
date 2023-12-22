@@ -1,3 +1,4 @@
+using TreasureHunter.Gameplay.Enemies;
 using UnityEngine;
 
 namespace TreasureHunter.Gameplay.System

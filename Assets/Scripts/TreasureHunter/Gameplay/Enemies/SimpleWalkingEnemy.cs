@@ -1,5 +1,6 @@
 using System.Numerics;
 using TMPro;
+using TreasureHunter.Gameplay.System;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
