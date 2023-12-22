@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
-namespace Enemies
+namespace TreasureHunter.Gameplay.Enemies
 {
     [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(TouchingDirections)),
      RequireComponent(typeof(Damageable))]
