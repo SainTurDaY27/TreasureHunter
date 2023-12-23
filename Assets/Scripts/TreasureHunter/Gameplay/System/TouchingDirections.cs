@@ -8,22 +8,23 @@ namespace TreasureHunter.Gameplay.System
 {
     public class TouchingDirections : MonoBehaviour
     {
-        public ContactFilter2D castFilter;
-        private CapsuleCollider2D touchingCol; // It is easier to fix the result this way
-        private Animator _animator;
+        [SerializeField] 
+        private bool isGrounded = true;
+        [SerializeField] 
+        private bool isOnWall = true;
+        [SerializeField] 
+        private bool isOnCeiling = true;
 
+        public ContactFilter2D castFilter;
         public RaycastHit2D[] groundHits = new RaycastHit2D[5];
         public RaycastHit2D[] wallHits = new RaycastHit2D[5];
         public RaycastHit2D[] ceilingHits = new RaycastHit2D[5];
         public bool startOnRight = true;
-
         public float groundDistance = 0.05f;
         public float wallCheckDistance = 0.2f;
         public float ceilingCheckDistance = 0.05f;
-
-        [SerializeField] private bool isGrounded = true;
-        [SerializeField] private bool isOnWall = true;
-        [SerializeField] private bool isOnCeiling = true;
+        private CapsuleCollider2D touchingCol; // It is easier to fix the result this way
+        private Animator _animator;
 
         private Vector2 wallCheckDirection
         {

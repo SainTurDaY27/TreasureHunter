@@ -21,7 +21,6 @@ namespace TreasureHunter.Gameplay.System
             {
                 noColliderRemains?.Invoke();
             }
-
         }
     }
 }

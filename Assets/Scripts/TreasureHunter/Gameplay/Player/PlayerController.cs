@@ -1,3 +1,4 @@
+using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.Enemies;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
@@ -7,20 +8,23 @@ namespace TreasureHunter.Gameplay.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        private Rigidbody2D _rb;
-        private Animator _animator;
-        private TouchingDirections _touchingDirections;
-        private Damageable _damageable;
+        [SerializeField] 
+        private bool isFacingRight = true;
+
         public float walkSpeed = 1f;
         public float runSpeed = 2f;
         public float jumpImpulse = 10f;
         public float jumpCutMultiplier = .5f;
         public float fallGravityMultiplier = 2f;
+        public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
         public float gravityScale = 1f;
+        private Rigidbody2D _rb;
+        private Animator _animator;
+        private TouchingDirections _touchingDirections;
+        private Damageable _damageable;
         private Vector2 _moveInput;
-
-
         private bool _isRunning = false;
+        private int jumpCount = 0;
 
         public float CurrentSpeed
         {
@@ -42,8 +46,6 @@ namespace TreasureHunter.Gameplay.Player
             set => _animator.SetBool(AnimationStrings.IsMoving, value);
         }
 
-        [SerializeField] private bool isFacingRight = true;
-
         public bool IsFacingRight
         {
             get => isFacingRight;
@@ -58,15 +60,13 @@ namespace TreasureHunter.Gameplay.Player
             }
         }
 
-        void Awake()
+        private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _damageable = GetComponent<Damageable>();
             _touchingDirections = GetComponent<TouchingDirections>();
         }
-
-        public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
 
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -96,15 +96,32 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (context.started && _touchingDirections.IsGround && IsAlive)
+            if (context.started)
             {
-                _animator.SetTrigger(AnimationStrings.JumpTrigger);
-                _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
-                // _rb.velocity = new Vector2(_rb.velocity.x, jumpImpulse);
+                if (DataManager.Instance.PlayerData.HasSkill(SkillKey.DoubleJump))
+                {
+                    if (IsAlive && jumpCount < 2)
+                    {
+                        // clear all y velocity before jumping
+                        _rb.velocity = new Vector2(_rb.velocity.x, 0);
+                        _animator.SetTrigger(AnimationStrings.JumpTrigger);
+                        _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
+                    }
+                }
+                else
+                {
+                    if (_touchingDirections.IsGround && IsAlive)
+                    {
+                        _animator.SetTrigger(AnimationStrings.JumpTrigger);
+                        _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
+                        // _rb.velocity = new Vector2(_rb.velocity.x, jumpImpulse);
+                    }
+                }
             }
             else if (context.canceled)
             {
-                _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
+                jumpCount++;
+                _rb.AddForce((1 - jumpCutMultiplier) * _rb.velocity.y * Vector2.down, ForceMode2D.Impulse);
             }
         }
 
@@ -146,6 +163,12 @@ namespace TreasureHunter.Gameplay.Player
             else
             {
                 _rb.gravityScale = gravityScale;
+            }
+
+            // Reset jump count when player lands on the ground
+            if (_touchingDirections.IsGround)
+            {
+                jumpCount = 0;
             }
         }
 

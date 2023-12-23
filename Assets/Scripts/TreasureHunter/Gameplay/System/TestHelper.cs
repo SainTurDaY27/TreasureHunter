@@ -12,14 +12,12 @@ namespace TreasureHunter.Gameplay.System
     {
         private GameObject player;
 
-        // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
             player = GameObject.FindGameObjectWithTag("Player");
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             // Actually, should not be called every frame but testing is probably fine.
             if (player.transform.position.y <= -60)

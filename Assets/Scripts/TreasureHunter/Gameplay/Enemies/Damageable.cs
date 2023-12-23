@@ -60,7 +60,7 @@ namespace TreasureHunter.Gameplay.Enemies
             set => _animator.SetBool(AnimationStrings.LockVelocity, value);
         }
 
-        void Awake()
+        private void Awake()
         {
             _animator = GetComponent<Animator>();
         }
