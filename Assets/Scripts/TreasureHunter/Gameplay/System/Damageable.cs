@@ -2,7 +2,7 @@ using TreasureHunter.Gameplay.System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace TreasureHunter.Gameplay.Enemies
+namespace TreasureHunter.Gameplay.System
 {
     public class Damageable : MonoBehaviour
     {

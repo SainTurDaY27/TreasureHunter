@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using TreasureHunter.Gameplay.Enemies;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,11 +12,20 @@ namespace TreasureHunter.Gameplay.System
 {
     public class TestHelper : MonoBehaviour
     {
+        [SerializeField]
+        private TextMeshProUGUI _tempHealthTextUI;
         private GameObject player;
 
         private void Awake()
         {
             player = GameObject.FindGameObjectWithTag("Player");
+
+            // TODO: For testing purposes only
+            SetTempHealthTextUI();
+            player.GetComponent<Damageable>().healthChange.AddListener((health, maxHealth) =>
+            {
+                SetTempHealthTextUI();
+            });
         }
 
         private void Update()
@@ -24,6 +35,11 @@ namespace TreasureHunter.Gameplay.System
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
+        }
+
+        public void SetTempHealthTextUI()
+        {
+            _tempHealthTextUI.text = $"Health: {player.GetComponent<Damageable>().Health}";
         }
     }
 }
