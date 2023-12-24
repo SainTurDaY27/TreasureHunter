@@ -173,8 +173,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09148991, y: -0.038648725}
-  m_Size: {x: 0.7927296, y: 1.8864408}
+  m_Offset: {x: -0.1036481, y: -0.16631001}
+  m_Size: {x: 0.71978027, y: 1.8742825}
   m_Direction: 0
 --- !u!114 &1194332596158431071
 MonoBehaviour:
@@ -326,13 +326,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc398834f062e4274aa0ca3abc423f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFacingRight: 1
   walkSpeed: 5
   runSpeed: 10
   jumpImpulse: 10
   jumpCutMultiplier: 0.5
   fallGravityMultiplier: 2
   gravityScale: 1
-  isFacingRight: 1
 --- !u!114 &6750371357215538820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,6 +345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100b9f5011904f84ade8165fbf02183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrounded: 0
+  isOnWall: 0
+  isOnCeiling: 0
   castFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -361,11 +364,8 @@ MonoBehaviour:
     maxNormalAngle: 0
   startOnRight: 1
   groundDistance: 0.05
-  wallCheckDistance: 0.05
+  wallCheckDistance: 0.2
   ceilingCheckDistance: 0.05
-  isGrounded: 0
-  isOnWall: 0
-  isOnCeiling: 0
 --- !u!114 &8286485361400949945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +378,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5d409004a4d4c1e84413cc9c42bee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 6
+  health: 6
+  isAlive: 1
+  isInvincible: 0
   damageableHit:
     m_PersistentCalls:
       m_Calls:
@@ -399,10 +403,6 @@ MonoBehaviour:
   healthChange:
     m_PersistentCalls:
       m_Calls: []
-  maxHealth: 6
-  health: 6
-  isAlive: 1
-  isInvincible: 0
   invicibilityTime: 4
 --- !u!1 &7226609514412319779
 GameObject:
@@ -502,6 +502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 1
   knockback: {x: 2, y: 0}
+  isContactDamage: 0
   startRight: 1
 --- !u!1 &9138204995362272085
 GameObject:
@@ -602,4 +603,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 1
   knockback: {x: 2, y: 3}
+  isContactDamage: 0
   startRight: 1
