@@ -4,9 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/**
- * This class is basically the helper for testing scene.
- */
 namespace TreasureHunter.Gameplay.System
 {
     public class TestHelper : MonoBehaviour
