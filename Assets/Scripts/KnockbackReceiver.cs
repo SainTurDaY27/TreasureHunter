@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using TreasureHunter.Gameplay.System;
 
 [RequireComponent(typeof(Damageable), typeof(Rigidbody2D))]
 public class KnockbackReceiver : MonoBehaviour

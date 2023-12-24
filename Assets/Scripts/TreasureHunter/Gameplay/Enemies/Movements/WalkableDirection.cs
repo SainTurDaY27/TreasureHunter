@@ -1,4 +1,4 @@
-namespace Enemies.Movements
+namespace TreasureHunter.Gameplay.Enemies.Movements
 {
     public enum WalkableDirection
     {

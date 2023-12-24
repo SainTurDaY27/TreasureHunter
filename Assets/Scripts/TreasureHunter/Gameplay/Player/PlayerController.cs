@@ -1,5 +1,4 @@
 using TreasureHunter.Core.Data;
-using TreasureHunter.Gameplay.Enemies;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
 using UnityEngine.InputSystem;

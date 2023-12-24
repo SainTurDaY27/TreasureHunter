@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TreasureHunter.Gameplay.System;
 
-namespace Enemies.Movements
+namespace TreasureHunter.Gameplay.Enemies.Movements
 {
     public class WaypointsFlyingMovement : MonoBehaviour
     {

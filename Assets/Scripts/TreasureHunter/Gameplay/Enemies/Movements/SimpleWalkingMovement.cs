@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using TreasureHunter.Gameplay.System;
 
-namespace Enemies.Movements
+namespace TreasureHunter.Gameplay.Enemies.Movements
 {
     /// <summary>
     /// This script handles enemies with simple walking movement.

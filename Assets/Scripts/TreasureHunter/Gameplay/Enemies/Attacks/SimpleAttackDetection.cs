@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using TreasureHunter.Gameplay.System;
 
-namespace Enemies.Attacks
+namespace TreasureHunter.Gameplay.Enemies.Attacks
 {
     [RequireComponent(typeof(Animator))]
     public class SimpleAttackDetection : MonoBehaviour
