@@ -197,8 +197,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 1
-  isContactDamage: 1
   knockback: {x: 3, y: 0}
+  isContactDamage: 1
   startRight: 1
 --- !u!1 &1995318892366562181
 GameObject:
@@ -299,8 +299,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 1
-  isContactDamage: 0
   knockback: {x: 10, y: 0}
+  isContactDamage: 0
   startRight: 1
 --- !u!1 &4504575632635671607
 GameObject:
@@ -473,6 +473,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100b9f5011904f84ade8165fbf02183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrounded: 0
+  isOnWall: 0
+  isOnCeiling: 0
   castFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -491,9 +494,6 @@ MonoBehaviour:
   groundDistance: 0.05
   wallCheckDistance: 0.2
   ceilingCheckDistance: 0.05
-  isGrounded: 0
-  isOnWall: 0
-  isOnCeiling: 0
 --- !u!114 &5279435379418332116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,6 +506,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5d409004a4d4c1e84413cc9c42bee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 6
+  health: 6
+  isAlive: 1
+  isInvincible: 0
   damageableHit:
     m_PersistentCalls:
       m_Calls:
@@ -539,10 +543,6 @@ MonoBehaviour:
   healthChange:
     m_PersistentCalls:
       m_Calls: []
-  maxHealth: 6
-  health: 6
-  isAlive: 1
-  isInvincible: 0
   invicibilityTime: 0.5
 --- !u!95 &4660732470947244519
 Animator:
@@ -682,7 +682,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.12123108, y: -0.58191}
+  m_Offset: {x: 0.49523687, y: -0.58191}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -693,7 +693,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2424622, y: 2.16382}
+  m_Size: {x: 1.9904737, y: 2.16382}
   m_EdgeRadius: 0
 --- !u!114 &1422779308350409498
 MonoBehaviour:
