@@ -1,13 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using TreasureHunter.Gameplay.Enemies;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/**
- * This class is basically the helper for testing scene.
- */
 namespace TreasureHunter.Gameplay.System
 {
     public class TestHelper : MonoBehaviour

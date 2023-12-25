@@ -1,4 +1,3 @@
-using TreasureHunter.Gameplay.Enemies;
 using UnityEngine;
 
 namespace TreasureHunter.Gameplay.System
@@ -9,6 +8,7 @@ namespace TreasureHunter.Gameplay.System
         public int attackDamage = 1;
 
         public Vector2 knockback = Vector2.zero;
+        public bool isContactDamage = false;
 
         // localScale.x is inverted if left
         public bool startRight = true;
@@ -16,25 +16,30 @@ namespace TreasureHunter.Gameplay.System
         void OnTriggerEnter2D(Collider2D other)
         {
             Damageable damageable = other.GetComponent<Damageable>();
-            if (damageable)
+            if (!damageable) return;
+            // IsAlive is checked in the other script.
+            Vector2 actualKnockback;
+            if (isContactDamage)
             {
-                // IsAlive is checked in the other script.
-                Vector2 actualKnockback;
-                if (startRight)
-                {
-                    actualKnockback =
-                        transform.parent.localScale.x > 0 ? knockback : new Vector2(-knockback.x, knockback.y);
-                }
-                else
-                {
-                    actualKnockback =
-                        transform.parent.localScale.x < 0 ? knockback : new Vector2(-knockback.x, knockback.y);
-                }
+                float xDistance = other.transform.position.x - transform.position.x;
+                float knockbackX = xDistance > 0 ? knockback.x : -knockback.x;
+                actualKnockback = new Vector2(knockbackX, knockback.y);
+            }
+            // not contact damage
+            else if (startRight)
+            {
+                actualKnockback =
+                    transform.parent.localScale.x > 0 ? knockback : new Vector2(-knockback.x, knockback.y);
+            }
+            else
+            {
+                actualKnockback =
+                    transform.parent.localScale.x < 0 ? knockback : new Vector2(-knockback.x, knockback.y);
+            }
 
-                if (damageable.Hit(attackDamage, actualKnockback))
-                {
-                    // Debug.Log("Hit");
-                }
+            if (damageable.Hit(attackDamage, actualKnockback))
+            {
+                // Debug.Log("Hit");
             }
         }
     }
