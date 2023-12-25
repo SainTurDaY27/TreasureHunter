@@ -105,6 +105,7 @@ namespace TreasureHunter.Gameplay.Player
                         _rb.velocity = new Vector2(_rb.velocity.x, 0);
                         _animator.SetTrigger(AnimationStrings.JumpTrigger);
                         _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
+                        Debug.Log("");
                     }
                 }
                 else
@@ -119,6 +120,7 @@ namespace TreasureHunter.Gameplay.Player
             }
             else if (context.canceled)
             {
+                if (jumpCount >= 2) return;
                 jumpCount++;
                 _rb.AddForce((1 - jumpCutMultiplier) * _rb.velocity.y * Vector2.down, ForceMode2D.Impulse);
             }
