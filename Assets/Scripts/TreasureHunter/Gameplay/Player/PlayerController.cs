@@ -17,6 +17,7 @@ namespace TreasureHunter.Gameplay.Player
         public float fallGravityMultiplier = 2f;
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
         public float gravityScale = 1f;
+        public float maxFallYVelocity = 30f;
         private Rigidbody2D _rb;
         private Animator _animator;
         private TouchingDirections _touchingDirections;
@@ -171,6 +172,11 @@ namespace TreasureHunter.Gameplay.Player
             {
                 jumpCount = 0;
             }
+            
+            // Clamp y velocity
+            var yVelocity = _rb.velocity.y;
+            var clampedVelocity = Mathf.Clamp(yVelocity, -maxFallYVelocity, Mathf.Infinity);
+            _rb.velocity = new Vector2(_rb.velocity.x, clampedVelocity);
         }
 
         private void SetFacingDirection(Vector2 moveInput)
