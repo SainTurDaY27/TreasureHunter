@@ -327,8 +327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFacingRight: 1
-  walkSpeed: 5
-  runSpeed: 8
+  walkSpeed: 7
+  runSpeed: 10
   jumpImpulse: 15
   jumpCutMultiplier: 0.5
   fallGravityMultiplier: 1.5
