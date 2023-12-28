@@ -354,7 +354,7 @@ MonoBehaviour:
   healthChange:
     m_PersistentCalls:
       m_Calls: []
-  invicibilityTime: 1
+  invicibilityTime: 0.5
 --- !u!114 &5915659760076561911
 MonoBehaviour:
   m_ObjectHideFlags: 0

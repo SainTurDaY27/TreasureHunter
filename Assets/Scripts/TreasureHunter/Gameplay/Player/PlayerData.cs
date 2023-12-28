@@ -29,7 +29,7 @@ namespace TreasureHunter.Gameplay.Player
 
         public bool HasSkill(SkillKey skillKey)
         {
-            Debug.Log($"Checking if player has skill {skillKey} : {_obtainedSkills.Contains(skillKey)}");
+            // Debug.Log($"Checking if player has skill {skillKey} : {_obtainedSkills.Contains(skillKey)}");
             return _obtainedSkills.Contains(skillKey);
         }
     }

@@ -129,7 +129,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -327,12 +327,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFacingRight: 1
-  walkSpeed: 5
+  walkSpeed: 7
   runSpeed: 10
-  jumpImpulse: 10
+  jumpImpulse: 15
   jumpCutMultiplier: 0.5
-  fallGravityMultiplier: 2
-  gravityScale: 1
+  fallGravityMultiplier: 1.5
+  gravityScale: 2.5
+  maxFallYVelocity: 30
 --- !u!114 &6750371357215538820
 MonoBehaviour:
   m_ObjectHideFlags: 0
