@@ -333,6 +333,7 @@ MonoBehaviour:
   jumpCutMultiplier: 0.5
   fallGravityMultiplier: 1.5
   gravityScale: 2.5
+  maxFallYVelocity: 30
 --- !u!114 &6750371357215538820
 MonoBehaviour:
   m_ObjectHideFlags: 0
