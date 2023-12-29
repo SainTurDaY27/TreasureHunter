@@ -18,8 +18,16 @@ namespace TreasureHunter.Gameplay.System
         {
             var damageable = other.GetComponent<Damageable>();
             if (!damageable) return;
-            damageable.Hit(spikeDamage, Vector2.zero, bypassInvincibility: true);
-            _spikeRecover.RecoverPlayer();
+            if (other.CompareTag("Player"))
+            {
+                damageable.Hit(spikeDamage, Vector2.zero, bypassInvincibility: true);
+                _spikeRecover.RecoverPlayer();
+            }
+            else
+            {
+                // Enemy is basically instant kill.
+                damageable.Hit(damageable.MaxHealth, Vector2.zero, bypassInvincibility: true);
+            }
         }
     }
 }

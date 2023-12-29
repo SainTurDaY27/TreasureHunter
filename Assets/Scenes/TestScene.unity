@@ -201,6 +201,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2814272265975412877, guid: 5ab35bd1f9cc942c59926029c0629315, type: 3}
   m_PrefabInstance: {fileID: 397189915}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &512209704
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 49.210194
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.168018
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799202438142840548, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278574706338492791, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
+      propertyPath: m_Name
+      value: Scorpion (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 103ca228c5f4d41a991e0817ceaad606, type: 3}
 --- !u!4 &570049274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1923428907444526036, guid: 67b676fdfe1d54361859a285d78ecf89, type: 3}
@@ -1845,3 +1902,4 @@ SceneRoots:
   - {fileID: 1142926281}
   - {fileID: 8209663852143716755}
   - {fileID: 4375831345983943097}
+  - {fileID: 512209704}
