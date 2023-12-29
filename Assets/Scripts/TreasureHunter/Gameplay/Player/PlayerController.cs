@@ -73,7 +73,7 @@ namespace TreasureHunter.Gameplay.Player
             _moveInput = context.ReadValue<Vector2>();
             if (IsAlive)
             {
-                IsMoving = _moveInput != Vector2.zero;
+                IsMoving = _moveInput.x != 0;
                 SetFacingDirection(_moveInput);
             }
             else
