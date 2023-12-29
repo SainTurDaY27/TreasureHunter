@@ -79,23 +79,22 @@ namespace TreasureHunter.Gameplay.System
             _timeSinceHit += Time.deltaTime;
         }
 
-        public bool Hit(int attackDamage, Vector2 knockback)
+        public bool Hit(int attackDamage, Vector2 knockback, bool bypassInvincibility = false)
         {
-            if (IsAlive && !isInvincible)
-            {
-                Health -= attackDamage;
-                isInvincible = true; // Never been hit again
+            if (!IsAlive) return false;
+            if (isInvincible && !bypassInvincibility) return false;
+            
+            Health -= attackDamage;
+            isInvincible = true; // Never been hit again
 
-                _animator.SetTrigger(AnimationStrings.HitTrigger);
-                LockVelocity = true;
-                // damageableHit could be null
-                damageableHit?.Invoke(attackDamage, knockback);
-                // TODO: Add character events
-                // CharacterEvents.characterDamaged.Invoke(gameObject, damage);
-                return true;
-            }
+            _animator.SetTrigger(AnimationStrings.HitTrigger);
+            LockVelocity = true;
+            // damageableHit could be null
+            damageableHit?.Invoke(attackDamage, knockback);
+            // TODO: Add character events
+            // CharacterEvents.characterDamaged.Invoke(gameObject, damage);
+            return true;
 
-            return false;
         }
     }
 }
