@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3220795807613493722}
   - component: {fileID: 5749808597178597542}
   - component: {fileID: 2929394908082984913}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: CliftDetectionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.291214, y: 0.27262598}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.41757202, y: 0.45474803}
   m_EdgeRadius: 0
 --- !u!114 &2929394908082984913
 MonoBehaviour:

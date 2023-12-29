@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 335901997620342060}
   - component: {fileID: 7110489529285903620}
   - component: {fileID: 1338100448562017448}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: CliffDetectionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
