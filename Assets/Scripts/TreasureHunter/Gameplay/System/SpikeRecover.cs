@@ -26,10 +26,7 @@ namespace TreasureHunter.Gameplay.System
             if (CurrentRespawnPoint)
             {
                 // Respawn to the current recover point
-                Debug.Log("Respawning player");
-                // player.transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 50);
-                var respawnLocation = CurrentRespawnPoint.transform.position;
-                player.transform.position = new Vector3(respawnLocation.x, respawnLocation.y, respawnLocation.z);
+                player.transform.position = CurrentRespawnPoint.position;
             }
             else
             {
