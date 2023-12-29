@@ -16,7 +16,7 @@ namespace TreasureHunter.Gameplay.System
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            _spikeRecover.CurrentRespawnPoint = transform;
+            _spikeRecover.CurrentRecoverPoint = transform;
         }
     }
 }
