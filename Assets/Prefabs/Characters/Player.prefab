@@ -431,8 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a13211e46148ed90391fad922f63b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 8
-  maxDistance: 5
+  sensitivity: 4
   virtualCamera: {fileID: 0}
 --- !u!1 &7226609514412319779
 GameObject:
