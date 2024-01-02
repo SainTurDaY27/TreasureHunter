@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/TestScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Levels/TheEntrance.unity
+    guid: 143d6729b23994fc58b0698cb7f4123c
+  - enabled: 1
+    path: Assets/Scenes/Levels/AbnormalCave.unity
+    guid: e948fddd5d9b24726927505a3e7e0b2a
   m_configObjects: {}

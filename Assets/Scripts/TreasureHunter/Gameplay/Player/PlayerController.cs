@@ -49,7 +49,7 @@ namespace TreasureHunter.Gameplay.Player
         public bool IsFacingRight
         {
             get => isFacingRight;
-            private set
+            set
             {
                 if (isFacingRight != value)
                 {
