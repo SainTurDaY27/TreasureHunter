@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8943873105033932659}
   - component: {fileID: 6750371357215538820}
   - component: {fileID: 8286485361400949945}
+  - component: {fileID: 723244731713996264}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -218,7 +219,20 @@ MonoBehaviour:
     m_ActionId: cf29b8b8-be19-4d71-8c25-f14b157b5a82
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 723244731713996264}
+        m_TargetAssemblyTypeName: TreasureHunter.Gameplay.System.CameraController,
+          Assembly-CSharp
+        m_MethodName: VerticalLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a51202e9-c36f-4485-bad3-a48c182e0108
     m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
   - m_PersistentCalls:
@@ -405,6 +419,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invicibilityTime: 4
+--- !u!114 &723244731713996264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6620266340906787721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a13211e46148ed90391fad922f63b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 4
+  virtualCamera: {fileID: 0}
 --- !u!1 &7226609514412319779
 GameObject:
   m_ObjectHideFlags: 0
