@@ -135,6 +135,16 @@ namespace TreasureHunter.Gameplay.Player
             }
         }
 
+        public void OnDash(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                Debug.Log("Dash");
+                _animator.SetTrigger(AnimationStrings.DashTrigger);
+            }
+            _rb.AddForce(Vector2.right * 10, ForceMode2D.Impulse);
+        }
+
         public void OnHit(int damage, Vector2 knockback)
         {
             if (IsAlive)

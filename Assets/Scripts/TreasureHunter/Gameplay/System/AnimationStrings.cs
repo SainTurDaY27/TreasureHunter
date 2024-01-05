@@ -10,6 +10,7 @@ namespace TreasureHunter.Gameplay.System
         internal static readonly string JumpTrigger = "jump";
         internal static readonly string AttackTrigger = "attack";
         internal static readonly string HitTrigger = "hit";
+        internal static readonly string DashTrigger = "dash";
         internal static readonly string LockVelocity = "lockVelocity";
         internal static readonly string CanMove = "canMove";
         internal static readonly string HasTarget = "hasTarget";
