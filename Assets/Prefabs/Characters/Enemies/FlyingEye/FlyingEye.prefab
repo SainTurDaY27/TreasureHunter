@@ -91,8 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 1
-  isContactDamage: 1
   knockback: {x: 3, y: 0}
+  isContactDamage: 1
   startRight: 1
 --- !u!1 &2245206226709138444
 GameObject:
@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 1
-  isContactDamage: 0
   knockback: {x: 3, y: 0}
+  isContactDamage: 0
   startRight: 1
 --- !u!1 &3983246612539395059
 GameObject:
@@ -330,6 +330,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5d409004a4d4c1e84413cc9c42bee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 4
+  health: 4
+  isAlive: 1
+  isInvincible: 0
   damageableHit:
     m_PersistentCalls:
       m_Calls: []
@@ -351,10 +355,6 @@ MonoBehaviour:
   healthChange:
     m_PersistentCalls:
       m_Calls: []
-  maxHealth: 4
-  health: 4
-  isAlive: 1
-  isInvincible: 0
   invicibilityTime: 2
 --- !u!114 &7717469263537677330
 MonoBehaviour:
@@ -416,7 +416,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3560932979147763377
 MonoBehaviour:
   m_ObjectHideFlags: 0

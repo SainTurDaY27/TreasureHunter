@@ -23,7 +23,7 @@ namespace TreasureHunter.Gameplay.System
         public float groundDistance = 0.05f;
         public float wallCheckDistance = 0.2f;
         public float ceilingCheckDistance = 0.05f;
-        private CapsuleCollider2D touchingCol; // It is easier to fix the result this way
+        private Collider2D touchingCol; // It is easier to fix the result this way
         private Animator _animator;
 
         private Vector2 wallCheckDirection
@@ -44,7 +44,7 @@ namespace TreasureHunter.Gameplay.System
 
         private void Awake()
         {
-            touchingCol = GetComponent<CapsuleCollider2D>();
+            touchingCol = GetComponent<Collider2D>();
             _animator = GetComponent<Animator>();
         }
 
