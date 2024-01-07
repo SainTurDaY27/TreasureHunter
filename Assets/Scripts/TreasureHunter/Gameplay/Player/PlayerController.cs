@@ -1,4 +1,5 @@
 using TreasureHunter.Core.Data;
+using TreasureHunter.Core.Scene;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,7 @@ namespace TreasureHunter.Gameplay.Player
         public float walkSpeed = 1f;
         public float runSpeed = 2f;
         public float jumpImpulse = 10f;
+        public int dashImpulse = 10;
         public float jumpCutMultiplier = .5f;
         public float fallGravityMultiplier = 2f;
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
@@ -94,10 +96,40 @@ namespace TreasureHunter.Gameplay.Player
             }
         }
 
+        // TODO: Refactor - extract each jump type to its own method
         public void OnJump(InputAction.CallbackContext context)
         {
             if (context.started)
             {
+                if (DataManager.Instance.PlayerData.HasSkill(SkillKey.WallJump))
+                {
+                    if (IsAlive && _touchingDirections.IsOnWall)
+                    {
+                        _damageable.LockVelocity = true;
+
+                        // clear all y velocity before jumping
+                        _rb.velocity = new Vector2(_rb.velocity.x, 0);
+                        _animator.SetTrigger(AnimationStrings.JumpTrigger);
+                        _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
+
+                        // add force to the opposite direction of the wall
+                        if (IsFacingRight)
+                        {
+                            _rb.AddForce(Vector2.left * 5, ForceMode2D.Impulse);
+                            IsFacingRight = false;
+                        }
+                        else
+                        {
+                            _rb.AddForce(Vector2.right * 5, ForceMode2D.Impulse);
+                            IsFacingRight = true;
+                        }
+
+                        //_damageable.LockVelocity = false;
+                        Debug.Log("Wall jump");
+                        return;
+                    }
+                }
+
                 if (DataManager.Instance.PlayerData.HasSkill(SkillKey.DoubleJump))
                 {
                     if (IsAlive && jumpCount < 2)
@@ -106,7 +138,6 @@ namespace TreasureHunter.Gameplay.Player
                         _rb.velocity = new Vector2(_rb.velocity.x, 0);
                         _animator.SetTrigger(AnimationStrings.JumpTrigger);
                         _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
-                        Debug.Log("");
                     }
                 }
                 else
@@ -137,12 +168,22 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnDash(InputAction.CallbackContext context)
         {
+            if (!DataManager.Instance.PlayerData.HasSkill(SkillKey.WallJump))
+            {
+                return;
+            }
             if (context.started)
             {
-                Debug.Log("Dash");
                 _animator.SetTrigger(AnimationStrings.DashTrigger);
+                if (IsFacingRight)
+                {
+                    _rb.AddForce(Vector2.right * dashImpulse, ForceMode2D.Impulse);
+                }
+                else
+                {
+                    _rb.AddForce(Vector2.left * dashImpulse, ForceMode2D.Impulse);
+                }
             }
-            _rb.AddForce(Vector2.right * 10, ForceMode2D.Impulse);
         }
 
         public void OnHit(int damage, Vector2 knockback)
@@ -165,6 +206,11 @@ namespace TreasureHunter.Gameplay.Player
                 {
                     _rb.velocity = new Vector2(0, _rb.velocity.y);
                 }
+                Debug.Log("Not locked");
+            }
+            else
+            {
+                Debug.Log("Locked");
             }
 
             // Jump gravity

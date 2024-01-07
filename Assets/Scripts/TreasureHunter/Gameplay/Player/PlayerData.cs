@@ -20,6 +20,8 @@ namespace TreasureHunter.Gameplay.Player
 
             // TODO: For testing purposes only
             ObtainSkill(SkillKey.DoubleJump);
+            ObtainSkill(SkillKey.Dash);
+            ObtainSkill(SkillKey.WallJump);
         }
 
         public void ObtainSkill(SkillKey skillKey)

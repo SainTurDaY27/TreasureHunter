@@ -36,7 +36,6 @@ namespace TreasureHunter.Gameplay.System
                 }
                 else
                 {
-
                     return gameObject.transform.localScale.x > 0 ? Vector2.left : Vector2.right;
                 }
             }
@@ -53,7 +52,6 @@ namespace TreasureHunter.Gameplay.System
             IsGround = touchingCol.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
             IsOnWall = touchingCol.Cast(wallCheckDirection, castFilter, wallHits, wallCheckDistance) > 0;
             IsOnCeiling = touchingCol.Cast(Vector2.up, castFilter, ceilingHits, ceilingCheckDistance) > 0;
-
         }
 
         public bool IsOnCeiling
