@@ -2680,6 +2680,8 @@ MonoBehaviour:
   - {fileID: 1383066820}
   - {fileID: 295664297}
   - {fileID: 2145990836}
+  unselectedColor: {r: 0.25882354, g: 0.24313726, b: 0.24313726, a: 1}
+  selectedColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1095722440
 MonoBehaviour:
   m_ObjectHideFlags: 0

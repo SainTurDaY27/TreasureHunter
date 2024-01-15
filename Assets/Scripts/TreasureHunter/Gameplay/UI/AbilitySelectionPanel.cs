@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TreasureHunter.Core.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +12,11 @@ namespace TreasureHunter.Gameplay.UI
     {
         [SerializeField]
         private Button[] _skillSelectionButtons;
+        
+        private Button[] selectedButtons = {};
 
-        private int _buttonClickedCount = 0;
+        [SerializeField] private Color unselectedColor, selectedColor;
+
 
         //[SerializeField]
         //private Button _dashSkillSelectionButton;
@@ -31,24 +35,22 @@ namespace TreasureHunter.Gameplay.UI
             gameObject.SetActive(isActive);
         }
 
-        public void SetAllButtonsInteractable()
+        private void SelectButton(Button button)
         {
-            foreach (Button button in _skillSelectionButtons)
-            {
-                button.interactable = true;
-            }
+            selectedButtons = selectedButtons.Append(button).ToArray();
+            var image = button.GetComponent<Image>();
+            image.color = selectedColor;
+        }
+
+        private void DeselectButton(Button button)
+        {
+            selectedButtons = selectedButtons.Where(b => b != button).ToArray();
+            var image = button.GetComponent<Image>();
+            image.color = unselectedColor;
         }
 
         public void OnButtonClicked(Button clickedButton)
         {
-            //int buttonClickedCount = 0;
-            // if clickedButton is not interactable, make it interactable
-            //if (!clickedButton.interactable)
-            //{
-            //    clickedButton.interactable = true;
-            //    return;
-            //}
-
 
             int buttonIndex = Array.IndexOf(_skillSelectionButtons, clickedButton);
 
@@ -56,13 +58,15 @@ namespace TreasureHunter.Gameplay.UI
             {
                 return;
             }
-            _buttonClickedCount++;
-            clickedButton.interactable = false;
 
-            if (_buttonClickedCount > 2)
+            if (selectedButtons.Contains(clickedButton))
             {
-                SetAllButtonsInteractable();
-                _buttonClickedCount = 0;
+                DeselectButton(clickedButton);
+            }
+            else
+            {
+                if (selectedButtons.Count() >= 2) return;
+                SelectButton(clickedButton);
             }
         }
     }
