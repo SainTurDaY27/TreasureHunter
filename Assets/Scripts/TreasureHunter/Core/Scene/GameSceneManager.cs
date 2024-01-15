@@ -6,7 +6,8 @@ namespace TreasureHunter.Core.Scene
 {
     public class GameSceneManager : MonoSingleton<GameSceneManager>
     {
-        [SerializeField] private SceneLoader _sceneLoader;
+        [SerializeField] 
+        private SceneLoader _sceneLoader;
 
         public void GoToScene(string scene, Action callback = null)
         {

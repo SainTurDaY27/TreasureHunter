@@ -1,9 +1,8 @@
-using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.UI;
 using TreasureHunter.Utilities;
 using UnityEngine;
 
-namespace TreasureHunter.Core.UIw
+namespace TreasureHunter.Core.UI
 {
     public class UIManager : MonoSingleton<UIManager>
     {
@@ -15,6 +14,8 @@ namespace TreasureHunter.Core.UIw
         private GameHUDPanel _gameHUDPanel;
         [SerializeField]
         private EndGamePanel _endGamePanel;
+        [SerializeField]
+        private LoadingPanel _loadingPanel;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -32,6 +33,9 @@ namespace TreasureHunter.Core.UIw
                 case UIKey.EndGame:
                     _endGamePanel.SetActive(true);
                     return _endGamePanel;
+                case UIKey.Loading:
+                    _loadingPanel.SetActive(true);
+                    return _loadingPanel;
                 default:
                     return null;
             }
@@ -57,6 +61,10 @@ namespace TreasureHunter.Core.UIw
                     _endGamePanel.SetActive(false);
                     _endGamePanel.transform.SetAsLastSibling();
                     return _endGamePanel;
+                case UIKey.Loading:
+                    _loadingPanel.SetActive(false);
+                    _loadingPanel.transform.SetAsLastSibling();
+                    return _loadingPanel;
                 default:
                     return null;
             }
@@ -68,6 +76,7 @@ namespace TreasureHunter.Core.UIw
             _abilitySelectionPanel.SetActive(false);
             _gameHUDPanel.SetActive(false);
             _endGamePanel.SetActive(false);
+            _loadingPanel.SetActive(false);
         }
     }
 
@@ -76,6 +85,7 @@ namespace TreasureHunter.Core.UIw
         Menu,
         AbilitySelection,
         GameHUD,
-        EndGame
+        EndGame,
+        Loading
     }
 }

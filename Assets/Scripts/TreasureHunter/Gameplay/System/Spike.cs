@@ -21,7 +21,7 @@ namespace TreasureHunter.Gameplay.System
             if (other.CompareTag("Player"))
             {
                 damageable.Hit(spikeDamage, Vector2.zero, bypassInvincibility: true);
-                _spikeRecover.RecoverPlayer();
+                _spikeRecover.RecoverPlayerWithDelay();
             }
             else
             {
