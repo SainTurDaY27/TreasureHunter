@@ -5,10 +5,11 @@ namespace TreasureHunter.Core.State.GameState
         public enum State
         {
             Menu,
+            AbilitySelection,
             Game,
             End
         }
-
+        
         private StateModel[] _states;
 
         public override StateModel[] GetGameStateModels()
@@ -16,6 +17,7 @@ namespace TreasureHunter.Core.State.GameState
             _states ??= new StateModel[]
             {
                 new MenuStateModel(),
+                new AbilitySelectionStateModel(),
                 new GameStateModel(),
                 new EndStateModel()
             };

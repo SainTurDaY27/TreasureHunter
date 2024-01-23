@@ -1,3 +1,4 @@
+using TreasureHunter.Core.Scene;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.UI;
 
@@ -20,7 +21,18 @@ namespace TreasureHunter.Core.State.GameState
         public override void OnStateIn(params object[] args)
         {
             base.OnStateIn();
-            _gameHUDPanel = (GameHUDPanel)UIManager.Instance.Show(UIKey.GameHUD);
+            GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
+            {
+                if (UIManager.Instance.TryGetUIByKey(UIKey.GameHUD, out IBaseUI ui) && (ui is GameHUDPanel panel))
+                {
+                    _gameHUDPanel = panel;
+                }
+                _gameHUDPanel.UpdateSkillSlot();
+
+                //_gameHUDPanel = (GameHUDPanel)UIManager.Instance.Show(UIKey.GameHUD);
+                UIManager.Instance.Show(UIKey.GameHUD);
+
+            });
         }
 
         public override void OnStateOut()

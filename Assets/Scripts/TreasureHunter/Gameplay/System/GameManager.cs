@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TreasureHunter.Core.Scene;
+using TreasureHunter.Core.State.GameState;
+using TreasureHunter.Core.UI;
 using TreasureHunter.Utilities;
 using UnityEngine;
 
@@ -11,9 +13,8 @@ namespace TreasureHunter.Gameplay.System
         public override void Awake()
         {
             base.Awake();
-
-            // TODO: Should be menu scene
-            GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE);
+            //GameStateManager.Instance.GoToState((int)GameStates.State.Menu);
+            //GameSceneManager.Instance.GoToScene(SceneKey.MENU);
         }
     }
 }

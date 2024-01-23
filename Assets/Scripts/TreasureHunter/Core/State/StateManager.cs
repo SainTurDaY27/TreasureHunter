@@ -35,24 +35,13 @@ namespace TreasureHunter.Core.State
             }
         }
 
-        public void PushStateToStack(StateModel stateModel)
-        {
-            _stateStack.Push(stateModel);
-        }
-
-        public void PopStateFromStack()
-        {
-            _stateStack.Pop();
-        }
-
         public void GoToState(int stateID, params object[] args)
         {
             if (States.TryGetValue(stateID, out StateModel nextState))
             {
                 StateTransition transition = GetTransitionFromCurrentState(nextState);
+                PreviousState = CurrentState;
                 NextState = nextState;
-                PreviousState = _stateStack.Peek();
-                PushStateToStack(NextState);
                 if (transition.IsValid())
                 {
                     Debug.Log($"[{typeof(T).Name}] Change game state from {CurrentState.StateName} to {nextState.StateName}");
@@ -60,6 +49,7 @@ namespace TreasureHunter.Core.State
                     MainThreadDispatcher.Instance.RunOnMainThread(() =>
                     {
                         SetState(nextState, transition, args);
+                        Debug.Log("Finish thread");
                     });
                 }
                 else

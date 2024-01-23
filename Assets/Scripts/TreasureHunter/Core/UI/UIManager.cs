@@ -14,8 +14,14 @@ namespace TreasureHunter.Core.UI
         private GameHUDPanel _gameHUDPanel;
         [SerializeField]
         private EndGamePanel _endGamePanel;
-        [SerializeField]
-        private LoadingPanel _loadingPanel;
+
+        public override void Awake()
+        {
+            base.Awake();
+
+            // TODO: For debugging purpose only
+            Debug.Log("UIManager Awake");
+        }
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -33,9 +39,6 @@ namespace TreasureHunter.Core.UI
                 case UIKey.EndGame:
                     _endGamePanel.SetActive(true);
                     return _endGamePanel;
-                case UIKey.Loading:
-                    _loadingPanel.SetActive(true);
-                    return _loadingPanel;
                 default:
                     return null;
             }
@@ -61,10 +64,6 @@ namespace TreasureHunter.Core.UI
                     _endGamePanel.SetActive(false);
                     _endGamePanel.transform.SetAsLastSibling();
                     return _endGamePanel;
-                case UIKey.Loading:
-                    _loadingPanel.SetActive(false);
-                    _loadingPanel.transform.SetAsLastSibling();
-                    return _loadingPanel;
                 default:
                     return null;
             }
@@ -76,7 +75,28 @@ namespace TreasureHunter.Core.UI
             _abilitySelectionPanel.SetActive(false);
             _gameHUDPanel.SetActive(false);
             _endGamePanel.SetActive(false);
-            _loadingPanel.SetActive(false);
+        }
+
+        public bool TryGetUIByKey(UIKey uiKey, out IBaseUI ui)
+        {
+            switch (uiKey)
+            {
+                case UIKey.Menu:
+                    ui = _menuPanel;
+                    return true;
+                case UIKey.AbilitySelection:
+                    ui = _abilitySelectionPanel;
+                    return true;
+                case UIKey.GameHUD:
+                    ui = _gameHUDPanel;
+                    return true;
+                case UIKey.EndGame:
+                    ui = _endGamePanel;
+                    return true;
+                default:
+                    ui = null;
+                    return false;
+            }
         }
     }
 
@@ -85,7 +105,6 @@ namespace TreasureHunter.Core.UI
         Menu,
         AbilitySelection,
         GameHUD,
-        EndGame,
-        Loading
+        EndGame
     }
 }
