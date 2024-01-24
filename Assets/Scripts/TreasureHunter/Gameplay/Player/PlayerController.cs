@@ -7,38 +7,37 @@ namespace TreasureHunter.Gameplay.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] 
-        private bool isFacingRight = true;
-
-        public float walkSpeed = 1f;
-        public float runSpeed = 2f;
-        public float jumpImpulse = 10f;
-        public float jumpCutMultiplier = .5f;
-        public float fallGravityMultiplier = 2f;
-        public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
-        public float gravityScale = 1f;
-        public float maxFallYVelocity = 30f;
         private Rigidbody2D _rb;
         private Animator _animator;
         private TouchingDirections _touchingDirections;
         private Damageable _damageable;
         private Vector2 _moveInput;
+
+        [SerializeField] private bool isFacingRight = true;
+
+        public float walkSpeed = 1f;
+        public float runSpeed = 2f;
+        public float jumpImpulse = 10f;
+        public Vector2 wallJumpForce = new(10f, 10f);
+        public int dashImpulse = 10;
+        public float jumpCutMultiplier = 0.5f;
+        public float fallGravityMultiplier = 2f;
+        public float gravityScale = 2.5f;
+        public float maxFallYVelocity = 30f;
+        public float wallJumpLerpAmount = 0.1f;
+        public float wallJumpTime = 0.25f;
+
+
         private bool _isRunning = false;
         private int jumpCount = 0;
+        private bool _isWallJumping = false;
+        private float _wallJumpStartTime;
 
-        public float CurrentSpeed
-        {
-            get
-            {
-                if (IsMoving && !_touchingDirections.IsOnWall)
-                {
-                    if (_isRunning) return runSpeed;
-                    return walkSpeed;
-                }
 
-                return 0;
-            }
-        }
+        public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
+
+        public float CurrentSpeed =>
+            _isRunning ? runSpeed : walkSpeed;
 
         public bool IsMoving
         {
@@ -94,10 +93,29 @@ namespace TreasureHunter.Gameplay.Player
             }
         }
 
+        // TODO: Refactor - extract each jump type to its own method
         public void OnJump(InputAction.CallbackContext context)
         {
             if (context.started)
             {
+                if (DataManager.Instance.PlayerData.HasSkill(SkillKey.WallJump))
+                {
+                    if (IsAlive && _touchingDirections.IsOnWall)
+                    {
+                        // _damageable.LockVelocity = true;
+                        _isWallJumping = true;
+                        _wallJumpStartTime = Time.time;
+
+                        // clear all y velocity before jumping
+                        _rb.velocity = new Vector2(_rb.velocity.x, 0);
+                        _animator.SetTrigger(AnimationStrings.JumpTrigger);
+                        var actualWallJumpForce = wallJumpForce;
+                        actualWallJumpForce.x = IsFacingRight ? -actualWallJumpForce.x : actualWallJumpForce.x;
+                        _rb.AddForce(actualWallJumpForce, ForceMode2D.Impulse);
+                        return;
+                    }
+                }
+
                 if (DataManager.Instance.PlayerData.HasSkill(SkillKey.DoubleJump))
                 {
                     if (IsAlive && jumpCount < 2)
@@ -106,7 +124,6 @@ namespace TreasureHunter.Gameplay.Player
                         _rb.velocity = new Vector2(_rb.velocity.x, 0);
                         _animator.SetTrigger(AnimationStrings.JumpTrigger);
                         _rb.AddForce(Vector2.up * jumpImpulse, ForceMode2D.Impulse);
-                        Debug.Log("");
                     }
                 }
                 else
@@ -135,6 +152,27 @@ namespace TreasureHunter.Gameplay.Player
             }
         }
 
+        public void OnDash(InputAction.CallbackContext context)
+        {
+            if (!DataManager.Instance.PlayerData.HasSkill(SkillKey.WallJump))
+            {
+                return;
+            }
+
+            if (context.started)
+            {
+                _animator.SetTrigger(AnimationStrings.DashTrigger);
+                if (IsFacingRight)
+                {
+                    _rb.AddForce(Vector2.right * dashImpulse, ForceMode2D.Impulse);
+                }
+                else
+                {
+                    _rb.AddForce(Vector2.left * dashImpulse, ForceMode2D.Impulse);
+                }
+            }
+        }
+
         public void OnHit(int damage, Vector2 knockback)
         {
             if (IsAlive)
@@ -147,14 +185,24 @@ namespace TreasureHunter.Gameplay.Player
         {
             if (!_damageable.LockVelocity)
             {
-                if (IsMoving)
+                // if (IsMoving)
+                // {
+                // _rb.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb.velocity.y);
+                if (_isWallJumping)
                 {
-                    _rb.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb.velocity.y);
+                    PhysicalRun(wallJumpLerpAmount);
                 }
                 else
                 {
-                    _rb.velocity = new Vector2(0, _rb.velocity.y);
+                    PhysicalRun();
                 }
+                // _rb.AddForce(Vector2.right * (_moveInput.x * CurrentSpeed), ForceMode2D.Force);
+                // }
+                // else 
+                // {
+                //     _rb.velocity = new Vector2(0, _rb.velocity.y);
+                // }
+                // Debug.Log("Not locked");
             }
 
             // Jump gravity
@@ -172,11 +220,19 @@ namespace TreasureHunter.Gameplay.Player
             {
                 jumpCount = 0;
             }
-            
+
             // Clamp y velocity
             var yVelocity = _rb.velocity.y;
             var clampedVelocity = Mathf.Clamp(yVelocity, -maxFallYVelocity, Mathf.Infinity);
             _rb.velocity = new Vector2(_rb.velocity.x, clampedVelocity);
+        }
+
+        private void Update()
+        {
+            if (_isWallJumping && Time.time - _wallJumpStartTime > wallJumpTime)
+            {
+                _isWallJumping = false;
+            }
         }
 
         private void SetFacingDirection(Vector2 moveInput)
@@ -192,6 +248,16 @@ namespace TreasureHunter.Gameplay.Player
                 // Face the left
                 IsFacingRight = false;
             }
+        }
+
+        private void PhysicalRun(float lerpAmount = 1)
+        {
+            float targetSpeed = _moveInput.x * CurrentSpeed;
+            targetSpeed = Mathf.Lerp(_rb.velocity.x, targetSpeed, lerpAmount);
+            float speedDiff = targetSpeed - _rb.velocity.x;
+            // Yes, 50 is a magic number.
+            float movement = speedDiff * 50;
+            _rb.AddForce(Vector2.right * movement, ForceMode2D.Force);
         }
     }
 }

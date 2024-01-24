@@ -131,7 +131,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2.5
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4388128c0118f474aa70cff3660a1be3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -323,6 +323,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 884cb39c-d397-4e6b-9169-ade805293d67
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 57b5c198-f562-401c-8ed6-e2298d9f01ba
+    m_ActionName: Player/Dash[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -342,12 +346,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFacingRight: 1
   walkSpeed: 7
-  runSpeed: 10
+  runSpeed: 9.5
   jumpImpulse: 15
+  wallJumpForce: {x: 15, y: 10}
+  dashImpulse: 10
   jumpCutMultiplier: 0.5
   fallGravityMultiplier: 1.5
   gravityScale: 2.5
   maxFallYVelocity: 30
+  wallJumpLerpAmount: 0.1
+  wallJumpTime: 0.25
 --- !u!114 &6750371357215538820
 MonoBehaviour:
   m_ObjectHideFlags: 0

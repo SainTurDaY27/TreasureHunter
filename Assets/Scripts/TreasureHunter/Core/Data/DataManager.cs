@@ -9,8 +9,12 @@ namespace TreasureHunter.Core.Data
 {
     public class DataManager : MonoSingleton<DataManager>
     {
+        [SerializeField]
+        private SkillIconVisualData _skillIconVisualData;
+
         private PlayerData _playerData;
         private GameData _gameData;
+        public SkillIconVisualData SkillIconVisualData => _skillIconVisualData;
         public PlayerData PlayerData => _playerData;
         public GameData GameData => _gameData;
 
