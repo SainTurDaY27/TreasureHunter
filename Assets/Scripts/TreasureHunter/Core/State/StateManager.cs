@@ -45,11 +45,9 @@ namespace TreasureHunter.Core.State
                 if (transition.IsValid())
                 {
                     Debug.Log($"[{typeof(T).Name}] Change game state from {CurrentState.StateName} to {nextState.StateName}");
-
                     MainThreadDispatcher.Instance.RunOnMainThread(() =>
                     {
                         SetState(nextState, transition, args);
-                        Debug.Log("Finish thread");
                     });
                 }
                 else

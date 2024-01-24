@@ -15,14 +15,6 @@ namespace TreasureHunter.Core.UI
         [SerializeField]
         private EndGamePanel _endGamePanel;
 
-        public override void Awake()
-        {
-            base.Awake();
-
-            // TODO: For debugging purpose only
-            Debug.Log("UIManager Awake");
-        }
-
         public IBaseUI Show(UIKey uiKey)
         {
             switch (uiKey)
