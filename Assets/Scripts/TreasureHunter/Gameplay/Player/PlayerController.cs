@@ -188,13 +188,20 @@ namespace TreasureHunter.Gameplay.Player
                 // if (IsMoving)
                 // {
                 // _rb.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rb.velocity.y);
-                if (_isWallJumping)
+                if (IsAlive)
                 {
-                    PhysicalRun(wallJumpLerpAmount);
+                    if (_isWallJumping)
+                    {
+                        PhysicalRun(wallJumpLerpAmount);
+                    }
+                    else
+                    {
+                        PhysicalRun();
+                    }
                 }
                 else
                 {
-                    PhysicalRun();
+                    _rb.velocity = new Vector2(0, _rb.velocity.y);
                 }
                 // _rb.AddForce(Vector2.right * (_moveInput.x * CurrentSpeed), ForceMode2D.Force);
                 // }

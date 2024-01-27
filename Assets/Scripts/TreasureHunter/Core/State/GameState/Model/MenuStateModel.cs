@@ -8,6 +8,7 @@ namespace TreasureHunter.Core.State.GameState
     public class MenuStateModel : StateModel
     {
         private MenuPanel _menuPanel;
+        private GameSceneManager _gameSceneManager;
 
         public MenuStateModel() : base((int)GameStates.State.Menu, nameof(MenuStateModel))
         {
@@ -25,8 +26,17 @@ namespace TreasureHunter.Core.State.GameState
         public override void OnStateIn(params object[] args)
         {
             base.OnStateIn();
-            Debug.Log("GameSceneManager : " + GameSceneManager.Instance);
-            GameSceneManager.Instance.GoToScene(SceneKey.MENU, () =>
+            if (GameSceneManager.Instance == null)
+            {
+                Debug.Log("GameSceneManager is null, find gameObject of GameSceneManager");
+                _gameSceneManager = GameObject.FindObjectOfType<GameSceneManager>();
+            }
+            else
+            {
+                _gameSceneManager = GameSceneManager.Instance;
+            }
+
+            _gameSceneManager.GoToScene(SceneKey.MENU, () =>
             {
                 _menuPanel = (MenuPanel)UIManager.Instance.Show(UIKey.Menu);
                 _menuPanel.OnPlayButtonClicked += PlayNewGame;
