@@ -16,6 +16,9 @@ namespace TreasureHunter.Core.State.GameState
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
                 toState: (int)GameStates.State.End));
+            GameStateManager.Instance.AddTransition(new StateTransition(
+                fromState: StateID,
+                toState: (int)GameStates.State.AbilityPickup));
         }
 
         public override void OnStateIn(params object[] args)
@@ -27,11 +30,11 @@ namespace TreasureHunter.Core.State.GameState
                 {
                     _gameHUDPanel = panel;
                 }
+
                 _gameHUDPanel.UpdateSkillSlot();
 
                 //_gameHUDPanel = (GameHUDPanel)UIManager.Instance.Show(UIKey.GameHUD);
                 UIManager.Instance.Show(UIKey.GameHUD);
-
             });
         }
 

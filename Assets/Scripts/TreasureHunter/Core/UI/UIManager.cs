@@ -97,6 +97,7 @@ namespace TreasureHunter.Core.UI
         Menu,
         AbilitySelection,
         GameHUD,
-        EndGame
+        EndGame,
+        AbilityGet
     }
 }

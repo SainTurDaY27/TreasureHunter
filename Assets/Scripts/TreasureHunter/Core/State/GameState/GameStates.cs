@@ -7,7 +7,8 @@ namespace TreasureHunter.Core.State.GameState
             Menu,
             AbilitySelection,
             Game,
-            End
+            End,
+            AbilityPickup
         }
         
         private StateModel[] _states;
