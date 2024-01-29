@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &594527990 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6483747988807901415, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
-  m_PrefabInstance: {fileID: 4431996267738144915}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &816560093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -191,51 +180,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48efe70bf1e1c48e79a64eb86215669f, type: 3}
---- !u!114 &1140566952 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5642728918243075671, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
-  m_PrefabInstance: {fileID: 4431996267738144915}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1310845351 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1113594212976492687, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
-  m_PrefabInstance: {fileID: 4431996267738144915}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1850824467 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4771032719708077402, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
-  m_PrefabInstance: {fileID: 4431996267738144915}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1850824471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1850824467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f88bbdce97941dcbf96453681d6bded, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Dash
-  abilityToolTip: Press E to dash
-  abilitySprite: {fileID: 21300000, guid: 8f4d0e9fb25eaf84fb7a8c5c32ceb0d9, type: 3}
-  uiText: {fileID: 1140566952}
-  uiToolTip: {fileID: 594527990}
-  uiImage: {fileID: 1310845351}
 --- !u!1001 &2047209752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -508,10 +452,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4771032719708077402, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1850824471}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
 --- !u!1001 &6601429288775494358
 PrefabInstance:

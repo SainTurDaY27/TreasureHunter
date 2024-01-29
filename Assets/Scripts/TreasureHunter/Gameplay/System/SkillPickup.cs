@@ -7,13 +7,17 @@ namespace TreasureHunter.Gameplay.System
 {
     public class SkillPickup : MonoBehaviour
     {
-        // Start is called before the first frame update
-        private DataManager _dataManager;
         public SkillKey skill;
+        public string skillName, skillToolTip;
+
+        private DataManager _dataManager;
+        private Sprite _skillSprite;
+
 
         void Awake()
         {
             _dataManager = FindObjectOfType<DataManager>();
+            _skillSprite = GetComponent<SpriteRenderer>().sprite;
         }
 
         private void Start()
@@ -27,7 +31,11 @@ namespace TreasureHunter.Gameplay.System
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
-            GameStateManager.Instance.GoToState((int)GameStates.State.AbilityPickup, "Dash", "Press E to dash");
+            GameStateManager.Instance.GoToState((int)GameStates.State.AbilityPickup,
+                skillName,
+                skillToolTip,
+                _skillSprite
+            );
             _dataManager.PlayerData.ObtainSkill(skill);
             Destroy(gameObject);
         }

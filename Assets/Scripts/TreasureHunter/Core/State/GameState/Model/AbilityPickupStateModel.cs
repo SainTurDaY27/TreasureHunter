@@ -20,9 +20,20 @@ namespace TreasureHunter.Core.State.GameState
         {
             base.OnStateIn(args);
             
+            // If args are invalid just do nothing.
+
+            // If there is a better method, please fix.
+            var abilityName = (string) args[0];
+            var abilityToolTip = (string)args[1];
+            var abilitySprite = (Sprite)args[2];
+            
             // Pause the game.
             _abilityGetPanel = (AbilityGetPanel) UIManager.Instance.Show(UIKey.AbilityGet);
             _abilityGetPanel.continueButton.onClick.AddListener(Continue);
+            _abilityGetPanel.uiText.text = abilityName;
+            _abilityGetPanel.uiToolTip.text = abilityToolTip;
+            _abilityGetPanel.uiImage.sprite = abilitySprite;
+                
             Time.timeScale = 0;
             // TODO: Set text and image
             
@@ -39,7 +50,7 @@ namespace TreasureHunter.Core.State.GameState
             UIManager.Instance.Hide(UIKey.AbilityGet);
         }
 
-        public void Continue()
+        private void Continue()
         {
             GameStateManager.Instance.GoToState((int)GameStates.State.Game);
         }

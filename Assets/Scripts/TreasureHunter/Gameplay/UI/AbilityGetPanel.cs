@@ -16,10 +16,6 @@ namespace TreasureHunter.Gameplay.UI
         public void SetActive(bool isActive)
         {
             gameObject.SetActive(isActive);
-            // Set UI
-            uiText.text = abilityName;
-            uiToolTip.text = abilityToolTip;
-            uiImage.sprite = abilitySprite;
         }
     }
 }
