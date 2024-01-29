@@ -223,6 +223,7 @@ MonoBehaviour:
   _abilitySelectionPanel: {fileID: 879474434299465599}
   _gameHUDPanel: {fileID: 3478226219269802148}
   _endGamePanel: {fileID: 0}
+  _abilityGetPanel: {fileID: 2082766464873993140}
 --- !u!1001 &1346610256625403872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -320,6 +321,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6558113397b64201b2d4c6667bcd55a, type: 3}
+--- !u!114 &2082766464873993140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1033408938615706708, guid: c6558113397b64201b2d4c6667bcd55a, type: 3}
+  m_PrefabInstance: {fileID: 1346610256625403872}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f88bbdce97941dcbf96453681d6bded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7164329580807890105 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8204662622716339033, guid: c6558113397b64201b2d4c6667bcd55a, type: 3}

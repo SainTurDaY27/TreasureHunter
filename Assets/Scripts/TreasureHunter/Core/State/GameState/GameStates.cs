@@ -20,7 +20,8 @@ namespace TreasureHunter.Core.State.GameState
                 new MenuStateModel(),
                 new AbilitySelectionStateModel(),
                 new GameStateModel(),
-                new EndStateModel()
+                new EndStateModel(),
+                new AbilityPickupStateModel()
             };
             return _states;
         }

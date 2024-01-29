@@ -15,6 +15,8 @@ namespace TreasureHunter.Core.UI
         [SerializeField]
         private EndGamePanel _endGamePanel;
 
+        [SerializeField] private AbilityGetPanel _abilityGetPanel;
+
         public IBaseUI Show(UIKey uiKey)
         {
             switch (uiKey)
@@ -31,6 +33,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.EndGame:
                     _endGamePanel.SetActive(true);
                     return _endGamePanel;
+                case UIKey.AbilityGet:
+                    _abilityGetPanel.SetActive(true);
+                    return _abilityGetPanel;
                 default:
                     return null;
             }
@@ -56,6 +61,10 @@ namespace TreasureHunter.Core.UI
                     _endGamePanel.SetActive(false);
                     _endGamePanel.transform.SetAsLastSibling();
                     return _endGamePanel;
+                case UIKey.AbilityGet:
+                    _abilityGetPanel.SetActive(false);
+                    _abilityGetPanel.transform.SetAsLastSibling();
+                    return _abilityGetPanel;
                 default:
                     return null;
             }
@@ -84,6 +93,9 @@ namespace TreasureHunter.Core.UI
                     return true;
                 case UIKey.EndGame:
                     ui = _endGamePanel;
+                    return true;
+                case UIKey.AbilityGet:
+                    ui = _abilityGetPanel;
                     return true;
                 default:
                     ui = null;

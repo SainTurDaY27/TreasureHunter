@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 947908150778968998}
   - component: {fileID: 3459534672589877202}
   m_Layer: 5
-  m_Name: PlayButton
+  m_Name: ContinueButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,7 +325,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 947908150778968998}
   m_OnClick:
     m_PersistentCalls:
@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 8204662622716339033}
   - component: {fileID: 5040578972915353733}
   - component: {fileID: 8954802719669773486}
+  - component: {fileID: 1033408938615706708}
   m_Layer: 0
   m_Name: AbilityPickupPanel
   m_TagString: Untagged
@@ -543,6 +544,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1033408938615706708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802327505452481210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f88bbdce97941dcbf96453681d6bded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Dash
+  abilityToolTip: Something
+  abilitySprite: {fileID: 0}
+  uiText: {fileID: 6701108757478105527}
+  uiToolTip: {fileID: 5425422021213447943}
+  uiImage: {fileID: 2144934901351909231}
+  continueButton: {fileID: 3459534672589877202}
 --- !u!1 &8217571801419365338
 GameObject:
   m_ObjectHideFlags: 0

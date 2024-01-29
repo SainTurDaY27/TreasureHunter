@@ -12,6 +12,7 @@ namespace TreasureHunter.Gameplay.UI
 
         public TMP_Text uiText, uiToolTip;
         public Image uiImage;
+        public Button continueButton;
         public void SetActive(bool isActive)
         {
             gameObject.SetActive(isActive);

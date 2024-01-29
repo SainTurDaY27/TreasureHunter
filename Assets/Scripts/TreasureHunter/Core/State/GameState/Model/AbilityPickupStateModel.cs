@@ -9,7 +9,7 @@ namespace TreasureHunter.Core.State.GameState
     {
 
         private AbilityGetPanel _abilityGetPanel;
-        public AbilityPickupStateModel(int stateID, string stateName) : base((int)GameStates.State.AbilityPickup, nameof(AbilityPickupStateModel))
+        public AbilityPickupStateModel() : base((int)GameStates.State.AbilityPickup, nameof(AbilityPickupStateModel))
         {
             GameStateManager.Instance.AddTransition(new StateTransition(
             fromState: StateID,
@@ -21,9 +21,10 @@ namespace TreasureHunter.Core.State.GameState
             base.OnStateIn(args);
             
             // Pause the game.
+            _abilityGetPanel = (AbilityGetPanel) UIManager.Instance.Show(UIKey.AbilityGet);
+            _abilityGetPanel.continueButton.onClick.AddListener(Continue);
             Time.timeScale = 0;
             // TODO: Set text and image
-            _abilityGetPanel = (AbilityGetPanel) UIManager.Instance.Show(UIKey.AbilityGet);
             
         }
 
@@ -34,7 +35,7 @@ namespace TreasureHunter.Core.State.GameState
             // Unpause the game
             // There is no slow down or speed up in this game.
             Time.timeScale = 1f;
-
+            _abilityGetPanel.continueButton.onClick.RemoveListener(Continue);
             UIManager.Instance.Hide(UIKey.AbilityGet);
         }
 
