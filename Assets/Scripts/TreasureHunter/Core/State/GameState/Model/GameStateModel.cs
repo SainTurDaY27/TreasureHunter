@@ -36,30 +36,27 @@ namespace TreasureHunter.Core.State.GameState
             {
                 GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
                 {
-                    if (UIManager.Instance.TryGetUIByKey(UIKey.GameHUD, out IBaseUI ui) && (ui is GameHUDPanel panel))
-                    {
-                        _gameHUDPanel = panel;
-                    }
-
-                    _gameHUDPanel.UpdateSkillSlot();
-
-                    //_gameHUDPanel = (GameHUDPanel)UIManager.Instance.Show(UIKey.GameHUD);
-                    UIManager.Instance.Show(UIKey.GameHUD);
+                    LoadGameHUD();
                 });
             }
             else
             {
                 // if not starting a new game. just load UI instance
-                if (UIManager.Instance.TryGetUIByKey(UIKey.GameHUD, out IBaseUI ui) && (ui is GameHUDPanel panel))
-                {
-                    _gameHUDPanel = panel;
-                }
-
-                _gameHUDPanel.UpdateSkillSlot();
-
-                //_gameHUDPanel = (GameHUDPanel)UIManager.Instance.Show(UIKey.GameHUD);
-                UIManager.Instance.Show(UIKey.GameHUD);
+                LoadGameHUD();
             }
+        }
+
+        private void LoadGameHUD()
+        {
+            if (UIManager.Instance.TryGetUIByKey(UIKey.GameHUD, out IBaseUI ui) && (ui is GameHUDPanel panel))
+            {
+                _gameHUDPanel = panel;
+            }
+
+            _gameHUDPanel.UpdateSkillSlot();
+
+            //_gameHUDPanel = (GameHUDPanel)UIManager.Instance.Show(UIKey.GameHUD);
+            UIManager.Instance.Show(UIKey.GameHUD);
         }
 
         public override void OnStateOut()
