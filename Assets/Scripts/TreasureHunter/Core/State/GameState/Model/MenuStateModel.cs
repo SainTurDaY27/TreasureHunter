@@ -14,7 +14,7 @@ namespace TreasureHunter.Core.State.GameState
         {
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
-                toState: (int)GameStates.State.AbilitySelection));
+                toState: (int)GameStates.State.SkillSelection));
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
                 toState: (int)GameStates.State.Game));
@@ -56,7 +56,7 @@ namespace TreasureHunter.Core.State.GameState
 
         private void PlayNewGame()
         {
-            GameStateManager.Instance.GoToState((int)GameStates.State.AbilitySelection);
+            GameStateManager.Instance.GoToState((int)GameStates.State.SkillSelection);
         }
 
         private void LoadGame()

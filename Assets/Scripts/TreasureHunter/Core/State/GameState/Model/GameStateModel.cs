@@ -19,7 +19,7 @@ namespace TreasureHunter.Core.State.GameState
                 toState: (int)GameStates.State.End));
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
-                toState: (int)GameStates.State.AbilityPickup));
+                toState: (int)GameStates.State.SkillPickup));
         }
 
         public override void OnStateIn(params object[] args)

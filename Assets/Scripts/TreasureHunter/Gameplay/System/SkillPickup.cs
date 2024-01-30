@@ -31,7 +31,7 @@ namespace TreasureHunter.Gameplay.System
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
-            GameStateManager.Instance.GoToState((int)GameStates.State.AbilityPickup,
+            GameStateManager.Instance.GoToState((int)GameStates.State.SkillPickup,
                 skillName,
                 skillToolTip,
                 _skillSprite

@@ -12,7 +12,7 @@ namespace TreasureHunter.Core.State.GameState
     {
         private AbilitySelectionPanel _abilitySelectionPanel;
 
-        public AbilitySelectionStateModel() : base((int)GameStates.State.AbilitySelection, nameof(AbilitySelectionStateModel))
+        public AbilitySelectionStateModel() : base((int)GameStates.State.SkillSelection, nameof(AbilitySelectionStateModel))
         {
             GameStateManager.Instance.AddTransition(new StateTransition(
             fromState: StateID,

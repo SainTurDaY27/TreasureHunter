@@ -9,7 +9,7 @@ namespace TreasureHunter.Core.State.GameState
     {
 
         private AbilityGetPanel _abilityGetPanel;
-        public AbilityPickupStateModel() : base((int)GameStates.State.AbilityPickup, nameof(AbilityPickupStateModel))
+        public AbilityPickupStateModel() : base((int)GameStates.State.SkillPickup, nameof(AbilityPickupStateModel))
         {
             GameStateManager.Instance.AddTransition(new StateTransition(
             fromState: StateID,
