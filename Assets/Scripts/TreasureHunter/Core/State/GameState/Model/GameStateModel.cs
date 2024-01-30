@@ -1,3 +1,4 @@
+using System.Linq;
 using TreasureHunter.Core.Scene;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.UI;
@@ -16,23 +17,46 @@ namespace TreasureHunter.Core.State.GameState
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
                 toState: (int)GameStates.State.End));
+            GameStateManager.Instance.AddTransition(new StateTransition(
+                fromState: StateID,
+                toState: (int)GameStates.State.SkillPickup));
         }
 
         public override void OnStateIn(params object[] args)
         {
             base.OnStateIn();
-            GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
+            var startNewGame = false;
+            if (args.Length > 0)
             {
-                if (UIManager.Instance.TryGetUIByKey(UIKey.GameHUD, out IBaseUI ui) && (ui is GameHUDPanel panel))
+                startNewGame = (bool)args[0];
+            }
+
+            // TODO: Handle load game
+            if (startNewGame)
+            {
+                GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
                 {
-                    _gameHUDPanel = panel;
-                }
-                _gameHUDPanel.UpdateSkillSlot();
+                    LoadGameHUD();
+                });
+            }
+            else
+            {
+                // if not starting a new game. just load UI instance
+                LoadGameHUD();
+            }
+        }
 
-                //_gameHUDPanel = (GameHUDPanel)UIManager.Instance.Show(UIKey.GameHUD);
-                UIManager.Instance.Show(UIKey.GameHUD);
+        private void LoadGameHUD()
+        {
+            if (UIManager.Instance.TryGetUIByKey(UIKey.GameHUD, out IBaseUI ui) && (ui is GameHUDPanel panel))
+            {
+                _gameHUDPanel = panel;
+            }
 
-            });
+            _gameHUDPanel.UpdateSkillSlot();
+
+            //_gameHUDPanel = (GameHUDPanel)UIManager.Instance.Show(UIKey.GameHUD);
+            UIManager.Instance.Show(UIKey.GameHUD);
         }
 
         public override void OnStateOut()

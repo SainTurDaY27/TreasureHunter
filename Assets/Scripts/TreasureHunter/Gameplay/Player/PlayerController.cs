@@ -154,7 +154,7 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnDash(InputAction.CallbackContext context)
         {
-            if (!DataManager.Instance.PlayerData.HasSkill(SkillKey.WallJump))
+            if (!DataManager.Instance.PlayerData.HasSkill(SkillKey.Dash))
             {
                 return;
             }

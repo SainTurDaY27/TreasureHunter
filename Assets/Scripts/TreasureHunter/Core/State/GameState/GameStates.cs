@@ -5,9 +5,10 @@ namespace TreasureHunter.Core.State.GameState
         public enum State
         {
             Menu,
-            AbilitySelection,
+            SkillSelection,
             Game,
-            End
+            End,
+            SkillPickup
         }
         
         private StateModel[] _states;
@@ -19,7 +20,8 @@ namespace TreasureHunter.Core.State.GameState
                 new MenuStateModel(),
                 new AbilitySelectionStateModel(),
                 new GameStateModel(),
-                new EndStateModel()
+                new EndStateModel(),
+                new AbilityPickupStateModel()
             };
             return _states;
         }
