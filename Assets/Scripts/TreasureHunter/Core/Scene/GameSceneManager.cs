@@ -24,6 +24,10 @@ namespace TreasureHunter.Core.Scene
                 case SceneKey.ABNORMAL_CAVE:
                     _sceneLoader.LoadSceneByName(SceneKey.ABNORMAL_CAVE, callback);
                     break;
+                
+                case SceneKey.NORMAL_CAVE:
+                    _sceneLoader.LoadSceneByName(SceneKey.NORMAL_CAVE, callback);
+                    break;
 
                 default:
                     Debug.LogError("Scene not found");
