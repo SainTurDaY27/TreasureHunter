@@ -7,6 +7,7 @@ namespace TreasureHunter.Core.Scene
         // Level
         public const string THE_ENTRANCE = "TheEntrance";
         public const string ABNORMAL_CAVE = "AbnormalCave";
+        public const string NORMAL_CAVE = "NormalCave";
 
     }
 }
