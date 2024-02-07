@@ -28,5 +28,10 @@ namespace TreasureHunter.Core.State.GameState
             base.OnStateOut();
             UIManager.Instance.Hide(UIKey.EndGame);
         }
+
+        private void MainMenu()
+        {
+            GameStateManager.Instance.GoToState((int)GameStates.State.Menu);
+        }
     }
 }

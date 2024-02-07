@@ -14,9 +14,9 @@ namespace TreasureHunter.Gameplay.System
         private Sprite _skillSprite;
 
 
-        void Awake()
+        private void Awake()
         {
-            _dataManager = FindObjectOfType<DataManager>();
+            _dataManager = DataManager.Instance;
             _skillSprite = GetComponent<SpriteRenderer>().sprite;
         }
 

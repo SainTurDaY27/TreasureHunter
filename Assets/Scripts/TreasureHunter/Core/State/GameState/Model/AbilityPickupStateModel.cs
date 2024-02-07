@@ -5,10 +5,9 @@ using UnityEngine;
 namespace TreasureHunter.Core.State.GameState
 {
     public class AbilityPickupStateModel : StateModel
-
     {
-
         private AbilityGetPanel _abilityGetPanel;
+
         public AbilityPickupStateModel() : base((int)GameStates.State.SkillPickup, nameof(AbilityPickupStateModel))
         {
             GameStateManager.Instance.AddTransition(new StateTransition(

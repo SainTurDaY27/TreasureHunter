@@ -14,8 +14,10 @@ namespace TreasureHunter.Core.UI
         private GameHUDPanel _gameHUDPanel;
         [SerializeField]
         private EndGamePanel _endGamePanel;
-
-        [SerializeField] private AbilityGetPanel _abilityGetPanel;
+        [SerializeField] 
+        private AbilityGetPanel _abilityGetPanel;
+        [SerializeField]
+        private LoadGamePanel _loadGamePanel;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -36,6 +38,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.AbilityGet:
                     _abilityGetPanel.SetActive(true);
                     return _abilityGetPanel;
+                case UIKey.LoadGame:
+                    _loadGamePanel.SetActive(true);
+                    return _loadGamePanel;
                 default:
                     return null;
             }
@@ -65,6 +70,10 @@ namespace TreasureHunter.Core.UI
                     _abilityGetPanel.SetActive(false);
                     _abilityGetPanel.transform.SetAsLastSibling();
                     return _abilityGetPanel;
+                case UIKey.LoadGame:
+                    _loadGamePanel.SetActive(false);
+                    _loadGamePanel.transform.SetAsLastSibling();
+                    return _loadGamePanel;
                 default:
                     return null;
             }
@@ -76,6 +85,8 @@ namespace TreasureHunter.Core.UI
             _abilitySelectionPanel.SetActive(false);
             _gameHUDPanel.SetActive(false);
             _endGamePanel.SetActive(false);
+            _abilityGetPanel.SetActive(false);
+            _loadGamePanel.SetActive(false);
         }
 
         public bool TryGetUIByKey(UIKey uiKey, out IBaseUI ui)
@@ -97,6 +108,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.AbilityGet:
                     ui = _abilityGetPanel;
                     return true;
+                case UIKey.LoadGame:
+                    ui = _loadGamePanel;
+                    return true;
                 default:
                     ui = null;
                     return false;
@@ -110,6 +124,7 @@ namespace TreasureHunter.Core.UI
         AbilitySelection,
         GameHUD,
         EndGame,
-        AbilityGet
+        AbilityGet,
+        LoadGame
     }
 }

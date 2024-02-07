@@ -1,27 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TreasureHunter.Core.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TreasureHunter.Gameplay.UI
 {
     public class EndGamePanel : MonoBehaviour, IBaseUI
     {
+        [SerializeField]
+        private Button _backToMenuButton;
+
+        public event Action OnMainMenuButtonClicked;
+
         public void SetActive(bool isActive)
         {
             gameObject.SetActive(isActive);
         }
 
-        // Start is called before the first frame update
-        void Start()
+        private void OnMainMenuButtonClickedHandler()
         {
-
+            OnMainMenuButtonClicked?.Invoke();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Awake()
         {
+            _backToMenuButton.onClick.AddListener(OnMainMenuButtonClickedHandler);
+        }
 
+        private void OnDestroy()
+        {
+            _backToMenuButton.onClick.RemoveListener(OnMainMenuButtonClickedHandler);
         }
     }
 }
