@@ -29,29 +29,39 @@ namespace TreasureHunter.Core.State.GameState
         public override void OnStateIn(params object[] args)
         {
             base.OnStateIn();
-            var startNewGame = false;
+            var backToGameMethod = BackToGameMethod.ContinueGame;
             if (args.Length > 0)
             {
-                startNewGame = (bool)args[0];
+                backToGameMethod = (BackToGameMethod)args[0];
             }
             _gameManager = GameManager.Instance;
 
-            // TODO: Handle load game
-            if (startNewGame)
+            switch (backToGameMethod)
             {
-                GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
-                {
+                case BackToGameMethod.NewGame:
+                    GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
+                    {
+                        LoadPlayer();
+                        LoadGameHUD();
+                        Debug.Log("Start new game");
+                    });
+                    break;
+
+                case BackToGameMethod.LoadGame:
+                    // TODO: Implement load game later
                     LoadPlayer();
                     LoadGameHUD();
-                    Debug.Log("Start new game");
-                });
-            }
-            else
-            {
-                // if not starting a new game. just load UI instance
-                LoadPlayer();
-                LoadGameHUD();
-                Debug.Log("Play saved game");
+                    break;
+
+                case BackToGameMethod.ContinueGame:
+                    LoadPlayer();
+                    LoadGameHUD();
+                    break;
+
+                default:
+                    LoadPlayer();
+                    LoadGameHUD();
+                    break;
             }
         }
 
@@ -87,5 +97,12 @@ namespace TreasureHunter.Core.State.GameState
             _player = GameObject.FindObjectsOfType<Damageable>().FirstOrDefault(d => d.CompareTag("Player"));
             _player.healthChange.AddListener(OnPlayerHealthChange);
         }
+    }
+
+    public enum BackToGameMethod
+    {
+        NewGame,
+        LoadGame,
+        ContinueGame
     }
 }

@@ -42,7 +42,7 @@ namespace TreasureHunter.Core.State.GameState
 
         private void PlayGame()
         {
-            GameStateManager.Instance.GoToState((int)GameStates.State.Game, true);
+            GameStateManager.Instance.GoToState((int)GameStates.State.Game, BackToGameMethod.NewGame);
         }
     }
 }
