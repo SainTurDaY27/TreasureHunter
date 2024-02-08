@@ -11,6 +11,7 @@ namespace TreasureHunter.Core.State.GameState
     {
         private GameHUDPanel _gameHUDPanel;
         private Damageable _player;
+        private GameManager _gameManager;
 
         public GameStateModel() : base((int)GameStates.State.Game, nameof(GameStateModel))
         {
@@ -33,6 +34,7 @@ namespace TreasureHunter.Core.State.GameState
             {
                 startNewGame = (bool)args[0];
             }
+            _gameManager = GameManager.Instance;
 
             // TODO: Handle load game
             if (startNewGame)
@@ -59,6 +61,7 @@ namespace TreasureHunter.Core.State.GameState
             UIManager.Instance.Hide(UIKey.GameHUD);
             _player.healthChange.RemoveListener(OnPlayerHealthChange);
         }
+
         private void LoadGameHUD()
         {
             if (UIManager.Instance.TryGetUIByKey(UIKey.GameHUD, out IBaseUI ui) && (ui is GameHUDPanel panel))
@@ -73,6 +76,10 @@ namespace TreasureHunter.Core.State.GameState
         private void OnPlayerHealthChange(int health, int maxHealth)
         {
             _gameHUDPanel.UpdateHealth(health);
+            if (health <= 0)
+            {
+                _gameManager.StartEndGameDelay();
+            }
         }
 
         private void LoadPlayer()

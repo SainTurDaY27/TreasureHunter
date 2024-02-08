@@ -10,11 +10,22 @@ namespace TreasureHunter.Gameplay.System
 {
     public class GameManager : MonoSingleton<GameManager>
     {
-        public override void Awake()
+        private Coroutine _endGameDelay;
+        private const int _END_GAME_DELAY = 4;
+
+        public void StartEndGameDelay()
         {
-            base.Awake();
-            //GameStateManager.Instance.GoToState((int)GameStates.State.Menu);
-            //GameSceneManager.Instance.GoToScene(SceneKey.MENU);
+            if (_endGameDelay != null)
+            {
+                StopCoroutine(_endGameDelay);
+            }
+            _endGameDelay = StartCoroutine(EndGameDelay());
+        }
+
+        private IEnumerator EndGameDelay()
+        {
+            yield return new WaitForSeconds(_END_GAME_DELAY);
+            GameStateManager.Instance.GoToState((int)GameStates.State.End);
         }
     }
 }

@@ -13,7 +13,6 @@ namespace TreasureHunter.Gameplay.System
         private DataManager _dataManager;
         private Sprite _skillSprite;
 
-
         private void Awake()
         {
             _dataManager = DataManager.Instance;
