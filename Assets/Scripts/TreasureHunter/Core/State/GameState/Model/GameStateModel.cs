@@ -72,6 +72,17 @@ namespace TreasureHunter.Core.State.GameState
             _player.healthChange.RemoveListener(OnPlayerHealthChange);
         }
 
+
+        private void OnPlayerHealthChange(int health, int maxHealth)
+        {
+            _gameHUDPanel.UpdateHealth(health);
+            if (health <= 0)
+            {
+                _gameHUDPanel.SetActiveAnnounceText(true);
+                _gameManager.StartEndGameDelay();
+            }
+        }
+
         private void LoadGameHUD()
         {
             if (UIManager.Instance.TryGetUIByKey(UIKey.GameHUD, out IBaseUI ui) && (ui is GameHUDPanel panel))
@@ -80,18 +91,9 @@ namespace TreasureHunter.Core.State.GameState
             }
             _gameHUDPanel.UpdateSkillSlot();
             _gameHUDPanel.UpdateHealth(_player.Health);
+            _gameHUDPanel.SetActiveAnnounceText(false);
             UIManager.Instance.Show(UIKey.GameHUD);
         }
-
-        private void OnPlayerHealthChange(int health, int maxHealth)
-        {
-            _gameHUDPanel.UpdateHealth(health);
-            if (health <= 0)
-            {
-                _gameManager.StartEndGameDelay();
-            }
-        }
-
         private void LoadPlayer()
         {
             _player = GameObject.FindObjectsOfType<Damageable>().FirstOrDefault(d => d.CompareTag("Player"));

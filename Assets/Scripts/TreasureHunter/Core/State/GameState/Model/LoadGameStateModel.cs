@@ -36,7 +36,6 @@ namespace TreasureHunter.Core.State.GameState
 
         private void PlayLoadGame()
         {
-            // TODO: Implement load game functionality - Maybe in GameStateModel
             GameStateManager.Instance.GoToState((int)GameStates.State.Game, BackToGameMethod.LoadGame);
         }
 

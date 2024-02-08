@@ -20,6 +20,9 @@ namespace TreasureHunter.Gameplay.UI
         [SerializeField]
         private TextMeshProUGUI _mapNameText;
 
+        [SerializeField]
+        private TextMeshProUGUI _announceText;
+
         public void SetActive(bool isActive)
         {
             gameObject.SetActive(isActive);
@@ -55,6 +58,16 @@ namespace TreasureHunter.Gameplay.UI
         public void UpdateMapName(string mapName)
         {
             _mapNameText.text = mapName;
+        }
+
+        public void UpdateAnnounceText(string announceText)
+        {
+            _announceText.text = announceText;
+        }
+
+        public void SetActiveAnnounceText(bool isActive)
+        {
+            _announceText.gameObject.SetActive(isActive);
         }
 
         private void Update()

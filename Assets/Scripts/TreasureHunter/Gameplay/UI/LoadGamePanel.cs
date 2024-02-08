@@ -11,6 +11,9 @@ namespace TreasureHunter.Gameplay.UI
     public class LoadGamePanel : MonoBehaviour, IBaseUI
     {
         [SerializeField]
+        private SaveGameSlotUI[] _saveGameSlotUIs;
+
+        [SerializeField]
         private Button[] _savedGameSelectionButtons;
 
         [SerializeField]

@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 1833830453337577180}
   - component: {fileID: 2779382394995680731}
   m_Layer: 5
-  m_Name: TimePlayedText
+  m_Name: PlayTimeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,7 +639,7 @@ GameObject:
   - component: {fileID: 8453140717893563800}
   - component: {fileID: 3218449549300859325}
   m_Layer: 5
-  m_Name: TimePlayedText
+  m_Name: PlayTimeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -998,7 +998,7 @@ GameObject:
   - component: {fileID: 2162847138686157270}
   - component: {fileID: 5064646807036423936}
   m_Layer: 5
-  m_Name: TimePlayedText
+  m_Name: PlayTimeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1466,6 +1466,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1764fa8fa0b8ad4b87a80d28614e6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _saveGameSlotUIs:
+  - {fileID: 6328378189380902300}
+  - {fileID: 3503202175075401639}
+  - {fileID: 1068142771455268451}
   _savedGameSelectionButtons:
   - {fileID: 7975129047500804161}
   - {fileID: 1386701639309753491}
@@ -2611,6 +2615,7 @@ GameObject:
   - component: {fileID: 5163776737045711349}
   - component: {fileID: 7975129047500804161}
   - component: {fileID: 6221280137452163276}
+  - component: {fileID: 6328378189380902300}
   m_Layer: 5
   m_Name: SaveGameSlot1
   m_TagString: Untagged
@@ -2750,6 +2755,27 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0, b: 0.99132204, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
+--- !u!114 &6328378189380902300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6684249442841229504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c1fd3e18d703248877e495e40c1d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _savedLevelNameText: {fileID: 2191372128584144500}
+  _lastPlayDateText: {fileID: 7660625295178160641}
+  _playTimeText: {fileID: 2779382394995680731}
+  _skillSlotImages:
+  - {fileID: 7070690365676949537}
+  - {fileID: 3403591360300078887}
+  - {fileID: 6019491034002387623}
+  - {fileID: 1277729594278303774}
+  - {fileID: 4337383788913659977}
 --- !u!1 &7232430529464603586
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,6 +2939,7 @@ GameObject:
   - component: {fileID: 4227407332802513880}
   - component: {fileID: 5455197932476576238}
   - component: {fileID: 924635672915718391}
+  - component: {fileID: 1068142771455268451}
   m_Layer: 5
   m_Name: SaveGameSlot3
   m_TagString: Untagged
@@ -3052,6 +3079,27 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0, b: 0.99132204, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
+--- !u!114 &1068142771455268451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8640930105671907964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c1fd3e18d703248877e495e40c1d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _savedLevelNameText: {fileID: 3420516648090252146}
+  _lastPlayDateText: {fileID: 7662320078968453431}
+  _playTimeText: {fileID: 3218449549300859325}
+  _skillSlotImages:
+  - {fileID: 1320884739449840199}
+  - {fileID: 4196708947692215676}
+  - {fileID: 4893807751396200014}
+  - {fileID: 3369602695086530143}
+  - {fileID: 2299599549286630484}
 --- !u!1 &9014382789060086474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3140,6 +3188,7 @@ GameObject:
   - component: {fileID: 7381413211659703737}
   - component: {fileID: 1386701639309753491}
   - component: {fileID: 6554371962120433576}
+  - component: {fileID: 3503202175075401639}
   m_Layer: 5
   m_Name: SaveGameSlot2
   m_TagString: Untagged
@@ -3279,6 +3328,27 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0, b: 0.99132204, a: 1}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
+--- !u!114 &3503202175075401639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9032922238651500459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c1fd3e18d703248877e495e40c1d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _savedLevelNameText: {fileID: 2191372128584144500}
+  _lastPlayDateText: {fileID: 7660625295178160641}
+  _playTimeText: {fileID: 2779382394995680731}
+  _skillSlotImages:
+  - {fileID: 8485941372448975298}
+  - {fileID: 8390908194107373215}
+  - {fileID: 151884885698058773}
+  - {fileID: 6812375662326823507}
+  - {fileID: 6001355976158780713}
 --- !u!1001 &1615246135832538964
 PrefabInstance:
   m_ObjectHideFlags: 0
