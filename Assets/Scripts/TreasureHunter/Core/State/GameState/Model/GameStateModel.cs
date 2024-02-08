@@ -34,12 +34,7 @@ namespace TreasureHunter.Core.State.GameState
             // TODO: Handle load game
             if (startNewGame)
             {
-                // GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
-                // {
-                //     LoadGameHUD();
-                // });
-                // TODO: Use old code after testing
-                GameSceneManager.Instance.GoToScene(SceneKey.WEIRD_SPACE, () =>
+                GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
                 {
                     LoadGameHUD();
                 });
