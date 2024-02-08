@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using TreasureHunter.Core.Scene;
 using TreasureHunter.Core.State.GameState;
-using TreasureHunter.Core.UI;
 using TreasureHunter.Utilities;
 using UnityEngine;
 
@@ -12,6 +9,19 @@ namespace TreasureHunter.Gameplay.System
     {
         private Coroutine _endGameDelay;
         private const int _END_GAME_DELAY = 4;
+        public bool IsGamePaused { get; private set; }
+
+        public override void Awake()
+        {
+            base.Awake();
+            IsGamePaused = false;
+        }
+
+        public void PauseGame(bool pauseGameStatus)
+        {
+            IsGamePaused = pauseGameStatus;
+            Time.timeScale = pauseGameStatus ? 0 : 1;
+        }
 
         public void StartEndGameDelay()
         {
