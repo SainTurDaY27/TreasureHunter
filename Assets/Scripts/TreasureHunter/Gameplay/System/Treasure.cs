@@ -9,7 +9,7 @@ namespace TreasureHunter.Gameplay.System
     public class Treasure : MonoBehaviour
     {
         public string treasureId = "CHANGE THIS THING!";
-        public float oscillationValue = 30f;
+        public float oscillationValue = 0.75f;
 
 
         private DataManager _dataManager;
