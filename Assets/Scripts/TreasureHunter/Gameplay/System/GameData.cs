@@ -6,15 +6,22 @@ namespace TreasureHunter.Gameplay.System
 {
     public class GameData
     {
-        // Implement later
-        private const int MaxTreasure = 3;
 
-        public int TreasureCount { get; private set; } = 0;
 
-        public void ObtainTreasure()
+        // Collected treasure will have unique ID
+        private HashSet<string> collectedTreasures = new ();
+
+        public int TreasureCount => collectedTreasures.Count;
+
+        public void CollectTreasure(string treasureId)
         {
-            if (TreasureCount >= MaxTreasure) return;
-            TreasureCount++;
+            collectedTreasures.Add(treasureId);
         }
+
+        public bool IsTreasureCollected(string treasureId)
+        {
+            return collectedTreasures.Contains(treasureId);
+        }
+        
     }
 }
