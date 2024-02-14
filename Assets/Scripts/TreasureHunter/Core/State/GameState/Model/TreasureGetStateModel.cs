@@ -1,3 +1,4 @@
+using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.UI;
 using UnityEngine;
@@ -21,10 +22,13 @@ namespace TreasureHunter.Core.State.GameState
             // TODO: Show treasure
             _treasureGetPanel = (TreasureGetPanel)UIManager.Instance.Show(UIKey.TreasureGet);
             _treasureGetPanel.continueButton.onClick.AddListener(Continue);
-            
+
+
             // Pause the game
             Time.timeScale = 0;
-            
+
+            Debug.Log($"Player now has {DataManager.Instance.GameData.TreasureCount} treasure(s).");
+
             // Would be nice if there is any animation
         }
 
@@ -37,7 +41,7 @@ namespace TreasureHunter.Core.State.GameState
         public override void OnStateOut()
         {
             base.OnStateOut();
-            
+
             // Unpause the game
             Time.timeScale = 1f;
             _treasureGetPanel.continueButton.onClick.RemoveListener(Continue);
