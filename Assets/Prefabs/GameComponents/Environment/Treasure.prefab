@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7072989541028613061}
   - component: {fileID: 1121866163639820147}
   - component: {fileID: 4264776801957933916}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Treasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5639264410591469109}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.1706696, y: -43.538883, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -143,3 +143,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b1fb2b1d2f48c98045099d19389929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  treasureId: CHANGE THIS THING!
