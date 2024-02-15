@@ -56,8 +56,6 @@ namespace TreasureHunter.Core.State.GameState
             Time.timeScale = 0;
 
             Debug.Log($"Player now has {DataManager.Instance.GameData.TreasureCount} treasure(s).");
-
-            // Would be nice if there is any animation
         }
 
         private void Continue()
