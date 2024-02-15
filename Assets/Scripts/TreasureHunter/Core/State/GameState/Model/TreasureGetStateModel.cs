@@ -1,3 +1,4 @@
+using TMPro;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.System;
@@ -9,6 +10,7 @@ namespace TreasureHunter.Core.State.GameState
     public class TreasureGetStateModel : StateModel
     {
         private TreasureGetPanel _treasureGetPanel;
+        private int _treasureCount;
         private const int AnimationScale = 3;
         private const float AnimationTime = 0.5f;
 
@@ -16,6 +18,8 @@ namespace TreasureHunter.Core.State.GameState
         {
             GameStateManager.Instance.AddTransition(
                 new StateTransition(fromState: StateID, toState: (int)GameStates.State.Game));
+            GameStateManager.Instance.AddTransition(
+                new StateTransition(fromState: StateID, toState: (int)GameStates.State.End));
         }
 
         public override void OnStateIn(params object[] args)
@@ -26,15 +30,19 @@ namespace TreasureHunter.Core.State.GameState
             _treasureGetPanel = (TreasureGetPanel)UIManager.Instance.Show(UIKey.TreasureGet);
             _treasureGetPanel.continueButton.onClick.AddListener(Continue);
 
-            var treasureCount = DataManager.Instance.GameData.TreasureCount;
+            _treasureCount = DataManager.Instance.GameData.TreasureCount;
             var maxTreasure = GameData.MaxTreasure;
-            for (int i = treasureCount; i < 3; i++)
+            if (_treasureCount == maxTreasure)
+            {
+                _treasureGetPanel.buttonText.text = "End Game";
+            }
+            for (int i = _treasureCount; i < maxTreasure; i++)
             {
                 _treasureGetPanel.treasureImages[i].color = Color.black;
             }
 
             // Animate
-            var animatedImageTransform = _treasureGetPanel.treasureImages[treasureCount - 1].rectTransform;
+            var animatedImageTransform = _treasureGetPanel.treasureImages[_treasureCount - 1].rectTransform;
             var localScale = animatedImageTransform.localScale;
             localScale = new Vector3(localScale.x * AnimationScale,
                 localScale.y * AnimationScale);
@@ -54,8 +62,14 @@ namespace TreasureHunter.Core.State.GameState
 
         private void Continue()
         {
-            // TODO: End the game if all treasures are acquired.
-            GameStateManager.Instance.GoToState((int)GameStates.State.Game);
+            if (_treasureCount == GameData.MaxTreasure)
+            {
+                GameStateManager.Instance.GoToState((int)GameStates.State.End);
+            }
+            else
+            {
+                GameStateManager.Instance.GoToState((int)GameStates.State.Game);
+            }
         }
 
         public override void OnStateOut()

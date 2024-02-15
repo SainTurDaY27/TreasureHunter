@@ -305,6 +305,7 @@ MonoBehaviour:
   - {fileID: 5091163530707771347}
   - {fileID: 7466191956095312863}
   continueButton: {fileID: 4888763279834208559}
+  buttonText: {fileID: 244839634261040316}
 --- !u!1 &4873298680099913140
 GameObject:
   m_ObjectHideFlags: 0
