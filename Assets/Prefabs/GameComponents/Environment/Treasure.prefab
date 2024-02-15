@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7072989541028613061}
   - component: {fileID: 1121866163639820147}
   - component: {fileID: 4264776801957933916}
+  - component: {fileID: 5325023795521724909}
   m_Layer: 11
   m_Name: Treasure
   m_TagString: Untagged
@@ -144,3 +145,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treasureId: CHANGE THIS THING!
+--- !u!114 &5325023795521724909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5639264410591469109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79cd20f62b254ae59bb793ab90b8955c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oscillationValue: 0.75

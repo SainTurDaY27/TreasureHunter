@@ -9,11 +9,9 @@ namespace TreasureHunter.Gameplay.System
     public class Treasure : MonoBehaviour
     {
         public string treasureId = "CHANGE THIS THING!";
-        public float oscillationValue = 0.75f;
 
 
         private DataManager _dataManager;
-        private Vector2 originalPosition;
 
 
         void Awake()
@@ -28,17 +26,6 @@ namespace TreasureHunter.Gameplay.System
             _dataManager.GameData.CollectTreasure(treasureId);
             GameStateManager.Instance.GoToState((int)GameStates.State.TreasureGet);
             Destroy(gameObject);
-        }
-
-        private void Start()
-        {
-            originalPosition = transform.position;
-        }
-
-        private void Update()
-        {
-            transform.position = new Vector2(transform.position.x,
-                originalPosition.y + Mathf.Sin(Time.time) * oscillationValue);
         }
     }
 }
