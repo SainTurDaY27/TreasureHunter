@@ -7,6 +7,7 @@ namespace TreasureHunter.Gameplay.System
     public class GameData
     {
 
+        public static readonly int MaxTreasure = 3;
 
         // Collected treasure will have unique ID
         private HashSet<string> collectedTreasures = new ();
