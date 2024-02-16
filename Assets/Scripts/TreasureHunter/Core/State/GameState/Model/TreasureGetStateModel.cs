@@ -26,7 +26,6 @@ namespace TreasureHunter.Core.State.GameState
         {
             base.OnStateIn(args);
 
-            // TODO: Show treasure
             _treasureGetPanel = (TreasureGetPanel)UIManager.Instance.Show(UIKey.TreasureGet);
             _treasureGetPanel.continueButton.onClick.AddListener(Continue);
 
