@@ -35,7 +35,6 @@ namespace TreasureHunter.Core.State.GameState
             _abilityGetPanel.uiImage.sprite = abilitySprite;
                 
             Time.timeScale = 0;
-            // TODO: Set text and image
             
         }
 
