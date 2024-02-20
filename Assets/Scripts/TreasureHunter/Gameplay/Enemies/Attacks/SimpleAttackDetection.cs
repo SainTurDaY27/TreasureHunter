@@ -7,6 +7,7 @@ namespace TreasureHunter.Gameplay.Enemies.Attacks
     [RequireComponent(typeof(Animator))]
     public class SimpleAttackDetection : MonoBehaviour
     {
+        public string boolName = AnimationStrings.HasTarget;
         public DetectionZone attackDetectionZone;
         private Animator _animator;
 
@@ -17,7 +18,7 @@ namespace TreasureHunter.Gameplay.Enemies.Attacks
 
         private void Update()
         {
-            _animator.SetBool(AnimationStrings.HasTarget, attackDetectionZone.detected.Count > 0);
+            _animator.SetBool(boolName, attackDetectionZone.detected.Count > 0);
         }
     }
 }
