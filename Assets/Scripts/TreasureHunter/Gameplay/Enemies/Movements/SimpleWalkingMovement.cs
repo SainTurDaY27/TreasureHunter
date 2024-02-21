@@ -67,10 +67,7 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
             }
 
             if (LockVelocity) return;
-            if (CanMove)
-            {
-                _rb.velocity = new Vector2(walkSpeed * WalkDirectionVector.x, _rb.velocity.y);
-            }
+            _rb.velocity = CanMove ? new Vector2(walkSpeed * WalkDirectionVector.x, _rb.velocity.y) : Vector2.zero;
         }
 
     }
