@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,16 +13,20 @@ namespace TreasureHunter.Gameplay.Enemies.Attacks
         public bool summonInSequence;
         public float sequenceDelay;
 
+        private Coroutine _timedSummonCoroutine;
+
         public void InitiateSummon()
         {
-            for (int i = 0; i < summonPoints.Count; i++)
+            if (summonInSequence)
             {
-                var point = summonPoints[i];
-                if (summonInSequence)
+                if (_timedSummonCoroutine == null)
                 {
-                    StartCoroutine(TimedSummon(point, i * sequenceDelay));
+                    _timedSummonCoroutine = StartCoroutine(TimedSummon());
                 }
-                else
+            }
+            else
+            {
+                foreach (var point in summonPoints)
                 {
                     Summon(point);
                 }
@@ -33,10 +38,15 @@ namespace TreasureHunter.Gameplay.Enemies.Attacks
             return Instantiate(summonPrefab, referencePoint.position, summonPrefab.transform.rotation);
         }
 
-        private IEnumerator TimedSummon(Transform referencePoint, float delay)
+        private IEnumerator TimedSummon()
         {
-            yield return new WaitForSeconds(delay);
-            Summon(referencePoint);
+            foreach (var point in summonPoints)
+            {
+                yield return new WaitForSeconds(sequenceDelay);
+                Summon(point);
+            }
+
+            _timedSummonCoroutine = null;
         }
     }
 }
