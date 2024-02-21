@@ -11,6 +11,7 @@ namespace TreasureHunter.Gameplay.System
 
         // Collected treasure will have unique ID
         private HashSet<string> collectedTreasures = new ();
+        private Dictionary<string, bool> boolStates = new();
 
         public int TreasureCount => collectedTreasures.Count;
 
@@ -22,6 +23,16 @@ namespace TreasureHunter.Gameplay.System
         public bool IsTreasureCollected(string treasureId)
         {
             return collectedTreasures.Contains(treasureId);
+        }
+
+        public bool GetBoolState(string stateId, out bool result)
+        {
+            return boolStates.TryGetValue(stateId, out result);
+        }
+
+        public void SetBoolState(string stateId, bool value)
+        {
+            boolStates[stateId] = value;
         }
         
     }
