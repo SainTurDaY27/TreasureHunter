@@ -1,3 +1,4 @@
+using System.Collections;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
@@ -10,8 +11,10 @@ namespace TreasureHunter.Gameplay.Player
         private Rigidbody2D _rb;
         private Animator _animator;
         private TouchingDirections _touchingDirections;
+        private Flash _flash;
         private Damageable _damageable;
         private Vector2 _moveInput;
+        private ProjectileLauncher _projectileLauncher;
 
         [SerializeField] private bool isFacingRight = true;
 
@@ -26,15 +29,19 @@ namespace TreasureHunter.Gameplay.Player
         public float maxFallYVelocity = 30f;
         public float wallJumpLerpAmount = 0.1f;
         public float wallJumpTime = 0.25f;
+        public float fireballCooldown = 1f;
+        public Vector2 fireKnockback = new(10, 0);
 
 
         private bool _isRunning = false;
         private int jumpCount = 0;
         private bool _isWallJumping = false;
+        private bool _canFire = true;
         private float _wallJumpStartTime;
 
 
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
+        public bool ZeroGravity => _animator.GetBool(AnimationStrings.ZeroGravity);
 
         public float CurrentSpeed =>
             _isRunning ? runSpeed : walkSpeed;
@@ -65,6 +72,8 @@ namespace TreasureHunter.Gameplay.Player
             _animator = GetComponent<Animator>();
             _damageable = GetComponent<Damageable>();
             _touchingDirections = GetComponent<TouchingDirections>();
+            _projectileLauncher = GetComponent<ProjectileLauncher>();
+            _flash = GetComponent<Flash>();
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -173,6 +182,34 @@ namespace TreasureHunter.Gameplay.Player
             }
         }
 
+        public void OnFire(InputAction.CallbackContext context)
+        {
+            if (!DataManager.Instance.PlayerData.HasSkill(SkillKey.Fireball))
+            {
+                return;
+            }
+
+            if (context.started && _canFire)
+            {
+                Debug.Log("Fire");
+                _animator.SetTrigger(AnimationStrings.FireTrigger);
+                // Apply knockback
+                var actualKnockback =
+                    new Vector2(-fireKnockback.x * Mathf.Sign(transform.localScale.x), fireKnockback.y);
+                _rb.AddForce(actualKnockback, ForceMode2D.Impulse);
+                _projectileLauncher.FireProjectile();
+                StartCoroutine(SetFireCooldown());
+            }
+        }
+
+        private IEnumerator SetFireCooldown()
+        {
+            _canFire = false;
+            yield return new WaitForSeconds(fireballCooldown);
+            _canFire = true;
+            _flash.DisplayFlash();
+        }
+
         public void OnHit(int damage, Vector2 knockback)
         {
             if (IsAlive)
@@ -213,7 +250,12 @@ namespace TreasureHunter.Gameplay.Player
             }
 
             // Jump gravity
-            if (_rb.velocity.y < 0)
+            if (ZeroGravity)
+            {
+                _rb.gravityScale = 0;
+                _rb.velocity = new Vector2(_rb.velocity.x, 0);
+            }
+            else if (_rb.velocity.y < 0)
             {
                 _rb.gravityScale = gravityScale * fallGravityMultiplier;
             }
