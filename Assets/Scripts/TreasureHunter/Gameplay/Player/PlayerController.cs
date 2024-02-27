@@ -15,6 +15,7 @@ namespace TreasureHunter.Gameplay.Player
         private Damageable _damageable;
         private Vector2 _moveInput;
         private ProjectileLauncher _projectileLauncher;
+        private Vector2 _originalScale;
 
         [SerializeField] private bool isFacingRight = true;
 
@@ -31,6 +32,7 @@ namespace TreasureHunter.Gameplay.Player
         public float wallJumpTime = 0.25f;
         public float fireballCooldown = 1f;
         public Vector2 fireKnockback = new(10, 0);
+        public float shrinkScale = 0.5f;
 
 
         private bool _isRunning = false;
@@ -38,6 +40,8 @@ namespace TreasureHunter.Gameplay.Player
         private bool _isWallJumping = false;
         private bool _canFire = true;
         private float _wallJumpStartTime;
+        private bool _canAirDash = false;
+        private bool _isShrunken = false;
 
 
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
@@ -74,6 +78,7 @@ namespace TreasureHunter.Gameplay.Player
             _touchingDirections = GetComponent<TouchingDirections>();
             _projectileLauncher = GetComponent<ProjectileLauncher>();
             _flash = GetComponent<Flash>();
+            _originalScale = transform.localScale;
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -170,14 +175,22 @@ namespace TreasureHunter.Gameplay.Player
 
             if (context.started)
             {
-                _animator.SetTrigger(AnimationStrings.DashTrigger);
-                if (IsFacingRight)
+                if (_touchingDirections.IsGround || (!_touchingDirections.IsGround && _canAirDash))
                 {
-                    _rb.AddForce(Vector2.right * dashImpulse, ForceMode2D.Impulse);
-                }
-                else
-                {
-                    _rb.AddForce(Vector2.left * dashImpulse, ForceMode2D.Impulse);
+                    if (!_touchingDirections.IsGround)
+                    {
+                        _canAirDash = false;
+                    }
+
+                    _animator.SetTrigger(AnimationStrings.DashTrigger);
+                    if (IsFacingRight)
+                    {
+                        _rb.AddForce(Vector2.right * dashImpulse, ForceMode2D.Impulse);
+                    }
+                    else
+                    {
+                        _rb.AddForce(Vector2.left * dashImpulse, ForceMode2D.Impulse);
+                    }
                 }
             }
         }
@@ -199,6 +212,23 @@ namespace TreasureHunter.Gameplay.Player
                 _rb.AddForce(actualKnockback, ForceMode2D.Impulse);
                 _projectileLauncher.FireProjectile();
                 StartCoroutine(SetFireCooldown());
+            }
+        }
+
+        public void OnShrink(InputAction.CallbackContext context)
+        {
+            if (context.started && DataManager.Instance.PlayerData.HasSkill(SkillKey.Shrink))
+            {
+                transform.localScale = _isShrunken ? new Vector2(_originalScale.x, _originalScale.y) : new Vector2(shrinkScale, shrinkScale);
+
+                _isShrunken = !_isShrunken;
+
+                if (!IsFacingRight)
+                {
+                    var transform1 = transform;
+                    var originalScale = transform1.localScale;
+                    transform1.localScale = new Vector3(-originalScale.x, originalScale.y);
+                }
             }
         }
 
@@ -268,6 +298,7 @@ namespace TreasureHunter.Gameplay.Player
             if (_touchingDirections.IsGround)
             {
                 jumpCount = 0;
+                _canAirDash = true;
             }
 
             // Clamp y velocity
