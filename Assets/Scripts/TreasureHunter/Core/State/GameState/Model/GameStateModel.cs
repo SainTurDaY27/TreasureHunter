@@ -72,7 +72,6 @@ namespace TreasureHunter.Core.State.GameState
             _player.healthChange.RemoveListener(OnPlayerHealthChange);
         }
 
-
         private void OnPlayerHealthChange(int health, int maxHealth)
         {
             _gameHUDPanel.UpdateHealth(health);
@@ -94,6 +93,7 @@ namespace TreasureHunter.Core.State.GameState
             _gameHUDPanel.SetActiveAnnounceText(false);
             UIManager.Instance.Show(UIKey.GameHUD);
         }
+
         private void LoadPlayer()
         {
             _player = GameObject.FindObjectsOfType<Damageable>().FirstOrDefault(d => d.CompareTag("Player"));
