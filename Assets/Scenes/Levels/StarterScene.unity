@@ -245,9 +245,81 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1418580444699523395, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_text
+      value: 10 February 2024 00:30:00
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758557755805038096, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_text
+      value: 00 hours 10 mins
+      objectReference: {fileID: 0}
+    - target: {fileID: 1766574016697082672, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882391906414425615, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996644820757955807, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_text
+      value: Normal cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 2563107840911701940, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2781295519957784042, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 20584ecbde4c21b47bfb693da890edd2, type: 3}
+    - target: {fileID: 3454345525456976850, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951352705549921720, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 67f8c15dce41da84f9b301d2ce3ec823, type: 3}
+    - target: {fileID: 4108025896571012025, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_text
+      value: Weird space
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665696974370193714, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 66176756dd080b647b20390ba21c6c5a, type: 3}
+    - target: {fileID: 6817213597418884762, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_text
+      value: 9 February 2024 12:00:00
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817779375508499884, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_text
+      value: 14 February 2024 13:30:00
+      objectReference: {fileID: 0}
+    - target: {fileID: 7347281827560620849, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441102265156371722, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 20584ecbde4c21b47bfb693da890edd2, type: 3}
+    - target: {fileID: 7469716092549575577, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7816393178348951148, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
       propertyPath: m_Name
       value: UIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865509693579741975, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251897756321618093, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_text
+      value: 01 hours 27 mins
       objectReference: {fileID: 0}
     - target: {fileID: 8475355167503733638, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -288,6 +360,10 @@ PrefabInstance:
     - target: {fileID: 8475355167503733638, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775437465177916087, guid: 4dc3b237bc5ad6e4dbcd7ed6107d6a0a, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

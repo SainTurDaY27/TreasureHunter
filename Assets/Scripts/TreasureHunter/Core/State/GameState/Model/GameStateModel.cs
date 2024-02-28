@@ -24,6 +24,9 @@ namespace TreasureHunter.Core.State.GameState
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
                 toState: (int)GameStates.State.SkillPickup));
+            GameStateManager.Instance.AddTransition(new StateTransition(
+                fromState: StateID,
+                toState: (int)GameStates.State.TreasureGet));
         }
 
         public override void OnStateIn(params object[] args)

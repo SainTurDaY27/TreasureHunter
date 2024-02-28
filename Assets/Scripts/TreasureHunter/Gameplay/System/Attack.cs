@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TreasureHunter.Gameplay.System
 {
@@ -12,6 +13,7 @@ namespace TreasureHunter.Gameplay.System
 
         // localScale.x is inverted if left
         public bool startRight = true;
+        public UnityEvent attackHit;
 
         void OnTriggerEnter2D(Collider2D other)
         {
@@ -39,7 +41,7 @@ namespace TreasureHunter.Gameplay.System
 
             if (damageable.Hit(attackDamage, actualKnockback))
             {
-                // Debug.Log("Hit");
+                attackHit?.Invoke();
             }
         }
     }

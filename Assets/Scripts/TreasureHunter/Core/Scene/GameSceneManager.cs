@@ -6,9 +6,8 @@ namespace TreasureHunter.Core.Scene
 {
     public class GameSceneManager : MonoSingleton<GameSceneManager>
     {
-        [SerializeField] 
-        private SceneLoader _sceneLoader;
-        
+        [SerializeField] private SceneLoader _sceneLoader;
+
         public void GoToScene(string scene, Action callback = null)
         {
             switch (scene)
@@ -23,6 +22,13 @@ namespace TreasureHunter.Core.Scene
 
                 case SceneKey.ABNORMAL_CAVE:
                     _sceneLoader.LoadSceneByName(SceneKey.ABNORMAL_CAVE, callback);
+                    break;
+
+                case SceneKey.NORMAL_CAVE:
+                    _sceneLoader.LoadSceneByName(SceneKey.NORMAL_CAVE, callback);
+                    break;
+                case SceneKey.WEIRD_SPACE:
+                    _sceneLoader.LoadSceneByName(SceneKey.WEIRD_SPACE, callback);
                     break;
 
                 default:

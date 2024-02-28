@@ -6,18 +6,14 @@ namespace TreasureHunter.Core.UI
 {
     public class UIManager : MonoSingleton<UIManager>
     {
-        [SerializeField]
-        private MenuPanel _menuPanel;
-        [SerializeField]
-        private AbilitySelectionPanel _abilitySelectionPanel;
-        [SerializeField]
-        private GameHUDPanel _gameHUDPanel;
-        [SerializeField]
-        private EndGamePanel _endGamePanel;
-        [SerializeField] 
-        private AbilityGetPanel _abilityGetPanel;
-        [SerializeField]
-        private LoadGamePanel _loadGamePanel;
+        
+        [SerializeField] private MenuPanel _menuPanel;
+        [SerializeField] private AbilitySelectionPanel _abilitySelectionPanel;
+        [SerializeField] private GameHUDPanel _gameHUDPanel;
+        [SerializeField] private EndGamePanel _endGamePanel;
+
+        [SerializeField] private AbilityGetPanel _abilityGetPanel;
+        [SerializeField] private TreasureGetPanel _treasureGetPanel;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -41,6 +37,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.LoadGame:
                     _loadGamePanel.SetActive(true);
                     return _loadGamePanel;
+                case UIKey.TreasureGet:
+                    _treasureGetPanel.SetActive(true);
+                    return _treasureGetPanel;
                 default:
                     return null;
             }
@@ -74,6 +73,10 @@ namespace TreasureHunter.Core.UI
                     _loadGamePanel.SetActive(false);
                     _loadGamePanel.transform.SetAsLastSibling();
                     return _loadGamePanel;
+                case UIKey.TreasureGet:
+                    _treasureGetPanel.SetActive(false);
+                    _treasureGetPanel.transform.SetAsLastSibling();
+                    return _treasureGetPanel;
                 default:
                     return null;
             }
@@ -110,6 +113,8 @@ namespace TreasureHunter.Core.UI
                     return true;
                 case UIKey.LoadGame:
                     ui = _loadGamePanel;
+                case UIKey.TreasureGet:
+                    ui = _treasureGetPanel;
                     return true;
                 default:
                     ui = null;
@@ -125,6 +130,6 @@ namespace TreasureHunter.Core.UI
         GameHUD,
         EndGame,
         AbilityGet,
-        LoadGame
+        TreasureGet
     }
 }
