@@ -14,6 +14,7 @@ namespace TreasureHunter.Core.UI
 
         [SerializeField] private AbilityGetPanel _abilityGetPanel;
         [SerializeField] private TreasureGetPanel _treasureGetPanel;
+        [SerializeField] private LoadGamePanel _loadGamePanel;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -113,6 +114,7 @@ namespace TreasureHunter.Core.UI
                     return true;
                 case UIKey.LoadGame:
                     ui = _loadGamePanel;
+                    return true;
                 case UIKey.TreasureGet:
                     ui = _treasureGetPanel;
                     return true;
@@ -130,6 +132,7 @@ namespace TreasureHunter.Core.UI
         GameHUD,
         EndGame,
         AbilityGet,
-        TreasureGet
+        TreasureGet,
+        LoadGame
     }
 }
