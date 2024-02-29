@@ -15,6 +15,7 @@ namespace TreasureHunter.Core.UI
         [SerializeField] private AbilityGetPanel _abilityGetPanel;
         [SerializeField] private TreasureGetPanel _treasureGetPanel;
         [SerializeField] private LoadGamePanel _loadGamePanel;
+        [SerializeField] private MapPanel _mapPanel;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -41,6 +42,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.TreasureGet:
                     _treasureGetPanel.SetActive(true);
                     return _treasureGetPanel;
+                case UIKey.Map:
+                    _mapPanel.SetActive(true);
+                    return _mapPanel;
                 default:
                     return null;
             }
@@ -78,6 +82,10 @@ namespace TreasureHunter.Core.UI
                     _treasureGetPanel.SetActive(false);
                     _treasureGetPanel.transform.SetAsLastSibling();
                     return _treasureGetPanel;
+                case UIKey.Map:
+                    _mapPanel.SetActive(false);
+                    _mapPanel.transform.SetAsLastSibling();
+                    return _mapPanel;
                 default:
                     return null;
             }
@@ -91,6 +99,8 @@ namespace TreasureHunter.Core.UI
             _endGamePanel.SetActive(false);
             _abilityGetPanel.SetActive(false);
             _loadGamePanel.SetActive(false);
+            _treasureGetPanel.SetActive(false);
+            _mapPanel.SetActive(false);
         }
 
         public bool TryGetUIByKey(UIKey uiKey, out IBaseUI ui)
@@ -118,6 +128,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.TreasureGet:
                     ui = _treasureGetPanel;
                     return true;
+                case UIKey.Map:
+                    ui = _mapPanel;
+                    return true;
                 default:
                     ui = null;
                     return false;
@@ -133,6 +146,7 @@ namespace TreasureHunter.Core.UI
         EndGame,
         AbilityGet,
         TreasureGet,
-        LoadGame
+        LoadGame,
+        Map
     }
 }
