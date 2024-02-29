@@ -42,10 +42,14 @@ namespace TreasureHunter.Gameplay.Player
         private float _wallJumpStartTime;
         private bool _canAirDash = false;
         private bool _isShrunken = false;
+        private SizeChangeMode _nextSizeChangeMode = SizeChangeMode.Shrink;
+        private Vector2 _sizeChangeDestination;
 
 
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
         public bool ZeroGravity => _animator.GetBool(AnimationStrings.ZeroGravity);
+
+        public bool CanChangeSize { get; set; } = false;
 
         public float CurrentSpeed =>
             _isRunning ? runSpeed : walkSpeed;
@@ -217,19 +221,42 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnShrink(InputAction.CallbackContext context)
         {
-            if (context.started && DataManager.Instance.PlayerData.HasSkill(SkillKey.Shrink))
+            if (context.started && DataManager.Instance.PlayerData.HasSkill(SkillKey.Shrink) && CanChangeSize)
             {
-                transform.localScale = _isShrunken ? new Vector2(_originalScale.x, _originalScale.y) : new Vector2(shrinkScale, shrinkScale);
+                if (_nextSizeChangeMode == SizeChangeMode.Shrink)
+                {
+                    transform.localScale = new Vector3(shrinkScale, shrinkScale);
+                }
+                else
+                {
+
+                    transform.localScale = new Vector3(_originalScale.x, _originalScale.y);
+                }
 
                 _isShrunken = !_isShrunken;
 
+                // fix local scale direction
                 if (!IsFacingRight)
                 {
                     var transform1 = transform;
                     var originalScale = transform1.localScale;
                     transform1.localScale = new Vector3(-originalScale.x, originalScale.y);
                 }
+
+                transform.position = _sizeChangeDestination;
             }
+        }
+
+        public void OnEnterAltar(SizeChangeMode mode, Vector2 destinationLocation)
+        {
+            CanChangeSize = true;
+            _sizeChangeDestination = destinationLocation;
+            _nextSizeChangeMode = mode;
+        }
+
+        public void OnExitAltar()
+        {
+            CanChangeSize = false;
         }
 
         private IEnumerator SetFireCooldown()
