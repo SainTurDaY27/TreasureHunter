@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.Map;
+using TreasureHunter.Gameplay.System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TreasureHunter.Gameplay.UI
 {
@@ -31,6 +34,9 @@ namespace TreasureHunter.Gameplay.UI
         [SerializeField]
         private TextMeshProUGUI _markerRemainingText;
 
+        [SerializeField]
+        private Image[] _treasureImageUIs;
+        
         [Serializable]
         protected class MapArrowUI
         {
@@ -44,9 +50,12 @@ namespace TreasureHunter.Gameplay.UI
             public GameObject ArrowUI => _arrowUI;
         }
 
-        // TODO: Treasure UI panel
-
         private GameObject[] _mapMarkerPrefabs;
+        
+        // TODO: create event for changing of map areas
+        public event Action OnMarkerPlaced;
+        public event Action OnMarkerRemoved;
+        public event Action OnMapAreaChanged;
 
         public void SetActive(bool isActive)
         {
@@ -56,7 +65,22 @@ namespace TreasureHunter.Gameplay.UI
         public void SetMapMarkerRemaining(int remaining)
         {
             // TODO: move limit number to other classes - maybe constant in data class
-            _markerRemainingText.text = remaining.ToString() + " / 6";
+            _markerRemainingText.text = remaining.ToString() + $" / {GameData.MaxMapMarker}";
+        }
+
+        public void SetTreasureImage(int collectTreasure)
+        {
+            for (int i = 0; i < _treasureImageUIs.Length; i++)
+            {
+                if (i < collectTreasure)
+                {
+                    _treasureImageUIs[i].color = Color.white;
+                }
+                else
+                {
+                    _treasureImageUIs[i].color = Color.black;
+                }
+            }
         }
 
         public void SetActiveMapBlockUI(MapAreaKey mapAreaKey, bool isActive)
@@ -83,8 +107,10 @@ namespace TreasureHunter.Gameplay.UI
 
         private void PlaceMapMarker(Vector3 position)
         {
-            Instantiate(_mapMarkerPrefab, position, Quaternion.identity);
-            // TODO: decrease remaining marker
+            // Instantiate map marker prefab as child of map area panel
+            // Instantiate(_mapMarkerPrefab, position, Quaternion.identity);
+            var mapMarker = Instantiate(_mapMarkerPrefab, _mapAreaPanel.transform);
+            mapMarker.transform.position = position;
         }
 
         private void RemoveMapMarker()
@@ -96,6 +122,7 @@ namespace TreasureHunter.Gameplay.UI
         {
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Mouse clicked");
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 // if hit object with tag "Marker"
@@ -107,11 +134,13 @@ namespace TreasureHunter.Gameplay.UI
 
                         // TODO: check correctness of the object
                         Destroy(hit.collider.gameObject);
+                        DataManager.Instance.GameData.GainMapMarker();
                         Debug.Log("Marker removed");
                     }
                     else
                     {
                         PlaceMapMarker(hit.point);
+                        DataManager.Instance.GameData.UseMapMarker();
                         Debug.Log("Marker placed");
                     }
                 }
