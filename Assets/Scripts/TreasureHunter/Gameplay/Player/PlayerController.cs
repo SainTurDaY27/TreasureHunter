@@ -42,6 +42,7 @@ namespace TreasureHunter.Gameplay.Player
         private float _wallJumpStartTime;
         private bool _canAirDash = false;
         private bool _isShrunken = false;
+        private bool _canChangeSize  = false;
         private SizeChangeMode _nextSizeChangeMode = SizeChangeMode.Shrink;
         private Vector2 _sizeChangeDestination;
 
@@ -49,7 +50,6 @@ namespace TreasureHunter.Gameplay.Player
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
         public bool ZeroGravity => _animator.GetBool(AnimationStrings.ZeroGravity);
 
-        public bool CanChangeSize { get; set; } = false;
 
         public float CurrentSpeed =>
             _isRunning ? runSpeed : walkSpeed;
@@ -221,7 +221,7 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnShrink(InputAction.CallbackContext context)
         {
-            if (context.started && DataManager.Instance.PlayerData.HasSkill(SkillKey.Shrink) && CanChangeSize)
+            if (context.started && DataManager.Instance.PlayerData.HasSkill(SkillKey.Shrink) && _canChangeSize)
             {
                 if (_nextSizeChangeMode == SizeChangeMode.Shrink)
                 {
@@ -249,14 +249,14 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnEnterAltar(SizeChangeMode mode, Vector2 destinationLocation)
         {
-            CanChangeSize = true;
+            _canChangeSize = true;
             _sizeChangeDestination = destinationLocation;
             _nextSizeChangeMode = mode;
         }
 
         public void OnExitAltar()
         {
-            CanChangeSize = false;
+            _canChangeSize = false;
         }
 
         private IEnumerator SetFireCooldown()
