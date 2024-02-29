@@ -19,26 +19,28 @@ namespace TreasureHunter.Gameplay.System
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
-            // TODO: probably find a better way to do this.
+            var playerController = GetPlayerController(other);
+            if (playerController == null) return;
+            playerController.OnEnterAltar(mode, destinationAltar.position);
+
+        }
+
+        private PlayerController GetPlayerController(Collider2D other)
+        {
             var playerController = other.GetComponent<PlayerController>();
             if (playerController == null)
             {
-                Debug.LogWarning("The player somehow has no player controler");
-                return;
+                Debug.LogWarning("The player somehow has no player controller");
+                return playerController;
             };
-            playerController.OnEnterAltar(mode, destinationAltar.position);
-
+            return playerController;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
             var playerController = other.GetComponent<PlayerController>();
-            if (playerController == null)
-            {
-                Debug.LogWarning("The player somehow has no player controler");
-                return;
-            };
+            if (playerController == null) return;
             playerController.OnExitAltar();
         }
 
