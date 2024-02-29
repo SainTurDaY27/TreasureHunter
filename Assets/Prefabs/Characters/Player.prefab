@@ -539,6 +539,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchPoint: {fileID: 6610408714723862372}
   projectilePrefab: {fileID: 8187433722072582852, guid: 02e2f929834a44a478167883db03983d, type: 3}
+  scaleFromUser: 1
+  fireBackward: 0
 --- !u!114 &4744594048816843952
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -208,7 +208,6 @@ namespace TreasureHunter.Gameplay.Player
 
             if (context.started && _canFire)
             {
-                Debug.Log("Fire");
                 _animator.SetTrigger(AnimationStrings.FireTrigger);
                 // Apply knockback
                 var actualKnockback =
