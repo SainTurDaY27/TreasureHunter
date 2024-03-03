@@ -10,6 +10,7 @@ namespace TreasureHunter.Core.State.GameState
     public class TreasureGetStateModel : StateModel
     {
         private TreasureGetPanel _treasureGetPanel;
+        private GameManager _gameManager;
         private int _treasureCount;
         private const int AnimationScale = 3;
         private const float AnimationTime = 0.5f;
@@ -25,7 +26,7 @@ namespace TreasureHunter.Core.State.GameState
         public override void OnStateIn(params object[] args)
         {
             base.OnStateIn(args);
-
+            _gameManager = GameManager.Instance;
             _treasureGetPanel = (TreasureGetPanel)UIManager.Instance.Show(UIKey.TreasureGet);
             _treasureGetPanel.continueButton.onClick.AddListener(Continue);
 
@@ -52,7 +53,8 @@ namespace TreasureHunter.Core.State.GameState
 
 
             // Pause the game
-            Time.timeScale = 0;
+            _gameManager.PauseGame(true);
+
 
             Debug.Log($"Player now has {DataManager.Instance.GameData.TreasureCount} treasure(s).");
         }
@@ -74,7 +76,7 @@ namespace TreasureHunter.Core.State.GameState
             base.OnStateOut();
 
             // Unpause the game
-            Time.timeScale = 1f;
+            _gameManager.PauseGame(false);
             _treasureGetPanel.continueButton.onClick.RemoveListener(Continue);
             foreach (var image in _treasureGetPanel.treasureImages)
             {
