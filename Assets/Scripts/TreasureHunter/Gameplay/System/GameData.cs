@@ -1,19 +1,53 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using TreasureHunter.Gameplay.Map;
 
 namespace TreasureHunter.Gameplay.System
 {
     public class GameData
     {
-
         public static readonly int MaxTreasure = 3;
+        public static readonly int MaxMapMarker = 6;
 
         // Collected treasure will have unique ID
-        private HashSet<string> collectedTreasures = new ();
+        private HashSet<string> collectedTreasures = new();
         private Dictionary<string, bool> boolStates = new();
+        private MapAreaKey[] _exploredMapAreas;
+
+        // TODO: config this later -> move to config data file
+        private int remainingMapMarker = 6;
 
         public int TreasureCount => collectedTreasures.Count;
+        public int MapMarker => remainingMapMarker;
+        public MapAreaKey[] ExploredMapAreas => _exploredMapAreas;
+
+        public bool IsMouseOverMapMarker = false;
+        public event Action OnMapMarkerChanged;
+        public event Action OnMapAreaExplored;
+
+        public void ExploreNewMapArea(MapAreaKey mapAreaKey)
+        {
+            if (_exploredMapAreas == null)
+            {
+                _exploredMapAreas = new MapAreaKey[1];
+                _exploredMapAreas[0] = mapAreaKey;
+            }
+            else
+            {
+                if (Array.Exists(_exploredMapAreas, element => element == mapAreaKey))
+                {
+                    return;
+                }
+                Array.Resize(ref _exploredMapAreas, _exploredMapAreas.Length + 1);
+                _exploredMapAreas[_exploredMapAreas.Length - 1] = mapAreaKey;
+            }
+            OnMapAreaExplored?.Invoke();
+        }
+
+        public void SetMouseOverMapMarker(bool value)
+        {
+            IsMouseOverMapMarker = value;
+        }
 
         public void CollectTreasure(string treasureId)
         {
@@ -25,6 +59,31 @@ namespace TreasureHunter.Gameplay.System
             return collectedTreasures.Contains(treasureId);
         }
 
+        public void UseMapMarker()
+        {
+            if (CheckMapMarkerAvailable())
+            {
+                remainingMapMarker--;
+            }
+            OnMapMarkerChangedHandler();
+        }
+
+        public void GainMapMarker()
+        {
+            remainingMapMarker++;
+            OnMapMarkerChangedHandler();
+        }
+
+        public int GetRemainingMapMarker()
+        {
+            return remainingMapMarker;
+        }
+
+        public bool CheckMapMarkerAvailable()
+        {
+            return remainingMapMarker > 0;
+        }
+
         public bool GetBoolState(string stateId, out bool result)
         {
             return boolStates.TryGetValue(stateId, out result);
@@ -34,6 +93,10 @@ namespace TreasureHunter.Gameplay.System
         {
             boolStates[stateId] = value;
         }
-        
+
+        private void OnMapMarkerChangedHandler()
+        {
+            OnMapMarkerChanged?.Invoke();
+        }
     }
 }
