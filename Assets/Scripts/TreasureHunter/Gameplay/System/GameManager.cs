@@ -32,6 +32,23 @@ namespace TreasureHunter.Gameplay.System
             _endGameDelay = StartCoroutine(EndGameDelay());
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                // TODO: Use better way to check current state
+                if (GameStateManager.Instance.CurrentState.StateID == (int)GameStates.State.Game)
+                {
+                    GameStateManager.Instance.GoToState((int)GameStates.State.Map);
+                
+                }
+                else if (GameStateManager.Instance.CurrentState.StateID == (int)GameStates.State.Map)
+                {
+                    GameStateManager.Instance.GoToState((int)GameStates.State.Game);
+                }
+            }
+        }
+
         private IEnumerator EndGameDelay()
         {
             yield return new WaitForSeconds(_END_GAME_DELAY);
