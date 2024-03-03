@@ -1,6 +1,8 @@
 using System.Linq;
+using TreasureHunter.Core.Data;
 using TreasureHunter.Core.Scene;
 using TreasureHunter.Core.UI;
+using TreasureHunter.Gameplay.Map;
 using TreasureHunter.Gameplay.System;
 using TreasureHunter.Gameplay.UI;
 using UnityEngine;
@@ -12,6 +14,7 @@ namespace TreasureHunter.Core.State.GameState
         private GameHUDPanel _gameHUDPanel;
         private Damageable _player;
         private GameManager _gameManager;
+        private DataManager _dataManager;
 
         public GameStateModel() : base((int)GameStates.State.Game, nameof(GameStateModel))
         {
@@ -27,6 +30,9 @@ namespace TreasureHunter.Core.State.GameState
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
                 toState: (int)GameStates.State.TreasureGet));
+            GameStateManager.Instance.AddTransition(new StateTransition(
+                fromState: StateID,
+                toState: (int)GameStates.State.Map));
         }
 
         public override void OnStateIn(params object[] args)
@@ -38,6 +44,7 @@ namespace TreasureHunter.Core.State.GameState
                 backToGameMethod = (BackToGameMethod)args[0];
             }
             _gameManager = GameManager.Instance;
+            _dataManager = DataManager.Instance;
 
             switch (backToGameMethod)
             {
@@ -46,6 +53,11 @@ namespace TreasureHunter.Core.State.GameState
                     {
                         LoadPlayer();
                         LoadGameHUD();
+
+                        // TODO: Move this to a better place later
+                        _dataManager.GameData.ExploreNewMapArea(MapAreaKey.TheSurface);
+                        _dataManager.GameData.ExploreNewMapArea(MapAreaKey.TheEntrace);
+
                         Debug.Log("Start new game");
                     });
                     break;
