@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
@@ -36,7 +34,7 @@ namespace TreasureHunter.Gameplay.UI
 
         [SerializeField]
         private Image[] _treasureImageUIs;
-        
+
         [Serializable]
         protected class MapArrowUI
         {
@@ -50,12 +48,7 @@ namespace TreasureHunter.Gameplay.UI
             public GameObject ArrowUI => _arrowUI;
         }
 
-        private GameObject[] _mapMarkerPrefabs;
-        
-        // TODO: create event for changing of map areas
-        public event Action OnMarkerPlaced;
-        public event Action OnMarkerRemoved;
-        public event Action OnMapAreaChanged;
+        private DataManager _dataManager;
 
         public void SetActive(bool isActive)
         {
@@ -64,7 +57,6 @@ namespace TreasureHunter.Gameplay.UI
 
         public void SetMapMarkerRemaining(int remaining)
         {
-            // TODO: move limit number to other classes - maybe constant in data class
             _markerRemainingText.text = remaining.ToString() + $" / {GameData.MaxMapMarker}";
         }
 
@@ -79,6 +71,31 @@ namespace TreasureHunter.Gameplay.UI
                 else
                 {
                     _treasureImageUIs[i].color = Color.black;
+                }
+            }
+        }
+
+        public void ResetMapUI()
+        {
+            foreach (var mapBlockUI in _mapBlockUIs)
+            {
+                mapBlockUI.SetActiveMapBlockUI(false);
+            }
+            foreach (var mapArrowUI in _mapArrowUIs)
+            {
+                mapArrowUI.ArrowUI.SetActive(false);
+            }
+        }
+
+        public void UpdateMapUI(MapAreaKey[] exploredMapAreas)
+        {
+            ResetMapUI();
+            for (int i = 0; i < _mapBlockUIs.Length; i++)
+            {
+                if (Array.Exists(exploredMapAreas, element => element == _mapBlockUIs[i].MapAreaKey))
+                {
+                    SetActiveMapBlockUI(_mapBlockUIs[i].MapAreaKey, true);
+                    SetActiveArrowUI(_mapBlockUIs[i].MapAreaKey, true);
                 }
             }
         }
@@ -107,42 +124,27 @@ namespace TreasureHunter.Gameplay.UI
 
         private void PlaceMapMarker(Vector3 position)
         {
-            // Instantiate map marker prefab as child of map area panel
-            // Instantiate(_mapMarkerPrefab, position, Quaternion.identity);
             var mapMarker = Instantiate(_mapMarkerPrefab, _mapAreaPanel.transform);
             mapMarker.transform.position = position;
         }
 
-        private void RemoveMapMarker()
+        private void Awake()
         {
-            
+            _dataManager = DataManager.Instance;
         }
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Mouse clicked");
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                // if hit object with tag "Marker"
-                if (Physics.Raycast(ray, out hit))
+                if (_dataManager.GameData.IsMouseOverMapMarker)
                 {
-                    if (hit.collider.CompareTag("Marker"))
-                    {
-                        RemoveMapMarker();
-
-                        // TODO: check correctness of the object
-                        Destroy(hit.collider.gameObject);
-                        DataManager.Instance.GameData.GainMapMarker();
-                        Debug.Log("Marker removed");
-                    }
-                    else
-                    {
-                        PlaceMapMarker(hit.point);
-                        DataManager.Instance.GameData.UseMapMarker();
-                        Debug.Log("Marker placed");
-                    }
+                    return;
+                }
+                if (_dataManager.GameData.CheckMapMarkerAvailable())
+                {
+                    PlaceMapMarker(Input.mousePosition);
+                    _dataManager.GameData.UseMapMarker();
                 }
             }
         }
