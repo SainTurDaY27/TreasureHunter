@@ -28,6 +28,7 @@ namespace TreasureHunter.Core.State.GameState
             _mapPanel = (MapPanel)UIManager.Instance.Show(UIKey.Map);
             _dataManager.GameData.OnMapMarkerChanged += UpdateRemainingMarkerAmount;
             _dataManager.GameData.OnMapAreaExplored += UpdateInGameMap;
+            UpdateInGameMap();
             UpdateTresureUI();
             UpdateRemainingMarkerAmount();
             _gameManager.PauseGame(true);
