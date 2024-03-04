@@ -1,14 +1,15 @@
 using TreasureHunter.Core.UI;
+using TreasureHunter.Gameplay.System;
 using TreasureHunter.Gameplay.UI;
 using UnityEngine;
 
 namespace TreasureHunter.Core.State.GameState
 {
     public class AbilityPickupStateModel : StateModel
-
     {
-
         private AbilityGetPanel _abilityGetPanel;
+        private GameManager _gameManager;
+
         public AbilityPickupStateModel() : base((int)GameStates.State.SkillPickup, nameof(AbilityPickupStateModel))
         {
             GameStateManager.Instance.AddTransition(new StateTransition(
@@ -19,7 +20,8 @@ namespace TreasureHunter.Core.State.GameState
         public override void OnStateIn(params object[] args)
         {
             base.OnStateIn(args);
-            
+            _gameManager = GameManager.Instance;
+
             // If args are invalid just do nothing.
 
             // If there is a better method, please fix.
@@ -34,7 +36,8 @@ namespace TreasureHunter.Core.State.GameState
             _abilityGetPanel.uiToolTip.text = abilityToolTip;
             _abilityGetPanel.uiImage.sprite = abilitySprite;
                 
-            Time.timeScale = 0;
+            _gameManager.PauseGame(true);
+            // TODO: Set text and image
             
         }
 
@@ -44,14 +47,16 @@ namespace TreasureHunter.Core.State.GameState
             
             // Unpause the game
             // There is no slow down or speed up in this game.
-            Time.timeScale = 1f;
+
+            _gameManager.PauseGame(false);
+
             _abilityGetPanel.continueButton.onClick.RemoveListener(Continue);
             UIManager.Instance.Hide(UIKey.AbilityGet);
         }
 
         private void Continue()
         {
-            GameStateManager.Instance.GoToState((int)GameStates.State.Game);
+            GameStateManager.Instance.GoToState((int)GameStates.State.Game, BackToGameMethod.ContinueGame);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace TreasureHunter.Gameplay.Player
         private TouchingDirections _touchingDirections;
         private Damageable _damageable;
         private Vector2 _moveInput;
+        private GameManager _gameManager;
 
         [SerializeField] private bool isFacingRight = true;
 
@@ -65,12 +66,13 @@ namespace TreasureHunter.Gameplay.Player
             _animator = GetComponent<Animator>();
             _damageable = GetComponent<Damageable>();
             _touchingDirections = GetComponent<TouchingDirections>();
+            _gameManager = GameManager.Instance;
         }
 
         public void OnMove(InputAction.CallbackContext context)
         {
             _moveInput = context.ReadValue<Vector2>();
-            if (IsAlive)
+            if (IsAlive && !_gameManager.IsGamePaused)
             {
                 IsMoving = _moveInput.x != 0;
                 SetFacingDirection(_moveInput);
@@ -146,7 +148,7 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started && !_gameManager.IsGamePaused)
             {
                 _animator.SetTrigger(AnimationStrings.AttackTrigger);
             }
@@ -244,6 +246,10 @@ namespace TreasureHunter.Gameplay.Player
 
         private void SetFacingDirection(Vector2 moveInput)
         {
+            if (_gameManager.IsGamePaused)
+            {
+                return;
+            }
             if (moveInput.x > 0 && !IsFacingRight)
             {
                 // Face the right
