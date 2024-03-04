@@ -80,6 +80,10 @@ namespace TreasureHunter.Gameplay.UI
             foreach (var mapBlockUI in _mapBlockUIs)
             {
                 mapBlockUI.SetActiveMapBlockUI(false);
+                if (mapBlockUI.MapAreaKey != MapAreaKey.TheSurface)
+                {
+                    mapBlockUI.ChangeMapNameTextColor(_normalMapBlockTextColor);
+                }
             }
             foreach (var mapArrowUI in _mapArrowUIs)
             {
@@ -96,6 +100,10 @@ namespace TreasureHunter.Gameplay.UI
                 {
                     SetActiveMapBlockUI(_mapBlockUIs[i].MapAreaKey, true);
                     SetActiveArrowUI(_mapBlockUIs[i].MapAreaKey, true);
+                    if (_mapBlockUIs[i].MapAreaKey == _dataManager.GameData.CurrentMapArea)
+                    {
+                        _mapBlockUIs[i].ChangeMapNameTextColor(_currentMapBlockTextColor);
+                    }
                 }
             }
         }

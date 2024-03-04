@@ -14,12 +14,16 @@ namespace TreasureHunter.Gameplay.System
         private Dictionary<string, bool> boolStates = new();
         private MapAreaKey[] _exploredMapAreas;
 
-        // TODO: config this later -> move to config data file
+        // TODO: Set this variable later
+        private MapAreaKey _currentMapArea = MapAreaKey.TheEntrace;
+
+        // TODO: Config this later -> move to config data file
         private int remainingMapMarker = 6;
 
         public int TreasureCount => collectedTreasures.Count;
         public int MapMarker => remainingMapMarker;
         public MapAreaKey[] ExploredMapAreas => _exploredMapAreas;
+        public MapAreaKey CurrentMapArea => _currentMapArea;
 
         public bool IsMouseOverMapMarker = false;
         public event Action OnMapMarkerChanged;
@@ -42,6 +46,11 @@ namespace TreasureHunter.Gameplay.System
                 _exploredMapAreas[_exploredMapAreas.Length - 1] = mapAreaKey;
             }
             OnMapAreaExplored?.Invoke();
+        }
+
+        public void SetCurrentMapArea(MapAreaKey mapAreaKey)
+        {
+            _currentMapArea = mapAreaKey;
         }
 
         public void SetMouseOverMapMarker(bool value)
