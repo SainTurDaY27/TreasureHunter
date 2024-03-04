@@ -1788,6 +1788,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8490378071630152582, guid: 239b5151f0758034c86ad2728e2210fc, type: 3}
+      propertyPath: _normalMapBlockTextColor.b
+      value: 0.98490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 8490378071630152582, guid: 239b5151f0758034c86ad2728e2210fc, type: 3}
+      propertyPath: _normalMapBlockTextColor.g
+      value: 0.98490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 8490378071630152582, guid: 239b5151f0758034c86ad2728e2210fc, type: 3}
+      propertyPath: _normalMapBlockTextColor.r
+      value: 0.98490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 8490378071630152582, guid: 239b5151f0758034c86ad2728e2210fc, type: 3}
       propertyPath: _treasureImageUIs.Array.data[0]
       value: 
       objectReference: {fileID: 1169146570010333902}
