@@ -10,6 +10,7 @@ namespace TreasureHunter.Gameplay.System
 
         public Vector2 knockback = Vector2.zero;
         public bool isContactDamage = false;
+        public bool isProjectile = false;
 
         // localScale.x is inverted if left
         public bool startRight = true;
@@ -25,6 +26,20 @@ namespace TreasureHunter.Gameplay.System
             {
                 float xDistance = other.transform.position.x - transform.position.x;
                 float knockbackX = xDistance > 0 ? knockback.x : -knockback.x;
+                actualKnockback = new Vector2(knockbackX, knockback.y);
+            }
+            else if (isProjectile)
+            {
+                float knockbackX = knockback.x;
+                if (startRight)
+                {
+                    knockbackX *= Mathf.Sign(transform.localScale.x);
+                }
+                else
+                {
+                    knockbackX *= -Mathf.Sign(transform.localScale.x);
+                }
+
                 actualKnockback = new Vector2(knockbackX, knockback.y);
             }
             // not contact damage

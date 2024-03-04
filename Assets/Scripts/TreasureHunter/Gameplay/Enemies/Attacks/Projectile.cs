@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TreasureHunter.Gameplay.Enemies.Attacks
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Projectile : MonoBehaviour
     {
         public Vector2 moveSpeed;

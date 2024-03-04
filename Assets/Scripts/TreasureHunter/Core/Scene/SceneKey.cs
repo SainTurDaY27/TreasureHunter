@@ -9,6 +9,7 @@ namespace TreasureHunter.Core.Scene
         public const string ABNORMAL_CAVE = "AbnormalCave";
         public const string NORMAL_CAVE = "NormalCave";
         public const string WEIRD_SPACE = "WeirdSpace";
+        public const string SCORPION_CAVE = "ScorpionCave";
 
     }
 }

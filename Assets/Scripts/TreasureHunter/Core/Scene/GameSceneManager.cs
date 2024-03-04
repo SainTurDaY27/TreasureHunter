@@ -30,6 +30,10 @@ namespace TreasureHunter.Core.Scene
                 case SceneKey.WEIRD_SPACE:
                     _sceneLoader.LoadSceneByName(SceneKey.WEIRD_SPACE, callback);
                     break;
+                
+                case SceneKey.SCORPION_CAVE:
+                    _sceneLoader.LoadSceneByName(SceneKey.SCORPION_CAVE, callback);
+                    break;
 
                 default:
                     Debug.LogError("Scene not found");

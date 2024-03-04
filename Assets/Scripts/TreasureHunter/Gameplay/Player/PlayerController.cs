@@ -1,3 +1,4 @@
+using System.Collections;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
@@ -10,9 +11,12 @@ namespace TreasureHunter.Gameplay.Player
         private Rigidbody2D _rb;
         private Animator _animator;
         private TouchingDirections _touchingDirections;
+        private Flash _flash;
         private Damageable _damageable;
         private Vector2 _moveInput;
         private GameManager _gameManager;
+        private ProjectileLauncher _projectileLauncher;
+        private Vector2 _originalScale;
 
         [SerializeField] private bool isFacingRight = true;
 
@@ -27,15 +31,26 @@ namespace TreasureHunter.Gameplay.Player
         public float maxFallYVelocity = 30f;
         public float wallJumpLerpAmount = 0.1f;
         public float wallJumpTime = 0.25f;
+        public float fireballCooldown = 1f;
+        public Vector2 fireKnockback = new(10, 0);
+        public float shrinkScale = 0.5f;
 
 
         private bool _isRunning = false;
         private int jumpCount = 0;
         private bool _isWallJumping = false;
+        private bool _canFire = true;
         private float _wallJumpStartTime;
+        private bool _canAirDash = false;
+        private bool _isShrunken = false;
+        private bool _canChangeSize  = false;
+        private SizeChangeMode _nextSizeChangeMode = SizeChangeMode.Shrink;
+        private Vector2 _sizeChangeDestination;
 
 
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
+        public bool ZeroGravity => _animator.GetBool(AnimationStrings.ZeroGravity);
+
 
         public float CurrentSpeed =>
             _isRunning ? runSpeed : walkSpeed;
@@ -66,6 +81,9 @@ namespace TreasureHunter.Gameplay.Player
             _animator = GetComponent<Animator>();
             _damageable = GetComponent<Damageable>();
             _touchingDirections = GetComponent<TouchingDirections>();
+            _projectileLauncher = GetComponent<ProjectileLauncher>();
+            _flash = GetComponent<Flash>();
+            _originalScale = transform.localScale;
             _gameManager = GameManager.Instance;
         }
 
@@ -163,16 +181,91 @@ namespace TreasureHunter.Gameplay.Player
 
             if (context.started)
             {
-                _animator.SetTrigger(AnimationStrings.DashTrigger);
-                if (IsFacingRight)
+                if (_touchingDirections.IsGround || (!_touchingDirections.IsGround && _canAirDash))
                 {
-                    _rb.AddForce(Vector2.right * dashImpulse, ForceMode2D.Impulse);
+                    if (!_touchingDirections.IsGround)
+                    {
+                        _canAirDash = false;
+                    }
+
+                    _animator.SetTrigger(AnimationStrings.DashTrigger);
+                    if (IsFacingRight)
+                    {
+                        _rb.AddForce(Vector2.right * dashImpulse, ForceMode2D.Impulse);
+                    }
+                    else
+                    {
+                        _rb.AddForce(Vector2.left * dashImpulse, ForceMode2D.Impulse);
+                    }
+                }
+            }
+        }
+
+        public void OnFire(InputAction.CallbackContext context)
+        {
+            if (!DataManager.Instance.PlayerData.HasSkill(SkillKey.Fireball))
+            {
+                return;
+            }
+
+            if (context.started && _canFire)
+            {
+                _animator.SetTrigger(AnimationStrings.FireTrigger);
+                // Apply knockback
+                var actualKnockback =
+                    new Vector2(-fireKnockback.x * Mathf.Sign(transform.localScale.x), fireKnockback.y);
+                _rb.AddForce(actualKnockback, ForceMode2D.Impulse);
+                _projectileLauncher.FireProjectile();
+                StartCoroutine(SetFireCooldown());
+            }
+        }
+
+        public void OnShrink(InputAction.CallbackContext context)
+        {
+            if (context.started && DataManager.Instance.PlayerData.HasSkill(SkillKey.Shrink) && _canChangeSize)
+            {
+                if (_nextSizeChangeMode == SizeChangeMode.Shrink)
+                {
+                    transform.localScale = new Vector3(shrinkScale, shrinkScale);
                 }
                 else
                 {
-                    _rb.AddForce(Vector2.left * dashImpulse, ForceMode2D.Impulse);
+
+                    transform.localScale = new Vector3(_originalScale.x, _originalScale.y);
                 }
+
+                _isShrunken = !_isShrunken;
+
+                // fix local scale direction
+                if (!IsFacingRight)
+                {
+                    var transform1 = transform;
+                    var originalScale = transform1.localScale;
+                    transform1.localScale = new Vector3(-originalScale.x, originalScale.y);
+                }
+
+                transform.position = _sizeChangeDestination;
             }
+        }
+
+        public void OnEnterAltar(SizeChangeMode mode, Vector2 destinationLocation)
+        {
+            _canChangeSize = true;
+            _sizeChangeDestination = destinationLocation;
+            _nextSizeChangeMode = mode;
+        }
+
+        public void OnExitAltar()
+        {
+            _canChangeSize = false;
+        }
+
+        private IEnumerator SetFireCooldown()
+        {
+            _canFire = false;
+            yield return new WaitForSeconds(fireballCooldown);
+            _canFire = true;
+            _flash.DisplayFlash();
         }
 
         public void OnHit(int damage, Vector2 knockback)
@@ -215,7 +308,12 @@ namespace TreasureHunter.Gameplay.Player
             }
 
             // Jump gravity
-            if (_rb.velocity.y < 0)
+            if (ZeroGravity)
+            {
+                _rb.gravityScale = 0;
+                _rb.velocity = new Vector2(_rb.velocity.x, 0);
+            }
+            else if (_rb.velocity.y < 0)
             {
                 _rb.gravityScale = gravityScale * fallGravityMultiplier;
             }
@@ -228,6 +326,7 @@ namespace TreasureHunter.Gameplay.Player
             if (_touchingDirections.IsGround)
             {
                 jumpCount = 0;
+                _canAirDash = true;
             }
 
             // Clamp y velocity
