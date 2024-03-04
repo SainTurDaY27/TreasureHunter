@@ -226,6 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d167bfb502adf75419e68f5cc1849c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playButton: {fileID: 0}
+  _loadButton: {fileID: 0}
+  _exitButton: {fileID: 0}
 --- !u!1001 &1688709422395231946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -316,7 +319,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2133651925229460567, guid: 1430c8dec7a671944ab2ee608e4c413c, type: 3}
       propertyPath: m_Name
-      value: PlayButton
+      value: NewGameButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429265019130029666, guid: 1430c8dec7a671944ab2ee608e4c413c, type: 3}
+      propertyPath: m_text
+      value: New Game
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

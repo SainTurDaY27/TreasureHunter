@@ -21,6 +21,9 @@ namespace TreasureHunter.Core.State.GameState
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
                 toState: (int)GameStates.State.End));
+            GameStateManager.Instance.AddTransition(new StateTransition(
+                fromState: StateID,
+                toState: (int)GameStates.State.LoadGame));
         }
 
         public override void OnStateIn(params object[] args)
@@ -61,7 +64,7 @@ namespace TreasureHunter.Core.State.GameState
 
         private void LoadGame()
         {
-            // TODO: Implement later
+            GameStateManager.Instance.GoToState((int)GameStates.State.LoadGame);
         }
 
         private void ExitGame()

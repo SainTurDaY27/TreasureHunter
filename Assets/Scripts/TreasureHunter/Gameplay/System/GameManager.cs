@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using TreasureHunter.Core.Scene;
 using TreasureHunter.Core.State.GameState;
-using TreasureHunter.Core.UI;
 using TreasureHunter.Utilities;
 using UnityEngine;
 
@@ -10,11 +7,52 @@ namespace TreasureHunter.Gameplay.System
 {
     public class GameManager : MonoSingleton<GameManager>
     {
+        private Coroutine _endGameDelay;
+        private const int _END_GAME_DELAY = 4;
+        public bool IsGamePaused { get; private set; }
+
         public override void Awake()
         {
             base.Awake();
-            //GameStateManager.Instance.GoToState((int)GameStates.State.Menu);
-            //GameSceneManager.Instance.GoToScene(SceneKey.MENU);
+            IsGamePaused = false;
+        }
+
+        public void PauseGame(bool pauseGameStatus)
+        {
+            IsGamePaused = pauseGameStatus;
+            Time.timeScale = pauseGameStatus ? 0 : 1;
+        }
+
+        public void StartEndGameDelay()
+        {
+            if (_endGameDelay != null)
+            {
+                StopCoroutine(_endGameDelay);
+            }
+            _endGameDelay = StartCoroutine(EndGameDelay());
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                // TODO: Use better way to check current state
+                if (GameStateManager.Instance.CurrentState.StateID == (int)GameStates.State.Game)
+                {
+                    GameStateManager.Instance.GoToState((int)GameStates.State.Map);
+                
+                }
+                else if (GameStateManager.Instance.CurrentState.StateID == (int)GameStates.State.Map)
+                {
+                    GameStateManager.Instance.GoToState((int)GameStates.State.Game);
+                }
+            }
+        }
+
+        private IEnumerator EndGameDelay()
+        {
+            yield return new WaitForSeconds(_END_GAME_DELAY);
+            GameStateManager.Instance.GoToState((int)GameStates.State.End);
         }
     }
 }

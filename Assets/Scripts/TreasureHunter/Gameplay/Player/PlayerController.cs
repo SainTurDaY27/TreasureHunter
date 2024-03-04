@@ -14,6 +14,7 @@ namespace TreasureHunter.Gameplay.Player
         private Flash _flash;
         private Damageable _damageable;
         private Vector2 _moveInput;
+        private GameManager _gameManager;
         private ProjectileLauncher _projectileLauncher;
         private Vector2 _originalScale;
 
@@ -83,12 +84,13 @@ namespace TreasureHunter.Gameplay.Player
             _projectileLauncher = GetComponent<ProjectileLauncher>();
             _flash = GetComponent<Flash>();
             _originalScale = transform.localScale;
+            _gameManager = GameManager.Instance;
         }
 
         public void OnMove(InputAction.CallbackContext context)
         {
             _moveInput = context.ReadValue<Vector2>();
-            if (IsAlive)
+            if (IsAlive && !_gameManager.IsGamePaused)
             {
                 IsMoving = _moveInput.x != 0;
                 SetFacingDirection(_moveInput);
@@ -164,7 +166,7 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started && !_gameManager.IsGamePaused)
             {
                 _animator.SetTrigger(AnimationStrings.AttackTrigger);
             }
@@ -343,6 +345,10 @@ namespace TreasureHunter.Gameplay.Player
 
         private void SetFacingDirection(Vector2 moveInput)
         {
+            if (_gameManager.IsGamePaused)
+            {
+                return;
+            }
             if (moveInput.x > 0 && !IsFacingRight)
             {
                 // Face the right

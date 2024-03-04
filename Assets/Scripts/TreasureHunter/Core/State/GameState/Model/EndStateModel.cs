@@ -21,12 +21,19 @@ namespace TreasureHunter.Core.State.GameState
         {
             base.OnStateIn();
             _endGamePanel = (EndGamePanel)UIManager.Instance.Show(UIKey.EndGame);
+            _endGamePanel.OnMainMenuButtonClicked += MainMenu;
         }
 
         public override void OnStateOut()
         {
             base.OnStateOut();
             UIManager.Instance.Hide(UIKey.EndGame);
+            _endGamePanel.OnMainMenuButtonClicked -= MainMenu;
+        }
+
+        private void MainMenu()
+        {
+            GameStateManager.Instance.GoToState((int)GameStates.State.Menu);
         }
     }
 }

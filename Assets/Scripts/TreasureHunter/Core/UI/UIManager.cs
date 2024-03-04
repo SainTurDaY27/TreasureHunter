@@ -6,6 +6,7 @@ namespace TreasureHunter.Core.UI
 {
     public class UIManager : MonoSingleton<UIManager>
     {
+        
         [SerializeField] private MenuPanel _menuPanel;
         [SerializeField] private AbilitySelectionPanel _abilitySelectionPanel;
         [SerializeField] private GameHUDPanel _gameHUDPanel;
@@ -13,6 +14,8 @@ namespace TreasureHunter.Core.UI
 
         [SerializeField] private AbilityGetPanel _abilityGetPanel;
         [SerializeField] private TreasureGetPanel _treasureGetPanel;
+        [SerializeField] private LoadGamePanel _loadGamePanel;
+        [SerializeField] private MapPanel _mapPanel;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -33,9 +36,15 @@ namespace TreasureHunter.Core.UI
                 case UIKey.AbilityGet:
                     _abilityGetPanel.SetActive(true);
                     return _abilityGetPanel;
+                case UIKey.LoadGame:
+                    _loadGamePanel.SetActive(true);
+                    return _loadGamePanel;
                 case UIKey.TreasureGet:
                     _treasureGetPanel.SetActive(true);
                     return _treasureGetPanel;
+                case UIKey.Map:
+                    _mapPanel.SetActive(true);
+                    return _mapPanel;
                 default:
                     return null;
             }
@@ -65,10 +74,18 @@ namespace TreasureHunter.Core.UI
                     _abilityGetPanel.SetActive(false);
                     _abilityGetPanel.transform.SetAsLastSibling();
                     return _abilityGetPanel;
+                case UIKey.LoadGame:
+                    _loadGamePanel.SetActive(false);
+                    _loadGamePanel.transform.SetAsLastSibling();
+                    return _loadGamePanel;
                 case UIKey.TreasureGet:
                     _treasureGetPanel.SetActive(false);
                     _treasureGetPanel.transform.SetAsLastSibling();
                     return _treasureGetPanel;
+                case UIKey.Map:
+                    _mapPanel.SetActive(false);
+                    _mapPanel.transform.SetAsLastSibling();
+                    return _mapPanel;
                 default:
                     return null;
             }
@@ -80,6 +97,10 @@ namespace TreasureHunter.Core.UI
             _abilitySelectionPanel.SetActive(false);
             _gameHUDPanel.SetActive(false);
             _endGamePanel.SetActive(false);
+            _abilityGetPanel.SetActive(false);
+            _loadGamePanel.SetActive(false);
+            _treasureGetPanel.SetActive(false);
+            _mapPanel.SetActive(false);
         }
 
         public bool TryGetUIByKey(UIKey uiKey, out IBaseUI ui)
@@ -101,8 +122,14 @@ namespace TreasureHunter.Core.UI
                 case UIKey.AbilityGet:
                     ui = _abilityGetPanel;
                     return true;
+                case UIKey.LoadGame:
+                    ui = _loadGamePanel;
+                    return true;
                 case UIKey.TreasureGet:
                     ui = _treasureGetPanel;
+                    return true;
+                case UIKey.Map:
+                    ui = _mapPanel;
                     return true;
                 default:
                     ui = null;
@@ -118,6 +145,8 @@ namespace TreasureHunter.Core.UI
         GameHUD,
         EndGame,
         AbilityGet,
-        TreasureGet
+        TreasureGet,
+        LoadGame,
+        Map
     }
 }

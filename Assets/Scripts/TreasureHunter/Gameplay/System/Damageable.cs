@@ -20,6 +20,7 @@ namespace TreasureHunter.Gameplay.System
         public UnityEvent damageableDeath;
         public UnityEvent<int, int> healthChange;
         private Animator _animator;
+        private GameManager _gameManager;
         private float _timeSinceHit = 0f;
         public float invicibilityTime = 0.5f;
 
@@ -63,10 +64,15 @@ namespace TreasureHunter.Gameplay.System
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            _gameManager = GameManager.Instance;
         }
 
         private void Update()
         {
+            if (_gameManager.IsGamePaused)
+            {
+                return;
+            }
             if (isInvincible)
             {
                 if (_timeSinceHit > invicibilityTime)
