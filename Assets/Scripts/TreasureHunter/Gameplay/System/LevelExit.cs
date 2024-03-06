@@ -32,7 +32,6 @@ namespace TreasureHunter.Gameplay.System
                     var newDamageable = player.GetComponent<Damageable>();
                     newDamageable.Health = oldHealth;
 
-                    // assume can only exit using game state model.
                     var gameState = GameStateManager.Instance.CurrentState;
                     gameState.OnStateIn();
                 });
