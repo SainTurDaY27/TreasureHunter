@@ -11,18 +11,13 @@ namespace TreasureHunter.Gameplay.System
         public float exitX, exitY;
         public string sceneName;
         public bool willFacingRight = true;
-        private GameSceneManager _gameSceneManager;
 
-        private void Awake()
-        {
-            _gameSceneManager = FindObjectOfType<GameSceneManager>();
-        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
             {
-                _gameSceneManager.GoToScene(sceneName, () =>
+                GameSceneManager.Instance.GoToScene(sceneName, () =>
                 {
                     var player = FindObjectOfType<PlayerController>();
                     player.transform.position = new Vector2(exitX, exitY);
