@@ -29,6 +29,15 @@ namespace TreasureHunter.Gameplay.System
         public event Action OnMapMarkerChanged;
         public event Action OnMapAreaExplored;
 
+        public void ResetData()
+        {
+            collectedTreasures.Clear();
+            boolStates.Clear();
+            _exploredMapAreas = null;
+            _currentMapArea = MapAreaKey.TheEntrace;
+            remainingMapMarker = MaxMapMarker;
+        }
+
         public void ExploreNewMapArea(MapAreaKey mapAreaKey)
         {
             if (_exploredMapAreas == null)

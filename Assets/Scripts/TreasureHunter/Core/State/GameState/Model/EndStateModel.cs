@@ -1,3 +1,4 @@
+using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.UI;
 
@@ -6,6 +7,7 @@ namespace TreasureHunter.Core.State.GameState
     public class EndStateModel : StateModel
     {
         private EndGamePanel _endGamePanel;
+        private DataManager _dataManager;
 
         public EndStateModel() : base((int)GameStates.State.End, nameof(GameStateModel))
         {
@@ -21,7 +23,9 @@ namespace TreasureHunter.Core.State.GameState
         {
             base.OnStateIn();
             _endGamePanel = (EndGamePanel)UIManager.Instance.Show(UIKey.EndGame);
+            _dataManager = DataManager.Instance;
             _endGamePanel.OnMainMenuButtonClicked += MainMenu;
+            _dataManager.ResetData();
         }
 
         public override void OnStateOut()
