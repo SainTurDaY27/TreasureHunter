@@ -43,6 +43,10 @@ namespace TreasureHunter.Gameplay.UI
 
         public void UpdateSkillSlot()
         {
+            foreach (var slot in _skillSlots)
+            {
+                slot.SetActive(false);
+            }
             var obtainedSkills = DataManager.Instance.PlayerData.GetObtainedSkills();
             for (int i = 0; i < obtainedSkills.Count; i++)
             {
