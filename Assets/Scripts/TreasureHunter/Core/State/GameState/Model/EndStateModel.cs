@@ -7,6 +7,7 @@ namespace TreasureHunter.Core.State.GameState
     public class EndStateModel : StateModel
     {
         private EndGamePanel _endGamePanel;
+        private MapPanel _mapPanel;
         private DataManager _dataManager;
 
         public EndStateModel() : base((int)GameStates.State.End, nameof(GameStateModel))
@@ -23,8 +24,16 @@ namespace TreasureHunter.Core.State.GameState
         {
             base.OnStateIn();
             _endGamePanel = (EndGamePanel)UIManager.Instance.Show(UIKey.EndGame);
+            if (UIManager.Instance.TryGetUIByKey(UIKey.Map, out IBaseUI ui) && (ui is MapPanel panel))
+            {
+                _mapPanel = panel;
+            }
             _dataManager = DataManager.Instance;
             _endGamePanel.OnMainMenuButtonClicked += MainMenu;
+
+            // TODO: Change remove map marker logic when save system was implemented
+            _mapPanel.RemoveAllMapMarker();
+
             _dataManager.ResetData();
         }
 

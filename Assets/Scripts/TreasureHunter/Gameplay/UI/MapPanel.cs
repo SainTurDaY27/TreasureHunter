@@ -48,11 +48,30 @@ namespace TreasureHunter.Gameplay.UI
             public GameObject ArrowUI => _arrowUI;
         }
 
+        private GameObject[] _mapMarkers = new GameObject[6];
         private DataManager _dataManager;
 
         public void SetActive(bool isActive)
         {
             gameObject.SetActive(isActive);
+        }
+
+        public void UpdateMapMarkerData()
+        {
+            _dataManager.GameData.ClearMapMarkerData();
+            foreach (var mapMarker in _mapMarkers)
+            {
+                _dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
+            }
+        }
+
+        public void LoadMapMarkerFromData()
+        {
+            var _mapMarkerData = _dataManager.GameData.GetMapMarkerData();
+            foreach (var mapMarkerData in _mapMarkerData)
+            {
+                PlaceMapMarker(mapMarkerData.GetPosition());
+            }
         }
 
         public void SetMapMarkerRemaining(int remaining)
@@ -130,10 +149,32 @@ namespace TreasureHunter.Gameplay.UI
             }
         }
 
+        public void RemoveAllMapMarker()
+        {
+            for (int i = 0; i < _mapMarkers.Length; i++)
+            {
+                if (_mapMarkers[i] != null)
+                {
+                    Destroy(_mapMarkers[i]);
+                    _dataManager.GameData.GainMapMarker();
+                }
+            }
+        }
+
         private void PlaceMapMarker(Vector3 position)
         {
             var mapMarker = Instantiate(_mapMarkerPrefab, _mapAreaPanel.transform);
             mapMarker.transform.position = position;
+
+            for (int i = 0; i < _mapMarkers.Length; i++)
+            {
+                if (_mapMarkers[i] == null)
+                {
+                    _mapMarkers[i] = mapMarker;
+                    break;
+                }
+            }
+            _dataManager.GameData.UseMapMarker();
         }
 
         private void Awake()
@@ -152,7 +193,7 @@ namespace TreasureHunter.Gameplay.UI
                 if (_dataManager.GameData.CheckMapMarkerAvailable())
                 {
                     PlaceMapMarker(Input.mousePosition);
-                    _dataManager.GameData.UseMapMarker();
+                    //_dataManager.GameData.UseMapMarker();
                 }
             }
         }
