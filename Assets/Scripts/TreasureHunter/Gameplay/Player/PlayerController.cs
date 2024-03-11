@@ -125,6 +125,7 @@ namespace TreasureHunter.Gameplay.Player
                         // _damageable.LockVelocity = true;
                         _isWallJumping = true;
                         _wallJumpStartTime = Time.time;
+                        jumpCount = 0;
 
                         // clear all y velocity before jumping
                         _rb.velocity = new Vector2(_rb.velocity.x, 0);
