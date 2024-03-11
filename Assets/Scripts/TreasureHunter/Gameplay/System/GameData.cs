@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using TreasureHunter.Gameplay.Map;
+using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace TreasureHunter.Gameplay.System
 {
@@ -10,9 +12,36 @@ namespace TreasureHunter.Gameplay.System
         public static readonly int MaxMapMarker = 6;
 
         // Collected treasure will have unique ID
-        private HashSet<string> collectedTreasures = new();
-        private Dictionary<string, bool> boolStates = new();
+        private HashSet<string> _collectedTreasures = new();
+        private Dictionary<string, bool> _boolStates = new();
         private MapAreaKey[] _exploredMapAreas;
+        private List<MapMarkerData> _mapMarkerDatas = new();
+
+        public class MapMarkerData
+        {
+            private GameObject _mapMarkerGameObject { get; set; }
+            private Vector3 _position { get; set; }
+
+            public GameObject GetMapMarkerGameObject()
+            {
+                return _mapMarkerGameObject;
+            }
+
+            public Vector3 GetPosition()
+            {
+                return _position;
+            }
+
+            public void SetMapMarkerGameObject(GameObject gameObject)
+            {
+                _mapMarkerGameObject = gameObject;
+            }
+
+            public void SetPosition(Vector3 position)
+            {
+                _position = position;
+            }
+        }
 
         // TODO: Set this variable later
         private MapAreaKey _currentMapArea = MapAreaKey.TheEntrace;
@@ -20,7 +49,7 @@ namespace TreasureHunter.Gameplay.System
         // TODO: Config this later -> move to config data file
         private int remainingMapMarker = 6;
 
-        public int TreasureCount => collectedTreasures.Count;
+        public int TreasureCount => _collectedTreasures.Count;
         public int MapMarker => remainingMapMarker;
         public MapAreaKey[] ExploredMapAreas => _exploredMapAreas;
         public MapAreaKey CurrentMapArea => _currentMapArea;
@@ -28,6 +57,16 @@ namespace TreasureHunter.Gameplay.System
         public bool IsMouseOverMapMarker = false;
         public event Action OnMapMarkerChanged;
         public event Action OnMapAreaExplored;
+
+        public void ResetData()
+        {
+            _collectedTreasures.Clear();
+            _boolStates.Clear();
+            _exploredMapAreas = null;
+            _currentMapArea = MapAreaKey.TheEntrace;
+            remainingMapMarker = MaxMapMarker;
+            _mapMarkerDatas.Clear();
+        }
 
         public void ExploreNewMapArea(MapAreaKey mapAreaKey)
         {
@@ -60,12 +99,12 @@ namespace TreasureHunter.Gameplay.System
 
         public void CollectTreasure(string treasureId)
         {
-            collectedTreasures.Add(treasureId);
+            _collectedTreasures.Add(treasureId);
         }
 
         public bool IsTreasureCollected(string treasureId)
         {
-            return collectedTreasures.Contains(treasureId);
+            return _collectedTreasures.Contains(treasureId);
         }
 
         public void UseMapMarker()
@@ -93,14 +132,36 @@ namespace TreasureHunter.Gameplay.System
             return remainingMapMarker > 0;
         }
 
+        public void AddMapMarkerData(GameObject mapMarkerGO, Vector3 position)
+        {
+            for (int i = 0; i < _mapMarkerDatas.Count; i++)
+            {
+                if (_mapMarkerDatas[i] == null)
+                {
+                    _mapMarkerDatas[i].SetMapMarkerGameObject(mapMarkerGO);
+                    _mapMarkerDatas[i].SetPosition(position);
+                }
+            }
+        }
+
+        public List<MapMarkerData> GetMapMarkerData()
+        {
+            return _mapMarkerDatas;
+        }
+
+        public void ClearMapMarkerData()
+        {
+            _mapMarkerDatas.Clear();
+        }
+
         public bool GetBoolState(string stateId, out bool result)
         {
-            return boolStates.TryGetValue(stateId, out result);
+            return _boolStates.TryGetValue(stateId, out result);
         }
 
         public void SetBoolState(string stateId, bool value)
         {
-            boolStates[stateId] = value;
+            _boolStates[stateId] = value;
         }
 
         private void OnMapMarkerChangedHandler()

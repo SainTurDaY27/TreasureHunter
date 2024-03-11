@@ -19,6 +19,11 @@ namespace TreasureHunter.Gameplay.Player
             };
         }
 
+        public void ResetData()
+        {
+            _obtainedSkills.Clear();
+        }
+
         public void ObtainSkill(SkillKey skillKey)
         {
             if (_obtainedSkills.Contains(skillKey))
