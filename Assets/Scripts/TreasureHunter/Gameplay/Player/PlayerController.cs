@@ -34,7 +34,7 @@ namespace TreasureHunter.Gameplay.Player
         public float fireballCooldown = 1f;
         public Vector2 fireKnockback = new(10, 0);
         public float shrinkScale = 0.5f;
-
+        public bool canSave = false;
 
         private bool _isRunning = false;
         private int jumpCount = 0;
