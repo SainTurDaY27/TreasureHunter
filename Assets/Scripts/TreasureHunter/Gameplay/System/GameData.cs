@@ -44,7 +44,7 @@ namespace TreasureHunter.Gameplay.System
         }
 
         // TODO: Set this variable later
-        private MapAreaKey _currentMapArea = MapAreaKey.TheEntrace;
+        private MapAreaKey _currentMapArea = MapAreaKey.TheEntrance;
 
         // TODO: Config this later -> move to config data file
         private int remainingMapMarker = 6;
@@ -63,7 +63,7 @@ namespace TreasureHunter.Gameplay.System
             _collectedTreasures.Clear();
             _boolStates.Clear();
             _exploredMapAreas = null;
-            _currentMapArea = MapAreaKey.TheEntrace;
+            _currentMapArea = MapAreaKey.TheEntrance;
             remainingMapMarker = MaxMapMarker;
             _mapMarkerDatas.Clear();
         }

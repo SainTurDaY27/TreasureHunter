@@ -59,7 +59,7 @@ namespace TreasureHunter.Core.State.GameState
 
                         // TODO: Move this to a better place later
                         _dataManager.GameData.ExploreNewMapArea(MapAreaKey.TheSurface);
-                        _dataManager.GameData.ExploreNewMapArea(MapAreaKey.TheEntrace);
+                        _dataManager.GameData.ExploreNewMapArea(MapAreaKey.TheEntrance);
 
                         Debug.Log("Start new game");
                     });

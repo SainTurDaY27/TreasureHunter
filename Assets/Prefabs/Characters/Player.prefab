@@ -408,6 +408,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fe968c62-6feb-4bd4-a902-86b73739e114
     m_ActionName: Player/Shrink[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8943873105033932659}
+        m_TargetAssemblyTypeName: TreasureHunter.Gameplay.Player.PlayerController,
+          Assembly-CSharp
+        m_MethodName: OnSave
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 08075bcc-f5d2-4a16-91d6-4de8784085a6
+    m_ActionName: Player/Save[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -440,6 +457,7 @@ MonoBehaviour:
   fireballCooldown: 1
   fireKnockback: {x: 10, y: 0}
   shrinkScale: 0.5
+  canSave: 0
 --- !u!114 &6750371357215538820
 MonoBehaviour:
   m_ObjectHideFlags: 0
