@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TreasureHunter.Gameplay.System;
 
 namespace TreasureHunter.Gameplay.Player
@@ -16,11 +17,11 @@ namespace TreasureHunter.Gameplay.Player
                 // GroudSlam is the default skill player obtains
                 //SkillKey.GroundSlam
             };
+        }
 
-            // TODO: For testing purposes only
-            ObtainSkill(SkillKey.DoubleJump);
-            // ObtainSkill(SkillKey.Dash);
-            ObtainSkill(SkillKey.WallJump);
+        public void ResetData()
+        {
+            _obtainedSkills.Clear();
         }
 
         public void ObtainSkill(SkillKey skillKey)
@@ -33,9 +34,29 @@ namespace TreasureHunter.Gameplay.Player
             OnSkillObtainedHandler();
         }
 
+        public void RemoveSkill(SkillKey skillKey)
+        {
+            _obtainedSkills.Remove(skillKey);
+            OnSkillObtainedHandler();
+        }
+
+        public bool ToggleSkill(SkillKey skillKey)
+        {
+            if (!_obtainedSkills.Contains(skillKey))
+            {
+                ObtainSkill(skillKey);
+                return true;
+            }
+            else
+            {
+                RemoveSkill(skillKey);
+                return false;
+            }
+        }
+
+
         public bool HasSkill(SkillKey skillKey)
         {
-            // Debug.Log($"Checking if player has skill {skillKey} : {_obtainedSkills.Contains(skillKey)}");
             return _obtainedSkills.Contains(skillKey);
         }
 

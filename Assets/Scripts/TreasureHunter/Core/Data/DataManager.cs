@@ -23,5 +23,11 @@ namespace TreasureHunter.Core.Data
             _playerData = new PlayerData();
             _gameData = new GameData();
         }
+
+        public void ResetData()
+        {
+            _playerData.ResetData();
+            _gameData.ResetData();
+        }
     }
 }

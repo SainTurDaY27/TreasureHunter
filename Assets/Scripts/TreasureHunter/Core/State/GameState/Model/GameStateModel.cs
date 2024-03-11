@@ -5,6 +5,7 @@ using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.Map;
 using TreasureHunter.Gameplay.System;
 using TreasureHunter.Gameplay.UI;
+using TreasureHunter.Gameplay.Utilities;
 using UnityEngine;
 
 namespace TreasureHunter.Core.State.GameState
@@ -15,6 +16,7 @@ namespace TreasureHunter.Core.State.GameState
         private Damageable _player;
         private GameManager _gameManager;
         private DataManager _dataManager;
+        private SkillTestHelper _skillTestHelper;
 
         public GameStateModel() : base((int)GameStates.State.Game, nameof(GameStateModel))
         {
@@ -45,6 +47,7 @@ namespace TreasureHunter.Core.State.GameState
             }
             _gameManager = GameManager.Instance;
             _dataManager = DataManager.Instance;
+            _skillTestHelper = SkillTestHelper.Instance;
 
             switch (backToGameMethod)
             {
@@ -78,6 +81,10 @@ namespace TreasureHunter.Core.State.GameState
                     LoadGameHUD();
                     break;
             }
+
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            _skillTestHelper.OnSkillChanged += LoadGameHUD;
+            #endif
         }
 
         public override void OnStateOut()
@@ -85,6 +92,10 @@ namespace TreasureHunter.Core.State.GameState
             base.OnStateOut();
             UIManager.Instance.Hide(UIKey.GameHUD);
             _player.healthChange.RemoveListener(OnPlayerHealthChange);
+
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD       
+            _skillTestHelper.OnSkillChanged -= LoadGameHUD;
+            #endif
         }
 
         private void OnPlayerHealthChange(int health, int maxHealth)
