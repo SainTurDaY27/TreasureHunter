@@ -1,5 +1,6 @@
 using System;
 using TreasureHunter.Core.Scene;
+using TreasureHunter.Core.State.GameState;
 using TreasureHunter.Gameplay.Player;
 using UnityEngine;
 
@@ -11,18 +12,15 @@ namespace TreasureHunter.Gameplay.System
         public float exitX, exitY;
         public string sceneName;
         public bool willFacingRight = true;
-        private GameSceneManager _gameSceneManager;
 
-        private void Awake()
-        {
-            _gameSceneManager = FindObjectOfType<GameSceneManager>();
-        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
             {
-                _gameSceneManager.GoToScene(sceneName, () =>
+                var oldDamageable = other.GetComponent<Damageable>();
+                var oldHealth = oldDamageable.Health;
+                GameSceneManager.Instance.GoToScene(sceneName, () =>
                 {
                     var player = FindObjectOfType<PlayerController>();
                     player.transform.position = new Vector2(exitX, exitY);
@@ -30,6 +28,12 @@ namespace TreasureHunter.Gameplay.System
                     {
                         player.IsFacingRight = false;
                     }
+
+                    var newDamageable = player.GetComponent<Damageable>();
+                    newDamageable.Health = oldHealth;
+
+                    var gameState = GameStateManager.Instance.CurrentState;
+                    gameState.OnStateIn();
                 });
             }
         }

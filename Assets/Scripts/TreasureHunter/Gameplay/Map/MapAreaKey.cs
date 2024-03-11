@@ -3,7 +3,7 @@ namespace TreasureHunter.Gameplay.Map
     public enum MapAreaKey
     {
         TheSurface,
-        TheEntrace,
+        TheEntrance,
         ScorpionCave,
         SpeedyCave,
         ForgottenPassage,

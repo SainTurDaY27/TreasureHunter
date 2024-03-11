@@ -34,7 +34,7 @@ namespace TreasureHunter.Gameplay.Player
         public float fireballCooldown = 1f;
         public Vector2 fireKnockback = new(10, 0);
         public float shrinkScale = 0.5f;
-
+        public bool canSave = false;
 
         private bool _isRunning = false;
         private int jumpCount = 0;
@@ -43,7 +43,7 @@ namespace TreasureHunter.Gameplay.Player
         private float _wallJumpStartTime;
         private bool _canAirDash = false;
         private bool _isShrunken = false;
-        private bool _canChangeSize  = false;
+        private bool _canChangeSize = false;
         private SizeChangeMode _nextSizeChangeMode = SizeChangeMode.Shrink;
         private Vector2 _sizeChangeDestination;
 
@@ -230,7 +230,6 @@ namespace TreasureHunter.Gameplay.Player
                 }
                 else
                 {
-
                     transform.localScale = new Vector3(_originalScale.x, _originalScale.y);
                 }
 
@@ -258,6 +257,16 @@ namespace TreasureHunter.Gameplay.Player
         public void OnExitAltar()
         {
             _canChangeSize = false;
+        }
+
+        public void OnSave(InputAction.CallbackContext context)
+        {
+            // TODO: Implement actual saving
+            if (!context.started) return;
+            if (canSave)
+            {
+                _damageable.Health = _damageable.MaxHealth;
+            }
         }
 
         private IEnumerator SetFireCooldown()
@@ -349,6 +358,7 @@ namespace TreasureHunter.Gameplay.Player
             {
                 return;
             }
+
             if (moveInput.x > 0 && !IsFacingRight)
             {
                 // Face the right
