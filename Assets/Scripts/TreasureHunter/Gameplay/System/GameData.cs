@@ -73,16 +73,36 @@ namespace TreasureHunter.Gameplay.System
             _mapMarkerDatas.Clear();
         }
 
-        public void LoadData(List<SaveGameData> saveGameData)
+        public void LoadData(SaveGameData saveGameData)
         {
-            // Load collected treasures
-            //var collectedTreasures = saveGameData[0].GetCollectedTreasures();
-            //foreach (var treasure in collectedTreasures)
-            //{
-            //    CollectTreasure(treasure);
-            //}
+            // Load current map area
+            var _currentMapArea = saveGameData.CurrentMapArea;
+            SetCurrentMapArea(_currentMapArea);
 
-            // TODO: Do the rest load data
+            // Load collected treasures
+            var collectedTreasures = saveGameData.GetCollectedTreasures();
+            foreach (var treasure in collectedTreasures)
+            {
+                CollectTreasure(treasure);
+            }
+
+            // Load explored map areas
+            var _exploredMapAreas = saveGameData.GetExploredMapAreas();
+            foreach (var mapAreaKey in _exploredMapAreas)
+            {
+                ExploreNewMapArea(mapAreaKey);
+            }
+
+            // Load map marker data
+            var mapMarkerDatas = saveGameData.GetMapMarkerDatas();
+            foreach (var mapMarkerData in mapMarkerDatas)
+            {
+                _mapMarkerDatas.Add(mapMarkerData);
+            }
+
+            // Load remaining map marker
+            var remainingMapMarker = saveGameData.RemainingMapMarker;
+            SetRemainingMapMarker(remainingMapMarker);
         }
 
         public void ExploreNewMapArea(MapAreaKey mapAreaKey)
@@ -112,6 +132,11 @@ namespace TreasureHunter.Gameplay.System
         public void SetCurrentMapArea(MapAreaKey mapAreaKey)
         {
             _currentMapArea = mapAreaKey;
+        }
+
+        public void SetRemainingMapMarker(int value)
+        {
+            remainingMapMarker = value;
         }
 
         public void SetMouseOverMapMarker(bool value)
@@ -185,6 +210,10 @@ namespace TreasureHunter.Gameplay.System
 
         public List<MapMarkerData> GetMapMarkerData()
         {
+            if (_mapMarkerDatas.Count == 0)
+            {
+                return null;
+            }
             return _mapMarkerDatas;
         }
 

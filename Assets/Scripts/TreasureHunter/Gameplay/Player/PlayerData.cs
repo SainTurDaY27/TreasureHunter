@@ -25,10 +25,10 @@ namespace TreasureHunter.Gameplay.Player
             _obtainedSkills.Clear();
         }
 
-        public void LoadData(List<SaveGameData> saveGameData)
+        public void LoadData(SaveGameData saveGameData)
         {
-            var obtainedSkills = saveGameData[0].GetObtainedSkills();
-           
+            // Load obtained skills
+            var obtainedSkills = saveGameData.GetObtainedSkills();
             foreach (var skill in obtainedSkills)
             {
                 ObtainSkill(skill);

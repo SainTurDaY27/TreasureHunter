@@ -58,7 +58,7 @@ namespace TreasureHunter.Gameplay.UI
 
         public void UpdateMapMarkerData()
         {
-            _dataManager.GameData.ClearMapMarkerData();
+            DataManager.Instance.GameData.ClearMapMarkerData();
             foreach (var mapMarker in _mapMarkers)
             {
                 if (mapMarker != null)
