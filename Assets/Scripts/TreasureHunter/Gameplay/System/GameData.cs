@@ -15,8 +15,8 @@ namespace TreasureHunter.Gameplay.System
         // Collected treasure will have unique ID
         private HashSet<string> _collectedTreasures = new();
         private Dictionary<string, bool> _boolStates = new();
-        private MapAreaKey[] _exploredMapAreas;
-        private List<MapMarkerData> _mapMarkerDatas = new();
+        private List<MapAreaKey> _exploredMapAreas = new();
+        private List<Vector2> _mapMarkerDatas = new();
         private SaveGameSlot _saveGameSlot;
 
         public class MapMarkerData
@@ -53,7 +53,7 @@ namespace TreasureHunter.Gameplay.System
 
         public int TreasureCount => _collectedTreasures.Count;
         public int MapMarker => remainingMapMarker;
-        public MapAreaKey[] ExploredMapAreas => _exploredMapAreas;
+        public List<MapAreaKey> ExploredMapAreas => _exploredMapAreas;
         public MapAreaKey CurrentMapArea => _currentMapArea;
 
         // date and time when the game is saved
@@ -67,7 +67,7 @@ namespace TreasureHunter.Gameplay.System
         {
             _collectedTreasures.Clear();
             _boolStates.Clear();
-            _exploredMapAreas = null;
+            _exploredMapAreas.Clear();
             _currentMapArea = MapAreaKey.TheEntrance;
             remainingMapMarker = MaxMapMarker;
             _mapMarkerDatas.Clear();
@@ -76,7 +76,7 @@ namespace TreasureHunter.Gameplay.System
         public void LoadData(SaveGameData saveGameData)
         {
             // Load current map area
-            var _currentMapArea = saveGameData.CurrentMapArea;
+            var _currentMapArea = saveGameData.currentMapArea;
             SetCurrentMapArea(_currentMapArea);
 
             // Load collected treasures
@@ -101,26 +101,17 @@ namespace TreasureHunter.Gameplay.System
             }
 
             // Load remaining map marker
-            var remainingMapMarker = saveGameData.RemainingMapMarker;
+            var remainingMapMarker = saveGameData.remainingMapMarker;
             SetRemainingMapMarker(remainingMapMarker);
         }
 
         public void ExploreNewMapArea(MapAreaKey mapAreaKey)
         {
-            if (_exploredMapAreas == null)
+            if (!_exploredMapAreas.Contains(mapAreaKey))
             {
-                _exploredMapAreas = new MapAreaKey[1];
-                _exploredMapAreas[0] = mapAreaKey;
+                _exploredMapAreas.Add(mapAreaKey);
             }
-            else
-            {
-                if (Array.Exists(_exploredMapAreas, element => element == mapAreaKey))
-                {
-                    return;
-                }
-                Array.Resize(ref _exploredMapAreas, _exploredMapAreas.Length + 1);
-                _exploredMapAreas[_exploredMapAreas.Length - 1] = mapAreaKey;
-            }
+
             OnMapAreaExplored?.Invoke();
         }
 
@@ -172,6 +163,7 @@ namespace TreasureHunter.Gameplay.System
             {
                 remainingMapMarker--;
             }
+
             OnMapMarkerChangedHandler();
         }
 
@@ -196,24 +188,20 @@ namespace TreasureHunter.Gameplay.System
             return remainingMapMarker > 0;
         }
 
-        public void AddMapMarkerData(GameObject mapMarkerGO, Vector3 position)
-        {
-            for (int i = 0; i < _mapMarkerDatas.Count; i++)
-            {
-                if (_mapMarkerDatas[i] == null)
-                {
-                    _mapMarkerDatas[i].SetMapMarkerGameObject(mapMarkerGO);
-                    _mapMarkerDatas[i].SetPosition(position);
-                }
-            }
-        }
+        // public void AddMapMarkerData(GameObject mapMarkerGO, Vector3 position)
+        // {
+        //     for (int i = 0; i < _mapMarkerDatas.Count; i++)
+        //     {
+        //         if (_mapMarkerDatas[i] == null)
+        //         {
+        //             _mapMarkerDatas[i].SetMapMarkerGameObject(mapMarkerGO);
+        //             _mapMarkerDatas[i].SetPosition(position);
+        //         }
+        //     }
+        // }
 
-        public List<MapMarkerData> GetMapMarkerData()
+        public List<Vector2> GetMapMarkerData()
         {
-            if (_mapMarkerDatas.Count == 0)
-            {
-                return null;
-            }
             return _mapMarkerDatas;
         }
 

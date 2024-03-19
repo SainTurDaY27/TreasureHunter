@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
@@ -64,7 +65,8 @@ namespace TreasureHunter.Gameplay.UI
                 if (mapMarker != null)
                 {
                     Debug.Log("MapMarker: " + mapMarker);
-                    _dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
+                    // TODO: Add map marker data.
+                    // _dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
                 }
                 //Debug.Log("MapMarker: " + mapMarker);
                 //_dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
@@ -76,7 +78,7 @@ namespace TreasureHunter.Gameplay.UI
             var _mapMarkerData = _dataManager.GameData.GetMapMarkerData();
             foreach (var mapMarkerData in _mapMarkerData)
             {
-                PlaceMapMarker(mapMarkerData.GetPosition());
+                // PlaceMapMarker(mapMarkerData.GetPosition());
             }
         }
 
@@ -116,12 +118,12 @@ namespace TreasureHunter.Gameplay.UI
             }
         }
 
-        public void UpdateMapUI(MapAreaKey[] exploredMapAreas)
+        public void UpdateMapUI(List<MapAreaKey> exploredMapAreas)
         {
             ResetMapUI();
             for (int i = 0; i < _mapBlockUIs.Length; i++)
             {
-                if (Array.Exists(exploredMapAreas, element => element == _mapBlockUIs[i].MapAreaKey))
+                if (exploredMapAreas.Contains(_mapBlockUIs[i].MapAreaKey))
                 {
                     SetActiveMapBlockUI(_mapBlockUIs[i].MapAreaKey, true);
                     SetActiveArrowUI(_mapBlockUIs[i].MapAreaKey, true);

@@ -1,95 +1,18 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using TreasureHunter.Core.UI;
-using TreasureHunter.Gameplay.Map;
 using TreasureHunter.Gameplay.Player;
 using TreasureHunter.Gameplay.System;
 using TreasureHunter.Gameplay.UI;
 using UnityEngine;
-using static TreasureHunter.Gameplay.System.GameData;
 
 namespace TreasureHunter.Core.Data
 {
-    public class SaveGameData
-    {
-        public MapAreaKey CurrentMapArea;
-        public List<SkillKey> ObtainedSkill;
-        public DateTime LastPlayedTime;
-
-        // TODO: Add treasure save data
-        public HashSet<string> CollectTreasures;
-
-        public MapAreaKey[] ExploredMapArea;
-        public List<MapMarkerData> MapMarkerData = new();
-        public int RemainingMapMarker;
-
-        public MapAreaKey GetMapAreaKey()
-        {
-            return CurrentMapArea;
-        }
-
-        public List<SkillKey> GetObtainedSkills()
-        {
-            // debug all elements in the list
-            //foreach (var skill in ObtainedSkill)
-            //{
-            //    Debug.Log("Obtained skill: " + skill);
-            //}
-            return ObtainedSkill;
-        }
-
-        public DateTime GetLastPlayedTime()
-        {
-            return LastPlayedTime;
-        }
-
-        public HashSet<string> GetCollectedTreasures()
-        {
-            foreach (var treasure in CollectTreasures)
-            {
-                Debug.Log("Treasure collected: " + treasure);
-            }
-
-            return CollectTreasures;
-        }
-
-        public MapAreaKey[] GetExploredMapAreas()
-        {
-            foreach (var mapAreaKey in ExploredMapArea)
-            {
-                Debug.Log("Explored map area: " + mapAreaKey);
-            }
-            return ExploredMapArea;
-        }
-
-        public List<MapMarkerData> GetMapMarkerDatas()
-        {
-            if (MapMarkerData == null)
-            {
-                return new List<MapMarkerData>();
-            }
-            //foreach (var markerData in MapMarkerData)
-            //{
-            //    if (markerData != null)
-            //    {
-            //        Debug.Log("Map marker data: " + markerData);
-            //    }
-            //}
-            return MapMarkerData;
-        }
-
-        public int GetRemainingMapMarker()
-        {
-            return RemainingMapMarker;
-        }
-    }
-
     public class GameSaveManager
     {
-        //private List<SaveGameData> _saveGameDataList;
-        private SaveGameData _saveGameDataList;
+        //private List<SaveGameData> _saveGameData;
+        private SaveGameData _saveGameData;
 
         private const string _SAVE_GAME_SLOT_ONE_PATH = "/SavedGameDataSlotOne.json";
         private const string _SAVE_GAME_SLOT_TWO_PATH = "/SavedGameDataSlotTwo.json";
@@ -98,15 +21,20 @@ namespace TreasureHunter.Core.Data
 
         public GameSaveManager()
         {
-            _saveGameDataList = new SaveGameData();
+            _saveGameData = new SaveGameData();
         }
 
+        /// <summary>
+        /// Save game data to JSON file in the given slot.
+        /// </summary>
+        /// <param name="saveGameSlot">Slot to save</param>
         public void SaveGameData(SaveGameSlot saveGameSlot)
         {
             if (UIManager.Instance.TryGetUIByKey(UIKey.Map, out IBaseUI ui) && (ui is MapPanel panel))
             {
                 _mapPanel = panel;
             }
+
             _mapPanel.UpdateMapMarkerData();
 
             string path = GetSaveGamePath(saveGameSlot);
@@ -121,16 +49,16 @@ namespace TreasureHunter.Core.Data
             //Debug.Log("Remaining map marker: " + gameData.GetRemainingMapMarker());
             SaveGameData saveGameData = new SaveGameData
             {
-                CurrentMapArea = gameData.CurrentMapArea,
-                ObtainedSkill = playerData.GetObtainedSkills(),
-                LastPlayedTime = gameData.GetLastPlayedTime(),
+                currentMapArea = gameData.CurrentMapArea,
+                obtainedSkill = playerData.GetObtainedSkills(),
+                lastPlayedTime = gameData.GetLastPlayedTime().ToFileTime(),
 
                 // TODO: Add treasure save data
-                //CollectTreasures = gameData.GetCollectedTreasures(),
+                collectTreasures = new (),
 
-                ExploredMapArea = gameData.ExploredMapAreas,
-                MapMarkerData = gameData.GetMapMarkerData(),
-                RemainingMapMarker = gameData.GetRemainingMapMarker()
+                exploredMapArea = gameData.ExploredMapAreas,
+                mapMarkerData = gameData.GetMapMarkerData(),
+                remainingMapMarker = gameData.GetRemainingMapMarker()
             };
             string saveGameDataJson = JsonUtility.ToJson(saveGameData);
             File.WriteAllText(path, saveGameDataJson);
@@ -141,7 +69,7 @@ namespace TreasureHunter.Core.Data
         {
             if (IsSaveGameExist(saveGameSlot))
             {
-                _saveGameDataList = new SaveGameData();
+                _saveGameData = new SaveGameData();
                 Debug.Log("Load saved game data from slot " + saveGameSlot);
                 string path = GetSaveGamePath(saveGameSlot);
                 if (File.Exists(path))
@@ -152,14 +80,15 @@ namespace TreasureHunter.Core.Data
                     if (string.IsNullOrEmpty(saveGameDataJson))
                     {
                         Debug.Log("Saved game data is empty");
-                        return _saveGameDataList;
+                        return _saveGameData;
                     }
-                    //_saveGameDataList.Add(JsonUtility.FromJson<SaveGameData>(saveGameDataJson));
-                    _saveGameDataList = JsonUtility.FromJson<SaveGameData>(saveGameDataJson);
+
+                    //_saveGameData.Add(JsonUtility.FromJson<SaveGameData>(saveGameDataJson));
+                    _saveGameData = JsonUtility.FromJson<SaveGameData>(saveGameDataJson);
                 }
 
                 // debug all elements in the list
-                //foreach (var saveGameData in _saveGameDataList)
+                //foreach (var saveGameData in _saveGameData)
                 //{
                 //    Debug.Log("Saved game data: " + saveGameData);
                 //    //Debug.Log("Current map area: " + saveGameData.GetMapAreaKey());
@@ -169,14 +98,15 @@ namespace TreasureHunter.Core.Data
                 //    //Debug.Log("Map marker data: " + saveGameData.GetMapMarkerDatas());
                 //    //Debug.Log("Remaining map marker: " + saveGameData.GetRemainingMapMarker());
                 //}
-                Debug.Log("Current map area: " + _saveGameDataList.GetMapAreaKey());
-                Debug.Log("Obtained skill: " + _saveGameDataList.GetObtainedSkills());
-                Debug.Log("Last played time: " + _saveGameDataList.GetLastPlayedTime());
-                Debug.Log("Explored map area: " + _saveGameDataList.GetExploredMapAreas());
-                Debug.Log("Map marker data: " + _saveGameDataList.GetMapMarkerDatas());
-                Debug.Log("Remaining map marker: " + _saveGameDataList.GetRemainingMapMarker());
+                Debug.Log("Current map area: " + _saveGameData.GetMapAreaKey());
+                Debug.Log("Obtained skill: " + _saveGameData.GetObtainedSkills());
+                Debug.Log("Last played time: " + DateTime.FromFileTime(_saveGameData.GetLastPlayedTime()));
+                Debug.Log("Explored map area: " + _saveGameData.GetExploredMapAreas());
+                Debug.Log("Map marker data: " + _saveGameData.GetMapMarkerDatas());
+                Debug.Log("Remaining map marker: " + _saveGameData.GetRemainingMapMarker());
             }
-            return _saveGameDataList;
+
+            return _saveGameData;
         }
 
         public bool IsSaveGameExist(SaveGameSlot saveGameSlot)
@@ -200,6 +130,7 @@ namespace TreasureHunter.Core.Data
                     path = Application.persistentDataPath + _SAVE_GAME_SLOT_THREE_PATH;
                     break;
             }
+
             return path;
         }
     }
