@@ -94,7 +94,7 @@ namespace TreasureHunter.Gameplay.System
             }
 
             // Load map marker data
-            var mapMarkerDatas = saveGameData.GetMapMarkerDatas();
+            var mapMarkerDatas = saveGameData.GetMapMarkerData();
             foreach (var mapMarkerData in mapMarkerDatas)
             {
                 _mapMarkerDatas.Add(mapMarkerData);

@@ -95,14 +95,14 @@ namespace TreasureHunter.Core.Data
                 //    //Debug.Log("Obtained skill: " + saveGameData.GetObtainedSkills());
                 //    //Debug.Log("Last played time: " + saveGameData.GetLastPlayedTime());
                 //    //Debug.Log("Explored map area: " + saveGameData.GetExploredMapAreas());
-                //    //Debug.Log("Map marker data: " + saveGameData.GetMapMarkerDatas());
+                //    //Debug.Log("Map marker data: " + saveGameData.GetMapMarkerData());
                 //    //Debug.Log("Remaining map marker: " + saveGameData.GetRemainingMapMarker());
                 //}
                 Debug.Log("Current map area: " + _saveGameData.GetMapAreaKey());
                 Debug.Log("Obtained skill: " + _saveGameData.GetObtainedSkills());
                 Debug.Log("Last played time: " + DateTime.FromFileTime(_saveGameData.GetLastPlayedTime()));
                 Debug.Log("Explored map area: " + _saveGameData.GetExploredMapAreas());
-                Debug.Log("Map marker data: " + _saveGameData.GetMapMarkerDatas());
+                Debug.Log("Map marker data: " + _saveGameData.GetMapMarkerData());
                 Debug.Log("Remaining map marker: " + _saveGameData.GetRemainingMapMarker());
             }
 

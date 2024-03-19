@@ -61,7 +61,7 @@ namespace TreasureHunter.Core.Data
             return exploredMapArea;
         }
 
-        public List<Vector2> GetMapMarkerDatas()
+        public List<Vector2> GetMapMarkerData()
         {
             if (mapMarkerData == null)
             {
