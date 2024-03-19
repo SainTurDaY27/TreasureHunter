@@ -61,7 +61,13 @@ namespace TreasureHunter.Gameplay.UI
             _dataManager.GameData.ClearMapMarkerData();
             foreach (var mapMarker in _mapMarkers)
             {
-                _dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
+                if (mapMarker != null)
+                {
+                    Debug.Log("MapMarker: " + mapMarker);
+                    _dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
+                }
+                //Debug.Log("MapMarker: " + mapMarker);
+                //_dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
             }
         }
 

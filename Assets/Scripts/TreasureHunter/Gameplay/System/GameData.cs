@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.Map;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
@@ -16,6 +17,7 @@ namespace TreasureHunter.Gameplay.System
         private Dictionary<string, bool> _boolStates = new();
         private MapAreaKey[] _exploredMapAreas;
         private List<MapMarkerData> _mapMarkerDatas = new();
+        private SaveGameSlot _saveGameSlot;
 
         public class MapMarkerData
         {
@@ -54,6 +56,9 @@ namespace TreasureHunter.Gameplay.System
         public MapAreaKey[] ExploredMapAreas => _exploredMapAreas;
         public MapAreaKey CurrentMapArea => _currentMapArea;
 
+        // date and time when the game is saved
+        public DateTime LastPlayedTime;
+
         public bool IsMouseOverMapMarker = false;
         public event Action OnMapMarkerChanged;
         public event Action OnMapAreaExplored;
@@ -66,6 +71,18 @@ namespace TreasureHunter.Gameplay.System
             _currentMapArea = MapAreaKey.TheEntrance;
             remainingMapMarker = MaxMapMarker;
             _mapMarkerDatas.Clear();
+        }
+
+        public void LoadData(List<SaveGameData> saveGameData)
+        {
+            // Load collected treasures
+            //var collectedTreasures = saveGameData[0].GetCollectedTreasures();
+            //foreach (var treasure in collectedTreasures)
+            //{
+            //    CollectTreasure(treasure);
+            //}
+
+            // TODO: Do the rest load data
         }
 
         public void ExploreNewMapArea(MapAreaKey mapAreaKey)
@@ -87,6 +104,11 @@ namespace TreasureHunter.Gameplay.System
             OnMapAreaExplored?.Invoke();
         }
 
+        public void SetSaveGameSlot(SaveGameSlot saveGameSlot)
+        {
+            _saveGameSlot = saveGameSlot;
+        }
+
         public void SetCurrentMapArea(MapAreaKey mapAreaKey)
         {
             _currentMapArea = mapAreaKey;
@@ -95,6 +117,18 @@ namespace TreasureHunter.Gameplay.System
         public void SetMouseOverMapMarker(bool value)
         {
             IsMouseOverMapMarker = value;
+        }
+
+        public void UpdateLastPlayedTime()
+        {
+            // update last played time to current real-time
+            LastPlayedTime = DateTime.Now;
+        }
+
+        public DateTime GetLastPlayedTime()
+        {
+            UpdateLastPlayedTime();
+            return LastPlayedTime;
         }
 
         public void CollectTreasure(string treasureId)
@@ -125,6 +159,11 @@ namespace TreasureHunter.Gameplay.System
         public int GetRemainingMapMarker()
         {
             return remainingMapMarker;
+        }
+
+        public SaveGameSlot GetSaveGameSlot()
+        {
+            return _saveGameSlot;
         }
 
         public bool CheckMapMarkerAvailable()

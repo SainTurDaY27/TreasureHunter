@@ -17,6 +17,7 @@ namespace TreasureHunter.Core.State.GameState
         private GameManager _gameManager;
         private DataManager _dataManager;
         private SkillTestHelper _skillTestHelper;
+        private MapPanel _mapPanel;
 
         public GameStateModel() : base((int)GameStates.State.Game, nameof(GameStateModel))
         {

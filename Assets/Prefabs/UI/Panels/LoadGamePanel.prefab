@@ -2776,6 +2776,7 @@ MonoBehaviour:
   - {fileID: 6019491034002387623}
   - {fileID: 1277729594278303774}
   - {fileID: 4337383788913659977}
+  _saveGameSlot: 1
 --- !u!1 &7232430529464603586
 GameObject:
   m_ObjectHideFlags: 0
@@ -3100,6 +3101,7 @@ MonoBehaviour:
   - {fileID: 4893807751396200014}
   - {fileID: 3369602695086530143}
   - {fileID: 2299599549286630484}
+  _saveGameSlot: 3
 --- !u!1 &9014382789060086474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3349,6 +3351,7 @@ MonoBehaviour:
   - {fileID: 151884885698058773}
   - {fileID: 6812375662326823507}
   - {fileID: 6001355976158780713}
+  _saveGameSlot: 2
 --- !u!1001 &1615246135832538964
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.System;
 
 namespace TreasureHunter.Gameplay.Player
@@ -22,6 +23,16 @@ namespace TreasureHunter.Gameplay.Player
         public void ResetData()
         {
             _obtainedSkills.Clear();
+        }
+
+        public void LoadData(List<SaveGameData> saveGameData)
+        {
+            var obtainedSkills = saveGameData[0].GetObtainedSkills();
+           
+            foreach (var skill in obtainedSkills)
+            {
+                ObtainSkill(skill);
+            }
         }
 
         public void ObtainSkill(SkillKey skillKey)
@@ -53,7 +64,6 @@ namespace TreasureHunter.Gameplay.Player
                 return false;
             }
         }
-
 
         public bool HasSkill(SkillKey skillKey)
         {

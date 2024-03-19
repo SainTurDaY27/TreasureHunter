@@ -17,6 +17,7 @@ namespace TreasureHunter.Gameplay.Player
         private GameManager _gameManager;
         private ProjectileLauncher _projectileLauncher;
         private Vector2 _originalScale;
+        private GameSaveManager _gameSaveManager;
 
         [SerializeField] private bool isFacingRight = true;
 
@@ -266,6 +267,9 @@ namespace TreasureHunter.Gameplay.Player
             if (!context.started) return;
             if (canSave)
             {
+                var dataManager = DataManager.Instance;
+                _gameSaveManager = dataManager.GameSaveManager;
+                _gameSaveManager.SaveGameData(dataManager.GameData.GetSaveGameSlot());
                 _damageable.Health = _damageable.MaxHealth;
             }
         }

@@ -11,7 +11,8 @@ namespace TreasureHunter.Core.State.GameState
             SkillPickup,
             TreasureGet,
             LoadGame,
-            Map
+            Map,
+            SaveGame
         }
         
         private StateModel[] _states;
@@ -27,7 +28,8 @@ namespace TreasureHunter.Core.State.GameState
                 new AbilityPickupStateModel(),
                 new TreasureGetStateModel(),
                 new LoadGameStateModel(),
-                new MapStateModel()
+                new MapStateModel(),
+                new SaveGameStateModel()
             };
             return _states;
         }

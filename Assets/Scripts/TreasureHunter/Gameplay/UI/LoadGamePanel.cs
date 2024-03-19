@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -114,6 +115,12 @@ namespace TreasureHunter.Gameplay.UI
                 if (selectedButtons.Count() >= 1) return;
                 SelectButton(clickedButton);
             }
+        }
+
+        public SaveGameSlot GetSelectedSaveGameSlot()
+        {
+            int buttonIndex = Array.IndexOf(_savedGameSelectionButtons, selectedButtons[0]);
+            return (SaveGameSlot)buttonIndex;
         }
     }
 }

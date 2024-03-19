@@ -1,4 +1,5 @@
 using TMPro;
+using TreasureHunter.Core.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,9 @@ namespace TreasureHunter.Gameplay.UI
 
         [SerializeField]
         private Image[] _skillSlotImages;
+
+        [SerializeField]
+        private SaveGameSlot _saveGameSlot;
 
         public void SetSavedLevelName(string levelName)
         {
@@ -37,7 +41,7 @@ namespace TreasureHunter.Gameplay.UI
         {
             _skillSlotImages[index].sprite = skillSprite;
         }
-
+        
         public void SetSkillSlotImageActive(int index, bool isActive)
         {
             _skillSlotImages[index].gameObject.SetActive(isActive);

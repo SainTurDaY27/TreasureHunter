@@ -1,3 +1,4 @@
+using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.UI;
 
@@ -36,6 +37,8 @@ namespace TreasureHunter.Core.State.GameState
 
         private void PlayLoadGame()
         {
+            var loadGameSlot = _loadGamePanel.GetSelectedSaveGameSlot();
+            DataManager.Instance.GameData.SetSaveGameSlot(loadGameSlot);
             GameStateManager.Instance.GoToState((int)GameStates.State.Game, BackToGameMethod.LoadGame);
         }
 
