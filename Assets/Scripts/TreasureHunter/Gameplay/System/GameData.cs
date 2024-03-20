@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.Map;
 using UnityEngine;
@@ -49,10 +50,10 @@ namespace TreasureHunter.Gameplay.System
         private MapAreaKey _currentMapArea = MapAreaKey.TheEntrance;
 
         // TODO: Config this later -> move to config data file
-        private int remainingMapMarker = 6;
+        private int remainingMapMarker = MaxMapMarker;
 
         public int TreasureCount => _collectedTreasures.Count;
-        public int MapMarker => remainingMapMarker;
+        public int RemainingMapMarker => MaxMapMarker - _mapMarkerDatas.Count ;
         public List<MapAreaKey> ExploredMapAreas => _exploredMapAreas;
         public MapAreaKey CurrentMapArea => _currentMapArea;
 
@@ -167,8 +168,10 @@ namespace TreasureHunter.Gameplay.System
             OnMapMarkerChangedHandler();
         }
 
-        public void GainMapMarker()
+        public void GainMapMarker(Vector2 mapMarkerLocation)
         {
+            // TODO: Test if reference work or not
+            _mapMarkerDatas = _mapMarkerDatas.Where(m => m != null && Math.Abs(m.x - mapMarkerLocation.x) < 0.001 && Math.Abs(m.y - mapMarkerLocation.y) < 0.001) as List<Vector2>;
             remainingMapMarker++;
             OnMapMarkerChangedHandler();
         }

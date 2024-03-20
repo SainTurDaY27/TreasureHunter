@@ -52,11 +52,12 @@ namespace TreasureHunter.Core.State.GameState
         private void UpdateInGameMap()
         {
             _mapPanel.UpdateMapUI(DataManager.Instance.GameData.ExploredMapAreas);
+            _mapPanel.LoadMapMarkerFromData();
         }
 
         private void UpdateRemainingMarkerAmount()
         {
-            _markerCount = DataManager.Instance.GameData.MapMarker;
+            _markerCount = DataManager.Instance.GameData.RemainingMapMarker;
             _mapPanel.SetMapMarkerRemaining(_markerCount);
         }
     }
