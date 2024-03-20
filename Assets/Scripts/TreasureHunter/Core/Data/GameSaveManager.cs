@@ -57,8 +57,7 @@ namespace TreasureHunter.Core.Data
                 obtainedSkill = playerData.GetObtainedSkills(),
                 lastPlayedTime = gameData.GetLastPlayedTime().ToFileTime(),
 
-                // TODO: Add treasure save data
-                collectTreasures = new (),
+                collectTreasures = gameData.GetCollectedTreasures(),
 
                 exploredMapArea = gameData.ExploredMapAreas,
                 mapMarkerData = gameData.GetMapMarkerData(),

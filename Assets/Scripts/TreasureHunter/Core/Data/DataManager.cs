@@ -18,6 +18,7 @@ namespace TreasureHunter.Core.Data
         public PlayerData PlayerData => _playerData;
         public GameData GameData => _gameData;
         public GameSaveManager GameSaveManager => _gameSaveManager;
+        public SaveGameSlot currentSlot = SaveGameSlot.SlotOne;
 
         public override void Awake()
         {

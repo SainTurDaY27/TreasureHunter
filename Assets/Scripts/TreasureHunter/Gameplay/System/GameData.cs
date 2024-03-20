@@ -188,5 +188,10 @@ namespace TreasureHunter.Gameplay.System
         {
             _mapMarkerDatas = _mapMarkerDatas.Where(m => !m.Equals(mapMarker)).ToList();
         }
+
+        public List<string> GetCollectedTreasures()
+        {
+            return _collectedTreasures.ToList();
+        }
     }
 }
