@@ -49,8 +49,10 @@ namespace TreasureHunter.Gameplay.UI
             public GameObject ArrowUI => _arrowUI;
         }
 
-        private GameObject[] _mapMarkers = new GameObject[6];
+        private List<GameObject> _mapMarkers = new ();
         private DataManager _dataManager;
+        public event Action<Vector2> OnMapMarkerPlaced;
+        public event Action<Vector2> OnMapMarkerRemoved;
 
         public void SetActive(bool isActive)
         {
@@ -78,7 +80,7 @@ namespace TreasureHunter.Gameplay.UI
             var _mapMarkerData = _dataManager.GameData.GetMapMarkerData();
             foreach (var mapMarkerData in _mapMarkerData)
             {
-                // PlaceMapMarker(mapMarkerData.GetPosition());
+                PlaceMapMarker(mapMarkerData, modifyData: false);
             }
         }
 
@@ -116,6 +118,12 @@ namespace TreasureHunter.Gameplay.UI
             {
                 mapArrowUI.ArrowUI.SetActive(false);
             }
+        }
+
+        public void ResetAllMarkers()
+        {
+            // Destroy all GUI map marker
+            _mapMarkers.Clear();
         }
 
         public void UpdateMapUI(List<MapAreaKey> exploredMapAreas)
@@ -159,30 +167,28 @@ namespace TreasureHunter.Gameplay.UI
 
         public void RemoveAllMapMarker()
         {
-            for (int i = 0; i < _mapMarkers.Length; i++)
+            for (int i = 0; i < _mapMarkers.Count; i++)
             {
                 if (_mapMarkers[i] != null)
                 {
                     Destroy(_mapMarkers[i]);
-                    _dataManager.GameData.GainMapMarker();
+                    _dataManager.GameData.GainMapMarker(_mapMarkers[i].transform.position);
                 }
             }
         }
 
-        private void PlaceMapMarker(Vector3 position)
+        private void PlaceMapMarker(Vector3 position, bool modifyData = true)
         {
             var mapMarker = Instantiate(_mapMarkerPrefab, _mapAreaPanel.transform);
             mapMarker.transform.position = position;
-
-            for (int i = 0; i < _mapMarkers.Length; i++)
-            {
-                if (_mapMarkers[i] == null)
-                {
-                    _mapMarkers[i] = mapMarker;
-                    break;
-                }
-            }
-            _dataManager.GameData.UseMapMarker();
+            // GUI
+            _mapMarkers.Add(mapMarker);
+            var component = mapMarker.GetComponent<MapMarker>();
+            component.OnMapMarkerRemoved += OnMapMarkerRemoved;
+            // Actual data
+            if (modifyData) OnMapMarkerPlaced?.Invoke(position);
+            SetMapMarkerRemaining(_dataManager.GameData.RemainingMapMarker);
+            
         }
 
         private void Awake()
