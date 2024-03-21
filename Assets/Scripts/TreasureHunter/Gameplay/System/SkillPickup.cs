@@ -34,6 +34,7 @@ namespace TreasureHunter.Gameplay.System
                     return;
                 }
                 treasure.treasureId = skillName;
+                treasure.DestroyIfAlreadyObtained();
                 Destroy(gameObject);
             }
         }
