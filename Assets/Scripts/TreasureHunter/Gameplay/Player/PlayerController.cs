@@ -121,7 +121,7 @@ namespace TreasureHunter.Gameplay.Player
             {
                 if (DataManager.Instance.PlayerData.HasSkill(SkillKey.WallJump))
                 {
-                    if (IsAlive && _touchingDirections.IsOnWall)
+                    if (IsAlive && _touchingDirections.IsOnWall && !_touchingDirections.IsGround)
                     {
                         // _damageable.LockVelocity = true;
                         _isWallJumping = true;
