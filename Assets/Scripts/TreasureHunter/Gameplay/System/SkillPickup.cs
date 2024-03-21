@@ -9,6 +9,7 @@ namespace TreasureHunter.Gameplay.System
     {
         public SkillKey skill;
         public string skillName, skillToolTip;
+        public GameObject treasurePrefab;
 
         private DataManager _dataManager;
         private Sprite _skillSprite;
@@ -23,6 +24,16 @@ namespace TreasureHunter.Gameplay.System
         {
             if (_dataManager.PlayerData.HasSkill(skill))
             {
+                Debug.Log("Already has skill. Spawn treasure");
+                var transform1 = transform;
+                var treasureGameObject = GameObject.Instantiate(treasurePrefab, transform1.position, transform1.rotation);
+                var treasure = treasureGameObject.GetComponent<Treasure>();
+                if (treasure == null)
+                {
+                    Debug.LogError("Invalid treasure prefab");
+                    return;
+                }
+                treasure.treasureId = skillName;
                 Destroy(gameObject);
             }
         }

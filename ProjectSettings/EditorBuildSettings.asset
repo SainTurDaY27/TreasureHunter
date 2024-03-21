@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/WeirdSpace.unity
     guid: b1a9d1c4a651247babf74ed74a534f37
+  - enabled: 1
+    path: Assets/Scenes/Levels/DangerDen.unity
+    guid: 67dccbde6f3454c76a52968a49ed3d96
   m_configObjects: {}

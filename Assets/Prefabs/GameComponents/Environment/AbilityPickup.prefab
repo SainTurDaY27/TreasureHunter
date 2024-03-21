@@ -146,3 +146,4 @@ MonoBehaviour:
   skill: 1
   skillName: NAME
   skillToolTip: WHAT IT CAN DO
+  treasurePrefab: {fileID: 5639264410591469109, guid: cd539dfc5508c484581aadaca19568fd, type: 3}
