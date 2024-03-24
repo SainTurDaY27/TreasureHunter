@@ -42,11 +42,13 @@ namespace TreasureHunter.Core.Data
         public void LoadSavedGame(SaveGameSlot saveGameSlot)
         {
             var saveGameData = _gameSaveManager.LoadGameData(saveGameSlot);
-            //ResetData();
-
             _playerData.LoadData(saveGameData);
             _gameData.LoadData(saveGameData);
+        }
 
+        public SaveGameData GetSavedGameData(SaveGameSlot saveGameSlot)
+        {
+            return _gameSaveManager.LoadGameData(saveGameSlot);
         }
     }
 }
