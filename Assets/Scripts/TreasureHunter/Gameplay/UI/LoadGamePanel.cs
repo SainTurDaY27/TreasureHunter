@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
@@ -26,9 +24,8 @@ namespace TreasureHunter.Gameplay.UI
         [SerializeField]
         private Button _backButton;
 
-        private Button[] selectedButtons = {};
+        private Button[] selectedButtons = { };
 
-        //public event Action<int> OnSavedGameSelected;
         public event Action OnPlayButtonClicked;
         public event Action OnBackButtonClicked;
 
@@ -88,12 +85,48 @@ namespace TreasureHunter.Gameplay.UI
             var outline = button.GetComponent<Outline>();
             outline.enabled = false;
         }
-        public void SetSavedGameDataUI()
+
+        public void UpdateSavedGameDataUI()
         {
-            // TODO: Implement save method first, then implement this method.
-            // - Get saved game data from the save method.
-            // - Set the text (stage, time, time played) and ability images of the buttons from the saved game data.
-            Debug.Log("Set Saved Game Data Soon!");
+            for (int i = 0; i < _saveGameSlotUIs.Length; i++)
+            {
+                var saveGameSlotUI = _saveGameSlotUIs[i];
+                var saveGameSlot = saveGameSlotUI.GetSaveGameSlot();
+                _savedGameSelectionButtons[i].interactable = true;
+
+                if (DataManager.Instance.GameSaveManager.IsSaveGameExist(saveGameSlot))
+                {
+                    var saveGameData = DataManager.Instance.GetSavedGameData(saveGameSlot);
+                    saveGameSlotUI.SetSavedLevelName(saveGameData.GetMapAreaKey().ToString());
+                    saveGameSlotUI.SetLastPlayDate(DateTime.FromFileTime(saveGameData.GetLastPlayedTime()).ToString());
+                    saveGameSlotUI.SetDeleteButtonActive(true);
+                    var obtainedSkills = saveGameData.GetObtainedSkills();
+                    for (int skillSlotImageIndex = 0; skillSlotImageIndex < saveGameSlotUI.SkillSlotImages.Length; skillSlotImageIndex++)
+                    {
+                        if (skillSlotImageIndex < obtainedSkills.Count)
+                        {
+                            var skill = obtainedSkills[skillSlotImageIndex];
+                            saveGameSlotUI.SetSkillSlotImage(skillSlotImageIndex, DataManager.Instance.SkillIconVisualData.GetSkillIcon(skill));
+                            saveGameSlotUI.SetSkillSlotImageActive(skillSlotImageIndex, true);
+                        }
+                        else
+                        {
+                            saveGameSlotUI.SetSkillSlotImageActive(skillSlotImageIndex, false);
+                        }
+                    }
+                }
+                else
+                {
+                    saveGameSlotUI.SetSavedLevelName("Empty Slot " + (i + 1).ToString());
+                    saveGameSlotUI.SetLastPlayDate("");
+                    for (int skillSlotImageIndex = 0; skillSlotImageIndex < saveGameSlotUI.SkillSlotImages.Length; skillSlotImageIndex++)
+                    {
+                        saveGameSlotUI.SetSkillSlotImageActive(skillSlotImageIndex, false);
+                    }
+                    saveGameSlotUI.SetDeleteButtonActive(false);
+                    _savedGameSelectionButtons[i].interactable = false;
+                }
+            }
         }
 
         public void OnButtonClicked(Button clickedButton)
@@ -120,7 +153,7 @@ namespace TreasureHunter.Gameplay.UI
         public SaveGameSlot GetSelectedSaveGameSlot()
         {
             int buttonIndex = Array.IndexOf(_savedGameSelectionButtons, selectedButtons[0]);
-            return (SaveGameSlot)buttonIndex;
+            return (SaveGameSlot)buttonIndex + 1;
         }
     }
 }
