@@ -68,8 +68,16 @@ namespace TreasureHunter.Core.State.GameState
 
                 case BackToGameMethod.LoadGame:
                     // TODO: Implement load game later
-                    LoadPlayer();
-                    LoadGameHUD();
+                    DataManager.Instance.LoadSavedGame(DataManager.Instance.GameData.GetCurrentSaveGameSlot());
+                    var currentMapArea = DataManager.Instance.GameData.CurrentMapArea;
+
+                    // TODO: Implement load scene using MapAreaKey later
+                    //GameSceneManager.Instance.GoToScene(currentMapArea, () =>
+                    //{
+                    //    LoadPlayer();
+                    //    LoadGameHUD();
+                    //});
+
                     break;
 
                 case BackToGameMethod.ContinueGame:

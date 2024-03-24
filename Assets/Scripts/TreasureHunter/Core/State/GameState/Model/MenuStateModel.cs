@@ -23,7 +23,7 @@ namespace TreasureHunter.Core.State.GameState
                 toState: (int)GameStates.State.End));
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
-                toState: (int)GameStates.State.LoadGame));
+                toState: (int)GameStates.State.ChooseSlotOrLoadGame));
         }
 
         public override void OnStateIn(params object[] args)
@@ -59,12 +59,12 @@ namespace TreasureHunter.Core.State.GameState
 
         private void PlayNewGame()
         {
-            GameStateManager.Instance.GoToState((int)GameStates.State.SkillSelection);
+            GameStateManager.Instance.GoToState((int)GameStates.State.ChooseSlotOrLoadGame, OnStateInCondition.NewGame);
         }
 
         private void LoadGame()
         {
-            GameStateManager.Instance.GoToState((int)GameStates.State.LoadGame);
+            GameStateManager.Instance.GoToState((int)GameStates.State.ChooseSlotOrLoadGame, OnStateInCondition.LoadGame);
         }
 
         private void ExitGame()
