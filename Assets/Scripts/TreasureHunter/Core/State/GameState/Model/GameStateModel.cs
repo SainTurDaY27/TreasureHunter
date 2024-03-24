@@ -67,17 +67,13 @@ namespace TreasureHunter.Core.State.GameState
                     break;
 
                 case BackToGameMethod.LoadGame:
-                    // TODO: Implement load game later
                     DataManager.Instance.LoadSavedGame(DataManager.Instance.GameData.GetCurrentSaveGameSlot());
                     var currentMapArea = DataManager.Instance.GameData.CurrentMapArea;
-
-                    // TODO: Implement load scene using MapAreaKey later
-                    //GameSceneManager.Instance.GoToScene(currentMapArea, () =>
-                    //{
-                    //    LoadPlayer();
-                    //    LoadGameHUD();
-                    //});
-
+                    GameSceneManager.Instance.GoToScene(GetSceneKeyByMapAreaKey(currentMapArea), () =>
+                    {
+                        LoadPlayer();
+                        LoadGameHUD();
+                    });
                     break;
 
                 case BackToGameMethod.ContinueGame:
@@ -133,6 +129,40 @@ namespace TreasureHunter.Core.State.GameState
         {
             _player = GameObject.FindObjectsOfType<Damageable>().FirstOrDefault(d => d.CompareTag("Player"));
             _player.healthChange.AddListener(OnPlayerHealthChange);
+        }
+
+        private string GetSceneKeyByMapAreaKey(MapAreaKey mapAreaKey)
+        {
+            switch (mapAreaKey)
+            {
+                // The surface is not included in the map area
+                case MapAreaKey.TheEntrance:
+                    return SceneKey.THE_ENTRANCE;
+                case MapAreaKey.ScorpionCave:
+                    return SceneKey.SCORPION_CAVE;
+                //case MapAreaKey.SpeedyCave:
+                //    return SceneKey.SPEEDY_CAVE;
+                //case MapAreaKey.ForgottenPassage:
+                //    return SceneKey.FORGOTTEN_PASSAGE;
+                //case MapAreaKey.ForgottenPlace:
+                //    return SceneKey.FORGOTTEN_PLACE;
+                //case MapAreaKey.DangerDen:
+                //    return SceneKey.DANGER_DEN;
+                //case MapAreaKey.InteriorPeak:
+                //    return SceneKey.INTERIOR_PEAK;
+                case MapAreaKey.NormalCave:
+                    return SceneKey.NORMAL_CAVE;
+                case MapAreaKey.WeirdSpace:
+                    return SceneKey.WEIRD_SPACE;
+                //case MapAreaKey.ShrinkingGround:
+                //    return SceneKey.SHRINKING_GROUND;
+                //case MapAreaKey.CaveOfSmallPeople:
+                //    return SceneKey.CAVE_OF_SMALL_PEOPLE;
+                case MapAreaKey.AbnormalCave:
+                    return SceneKey.ABNORMAL_CAVE;
+                default:
+                    return SceneKey.THE_ENTRANCE;
+            }
         }
     }
 
