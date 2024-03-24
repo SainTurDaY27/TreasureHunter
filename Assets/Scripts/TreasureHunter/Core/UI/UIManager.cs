@@ -16,6 +16,7 @@ namespace TreasureHunter.Core.UI
         [SerializeField] private TreasureGetPanel _treasureGetPanel;
         [SerializeField] private LoadGamePanel _loadGamePanel;
         [SerializeField] private MapPanel _mapPanel;
+        [SerializeField] private ChooseSaveSlotPanel _chooseSaveSlotPanel;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -45,6 +46,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.Map:
                     _mapPanel.SetActive(true);
                     return _mapPanel;
+                case UIKey.ChooseSaveSlot:
+                    _chooseSaveSlotPanel.SetActive(true);
+                    return _chooseSaveSlotPanel;
                 default:
                     return null;
             }
@@ -86,6 +90,10 @@ namespace TreasureHunter.Core.UI
                     _mapPanel.SetActive(false);
                     _mapPanel.transform.SetAsLastSibling();
                     return _mapPanel;
+                case UIKey.ChooseSaveSlot:
+                    _chooseSaveSlotPanel.SetActive(false);
+                    _chooseSaveSlotPanel.transform.SetAsLastSibling();
+                    return _chooseSaveSlotPanel;
                 default:
                     return null;
             }
@@ -101,6 +109,7 @@ namespace TreasureHunter.Core.UI
             _loadGamePanel.SetActive(false);
             _treasureGetPanel.SetActive(false);
             _mapPanel.SetActive(false);
+            _chooseSaveSlotPanel.SetActive(false);
         }
 
         public bool TryGetUIByKey(UIKey uiKey, out IBaseUI ui)
@@ -131,6 +140,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.Map:
                     ui = _mapPanel;
                     return true;
+                case UIKey.ChooseSaveSlot:
+                    ui = _chooseSaveSlotPanel;
+                    return true;
                 default:
                     ui = null;
                     return false;
@@ -147,6 +159,7 @@ namespace TreasureHunter.Core.UI
         AbilityGet,
         TreasureGet,
         LoadGame,
-        Map
+        Map,
+        ChooseSaveSlot
     }
 }
