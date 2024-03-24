@@ -1,5 +1,6 @@
 using System.Collections;
 using TreasureHunter.Core.Data;
+using TreasureHunter.Core.State.GameState;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -269,8 +270,8 @@ namespace TreasureHunter.Gameplay.Player
             {
                 var dataManager = DataManager.Instance;
                 _gameSaveManager = dataManager.GameSaveManager;
-                _gameSaveManager.SaveGameData(dataManager.GameData.GetSaveGameSlot());
                 _damageable.Health = _damageable.MaxHealth;
+                _gameSaveManager.SaveGameData(dataManager.GameData.GetCurrentSaveGameSlot());
             }
         }
 

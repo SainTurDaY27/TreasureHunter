@@ -17,7 +17,7 @@ namespace TreasureHunter.Gameplay.System
         private Dictionary<string, bool> _boolStates = new();
         private List<MapAreaKey> _exploredMapAreas = new();
         private List<Vector2> _mapMarkerDatas = new();
-        private SaveGameSlot _saveGameSlot;
+        private SaveGameSlot _currentSaveGameSlot;
 
         // TODO: Set this variable later
         private MapAreaKey _currentMapArea = MapAreaKey.TheEntrance;
@@ -82,9 +82,9 @@ namespace TreasureHunter.Gameplay.System
             OnMapAreaExplored?.Invoke();
         }
 
-        public void SetSaveGameSlot(SaveGameSlot saveGameSlot)
+        public void SetCurrentSaveGameSlot(SaveGameSlot saveGameSlot)
         {
-            _saveGameSlot = saveGameSlot;
+            _currentSaveGameSlot = saveGameSlot;
         }
 
         public void SetCurrentMapArea(MapAreaKey mapAreaKey)
@@ -144,9 +144,9 @@ namespace TreasureHunter.Gameplay.System
             return RemainingMapMarker;
         }
 
-        public SaveGameSlot GetSaveGameSlot()
+        public SaveGameSlot GetCurrentSaveGameSlot()
         {
-            return _saveGameSlot;
+            return _currentSaveGameSlot;
         }
 
         public bool CheckMapMarkerAvailable()
