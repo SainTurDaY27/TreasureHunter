@@ -123,6 +123,7 @@ namespace TreasureHunter.Gameplay.UI
         public void ResetAllMarkers()
         {
             // Destroy all GUI map marker
+            _mapMarkers.ForEach(Destroy);
             _mapMarkers.Clear();
         }
 
