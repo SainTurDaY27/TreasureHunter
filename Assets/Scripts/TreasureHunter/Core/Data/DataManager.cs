@@ -18,7 +18,7 @@ namespace TreasureHunter.Core.Data
         public PlayerData PlayerData => _playerData;
         public GameData GameData => _gameData;
         public GameSaveManager GameSaveManager => _gameSaveManager;
-        public SaveGameSlot currentSlot = SaveGameSlot.SlotOne;
+        public PlayerController PlayerController;
 
         public override void Awake()
         {
@@ -36,6 +36,8 @@ namespace TreasureHunter.Core.Data
 
         public void SaveGame(SaveGameSlot saveGameSlot)
         {
+            var player = GameObject.FindObjectOfType<PlayerController>();
+            _playerData.SetPlayerPosition(player.transform.position);
             _gameSaveManager.SaveGameData(saveGameSlot);
         }
 

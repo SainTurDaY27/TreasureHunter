@@ -11,6 +11,7 @@ namespace TreasureHunter.Core.Data
     public class SaveGameData
     {
         public MapAreaKey currentMapArea;
+        public Vector2 playerPosition;
         public List<SkillKey> obtainedSkill;
         public long lastPlayedTime;
 
@@ -26,13 +27,13 @@ namespace TreasureHunter.Core.Data
             return currentMapArea;
         }
 
+        public Vector2 GetPlayerPosition()
+        {
+            return playerPosition;
+        }
+
         public List<SkillKey> GetObtainedSkills()
         {
-            // debug all elements in the list
-            //foreach (var skill in ObtainedSkill)
-            //{
-            //    Debug.Log("Obtained skill: " + skill);
-            //}
             return obtainedSkill;
         }
 
@@ -43,11 +44,6 @@ namespace TreasureHunter.Core.Data
 
         public List<string> GetCollectedTreasures()
         {
-            foreach (var treasure in collectTreasures)
-            {
-                Debug.Log("Treasure collected: " + treasure);
-            }
-
             return collectTreasures;
         }
 
@@ -67,14 +63,6 @@ namespace TreasureHunter.Core.Data
             {
                 return new List<Vector2>();
             }
-
-            //foreach (var markerData in MapMarkerData)
-            //{
-            //    if (markerData != null)
-            //    {
-            //        Debug.Log("Map marker data: " + markerData);
-            //    }
-            //}
             return mapMarkerData;
         }
 

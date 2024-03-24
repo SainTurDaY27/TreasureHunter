@@ -89,6 +89,11 @@ namespace TreasureHunter.Gameplay.Player
             _gameManager = GameManager.Instance;
         }
 
+        public void MovePlayer(Vector2 position)
+        {
+            _damageable.gameObject.transform.position = position;
+        }
+
         public void OnMove(InputAction.CallbackContext context)
         {
             _moveInput = context.ReadValue<Vector2>();
@@ -264,14 +269,13 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnSave(InputAction.CallbackContext context)
         {
-            // TODO: Implement actual saving
             if (!context.started) return;
             if (canSave)
             {
                 var dataManager = DataManager.Instance;
                 _gameSaveManager = dataManager.GameSaveManager;
                 _damageable.Health = _damageable.MaxHealth;
-                _gameSaveManager.SaveGameData(dataManager.GameData.GetCurrentSaveGameSlot());
+                dataManager.SaveGame(dataManager.GameData.GetCurrentSaveGameSlot());
             }
         }
 

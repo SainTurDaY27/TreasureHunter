@@ -3,6 +3,7 @@ using TreasureHunter.Core.Data;
 using TreasureHunter.Core.Scene;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.Map;
+using TreasureHunter.Gameplay.Player;
 using TreasureHunter.Gameplay.System;
 using TreasureHunter.Gameplay.UI;
 using TreasureHunter.Gameplay.Utilities;
@@ -18,6 +19,8 @@ namespace TreasureHunter.Core.State.GameState
         private DataManager _dataManager;
         private SkillTestHelper _skillTestHelper;
         private MapPanel _mapPanel;
+        private PlayerController _playerController;
+        private BackToGameMethod _backToGameMethod;
 
         public GameStateModel() : base((int)GameStates.State.Game, nameof(GameStateModel))
         {
@@ -41,16 +44,16 @@ namespace TreasureHunter.Core.State.GameState
         public override void OnStateIn(params object[] args)
         {
             base.OnStateIn();
-            var backToGameMethod = BackToGameMethod.ContinueGame;
+            _backToGameMethod = BackToGameMethod.ContinueGame;
             if (args.Length > 0)
             {
-                backToGameMethod = (BackToGameMethod)args[0];
+                _backToGameMethod = (BackToGameMethod)args[0];
             }
             _gameManager = GameManager.Instance;
             _dataManager = DataManager.Instance;
             _skillTestHelper = SkillTestHelper.Instance;
 
-            switch (backToGameMethod)
+            switch (_backToGameMethod)
             {
                 case BackToGameMethod.NewGame:
                     GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
@@ -129,6 +132,12 @@ namespace TreasureHunter.Core.State.GameState
         {
             _player = GameObject.FindObjectsOfType<Damageable>().FirstOrDefault(d => d.CompareTag("Player"));
             _player.healthChange.AddListener(OnPlayerHealthChange);
+            if (_backToGameMethod == BackToGameMethod.LoadGame)
+            {
+                _playerController = GameObject.FindObjectOfType<PlayerController>();
+                var playerPosition = DataManager.Instance.GetSavedGameData(DataManager.Instance.GameData.GetCurrentSaveGameSlot()).GetPlayerPosition();
+                _playerController.MovePlayer(playerPosition);
+            }
         }
 
         private string GetSceneKeyByMapAreaKey(MapAreaKey mapAreaKey)

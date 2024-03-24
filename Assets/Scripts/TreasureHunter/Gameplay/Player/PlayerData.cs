@@ -4,13 +4,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.System;
+using UnityEngine;
 
 namespace TreasureHunter.Gameplay.Player
 {
     public class PlayerData
     {
         private List<SkillKey> _obtainedSkills;
+        private Vector2 _playerPosition;
+        private PlayerController _playerController;
         public event Action OnSkillObtained;
+
         public PlayerData()
         {
             _obtainedSkills = new List<SkillKey>
@@ -28,6 +32,9 @@ namespace TreasureHunter.Gameplay.Player
         public void LoadData(SaveGameData saveGameData)
         {
             // Load obtained skills
+            var playerPosition = saveGameData.GetPlayerPosition();
+            //_playerController = GameObject.FindObjectOfType<PlayerController>();
+            //_playerController.MovePlayer(playerPosition);
             var obtainedSkills = saveGameData.GetObtainedSkills();
             foreach (var skill in obtainedSkills)
             {
@@ -73,6 +80,16 @@ namespace TreasureHunter.Gameplay.Player
         public List<SkillKey> GetObtainedSkills()
         {
             return _obtainedSkills;
+        }
+
+        public void SetPlayerPosition(Vector2 position)
+        {
+            _playerPosition = position;
+        }
+
+        public Vector2 GetPlayerPosition()
+        {
+            return _playerPosition;
         }
 
         private void OnSkillObtainedHandler()

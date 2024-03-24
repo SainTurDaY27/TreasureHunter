@@ -32,11 +32,10 @@ namespace TreasureHunter.Core.Data
             SaveGameData saveGameData = new SaveGameData
             {
                 currentMapArea = gameData.CurrentMapArea,
+                playerPosition = playerData.GetPlayerPosition(),
                 obtainedSkill = playerData.GetObtainedSkills(),
                 lastPlayedTime = gameData.GetLastPlayedTime().ToFileTime(),
-
                 collectTreasures = gameData.GetCollectedTreasures(),
-
                 exploredMapArea = gameData.ExploredMapAreas,
                 mapMarkerData = gameData.GetMapMarkerData(),
                 remainingMapMarker = gameData.GetRemainingMapMarker()
