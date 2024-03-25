@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/SpeedyCave.unity
     guid: d26e4ded9aef74e31871c9e1a094360f
+  - enabled: 1
+    path: Assets/Scenes/Levels/ShrinkingGround.unity
+    guid: 08bec3401ba574a2793d571a20e15b3e
   m_configObjects: {}
