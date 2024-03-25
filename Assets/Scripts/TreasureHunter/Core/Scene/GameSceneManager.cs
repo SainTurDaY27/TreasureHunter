@@ -43,6 +43,10 @@ namespace TreasureHunter.Core.Scene
                     _sceneLoader.LoadSceneByName(SceneKey.SPEEDY_CAVE, callback);
                     break;
                 
+                case SceneKey.SHRINKING_GROUND:
+                    _sceneLoader.LoadSceneByName(SceneKey.SHRINKING_GROUND, callback);
+                    break;
+                
                 default:
                     Debug.LogError("Scene not found");
                     break;
