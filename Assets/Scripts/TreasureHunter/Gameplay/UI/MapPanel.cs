@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
@@ -48,8 +49,10 @@ namespace TreasureHunter.Gameplay.UI
             public GameObject ArrowUI => _arrowUI;
         }
 
-        private GameObject[] _mapMarkers = new GameObject[6];
+        private List<GameObject> _mapMarkers = new ();
         private DataManager _dataManager;
+        public event Action<Vector2> OnMapMarkerPlaced;
+        public event Action<Vector2> OnMapMarkerRemoved;
 
         public void SetActive(bool isActive)
         {
@@ -58,10 +61,17 @@ namespace TreasureHunter.Gameplay.UI
 
         public void UpdateMapMarkerData()
         {
-            _dataManager.GameData.ClearMapMarkerData();
+            DataManager.Instance.GameData.ClearMapMarkerData();
             foreach (var mapMarker in _mapMarkers)
             {
-                _dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
+                if (mapMarker != null)
+                {
+                    Debug.Log("MapMarker: " + mapMarker);
+                    // TODO: Add map marker data.
+                    // _dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
+                }
+                //Debug.Log("MapMarker: " + mapMarker);
+                //_dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
             }
         }
 
@@ -70,7 +80,7 @@ namespace TreasureHunter.Gameplay.UI
             var _mapMarkerData = _dataManager.GameData.GetMapMarkerData();
             foreach (var mapMarkerData in _mapMarkerData)
             {
-                PlaceMapMarker(mapMarkerData.GetPosition());
+                PlaceMapMarker(mapMarkerData, modifyData: false);
             }
         }
 
@@ -110,12 +120,19 @@ namespace TreasureHunter.Gameplay.UI
             }
         }
 
-        public void UpdateMapUI(MapAreaKey[] exploredMapAreas)
+        public void ResetAllMarkers()
+        {
+            // Destroy all GUI map marker
+            _mapMarkers.ForEach(Destroy);
+            _mapMarkers.Clear();
+        }
+
+        public void UpdateMapUI(List<MapAreaKey> exploredMapAreas)
         {
             ResetMapUI();
             for (int i = 0; i < _mapBlockUIs.Length; i++)
             {
-                if (Array.Exists(exploredMapAreas, element => element == _mapBlockUIs[i].MapAreaKey))
+                if (exploredMapAreas.Contains(_mapBlockUIs[i].MapAreaKey))
                 {
                     SetActiveMapBlockUI(_mapBlockUIs[i].MapAreaKey, true);
                     SetActiveArrowUI(_mapBlockUIs[i].MapAreaKey, true);
@@ -151,30 +168,28 @@ namespace TreasureHunter.Gameplay.UI
 
         public void RemoveAllMapMarker()
         {
-            for (int i = 0; i < _mapMarkers.Length; i++)
+            for (int i = 0; i < _mapMarkers.Count; i++)
             {
                 if (_mapMarkers[i] != null)
                 {
                     Destroy(_mapMarkers[i]);
-                    _dataManager.GameData.GainMapMarker();
+                    _dataManager.GameData.GainMapMarker(_mapMarkers[i].transform.position);
                 }
             }
         }
 
-        private void PlaceMapMarker(Vector3 position)
+        private void PlaceMapMarker(Vector3 position, bool modifyData = true)
         {
             var mapMarker = Instantiate(_mapMarkerPrefab, _mapAreaPanel.transform);
             mapMarker.transform.position = position;
-
-            for (int i = 0; i < _mapMarkers.Length; i++)
-            {
-                if (_mapMarkers[i] == null)
-                {
-                    _mapMarkers[i] = mapMarker;
-                    break;
-                }
-            }
-            _dataManager.GameData.UseMapMarker();
+            // GUI
+            _mapMarkers.Add(mapMarker);
+            var component = mapMarker.GetComponent<MapMarker>();
+            component.OnMapMarkerRemoved += OnMapMarkerRemoved;
+            // Actual data
+            if (modifyData) OnMapMarkerPlaced?.Invoke(position);
+            SetMapMarkerRemaining(_dataManager.GameData.RemainingMapMarker);
+            
         }
 
         private void Awake()

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace TreasureHunter.Gameplay.UI
 {
-    public class LoadGamePanel : MonoBehaviour, IBaseUI
+    public class ChooseSaveSlotPanel : MonoBehaviour, IBaseUI
     {
         [SerializeField]
         private SaveGameSlotUI[] _saveGameSlotUIs;
@@ -19,14 +19,14 @@ namespace TreasureHunter.Gameplay.UI
         private Color unselectedColor, selectedColor;
 
         [SerializeField]
-        private Button _playButton;
+        private Button _continueButton;
 
         [SerializeField]
         private Button _backButton;
 
-        private Button[] selectedButtons = { };
+        private Button[] selectedButtons = {};
 
-        public event Action OnPlayButtonClicked;
+        public event Action OnContinueButtonClicked;
         public event Action OnBackButtonClicked;
 
         public void SetActive(bool isActive)
@@ -34,9 +34,9 @@ namespace TreasureHunter.Gameplay.UI
             gameObject.SetActive(isActive);
         }
 
-        private void OnPlayButtonClickedHandler()
+        private void OnContinueButtonClickedHandler()
         {
-            OnPlayButtonClicked?.Invoke();
+            OnContinueButtonClicked?.Invoke();
         }
 
         public void OnBackButtonClickedHandler()
@@ -46,13 +46,13 @@ namespace TreasureHunter.Gameplay.UI
 
         private void Awake()
         {
-            _playButton.onClick.AddListener(OnPlayButtonClickedHandler);
+            _continueButton.onClick.AddListener(OnContinueButtonClickedHandler);
             _backButton.onClick.AddListener(OnBackButtonClickedHandler);
         }
 
         private void OnDestroy()
         {
-            _playButton.onClick.RemoveListener(OnPlayButtonClickedHandler);
+            _continueButton.onClick.RemoveListener(OnContinueButtonClickedHandler);
             _backButton.onClick.RemoveListener(OnBackButtonClickedHandler);
         }
 
@@ -60,11 +60,11 @@ namespace TreasureHunter.Gameplay.UI
         {
             if (selectedButtons.Count() == 1)
             {
-                _playButton.interactable = true;
+                _continueButton.interactable = true;
             }
             else
             {
-                _playButton.interactable = false;
+                _continueButton.interactable = false;
             }
         }
 
@@ -92,7 +92,7 @@ namespace TreasureHunter.Gameplay.UI
             {
                 var saveGameSlotUI = _saveGameSlotUIs[i];
                 var saveGameSlot = saveGameSlotUI.GetSaveGameSlot();
-                _savedGameSelectionButtons[i].interactable = true;
+                _savedGameSelectionButtons[i].interactable = false;
 
                 if (DataManager.Instance.GameSaveManager.IsSaveGameExist(saveGameSlot))
                 {
@@ -124,7 +124,7 @@ namespace TreasureHunter.Gameplay.UI
                         saveGameSlotUI.SetSkillSlotImageActive(skillSlotImageIndex, false);
                     }
                     saveGameSlotUI.SetDeleteButtonActive(false);
-                    _savedGameSelectionButtons[i].interactable = false;
+                    _savedGameSelectionButtons[i].interactable = true;
                 }
             }
         }

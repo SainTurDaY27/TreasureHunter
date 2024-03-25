@@ -1,3 +1,4 @@
+using System;
 using TreasureHunter.Core.Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,6 +7,7 @@ namespace TreasureHunter.Gameplay.UI
 {
     public class MapMarker : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        public event Action<Vector2> OnMapMarkerRemoved;
         private bool _isMouseOver = false;
         private DataManager _dataManager;
 
@@ -32,9 +34,10 @@ namespace TreasureHunter.Gameplay.UI
             {
                 if (Input.GetMouseButtonDown(0))
                 {
+                    var position = gameObject.transform.position;
+                    OnMapMarkerRemoved?.Invoke(gameObject.transform.position);
                     Destroy(gameObject);
                     _dataManager.GameData.SetMouseOverMapMarker(false);
-                    _dataManager.GameData.GainMapMarker();
                 }
             }
         }
