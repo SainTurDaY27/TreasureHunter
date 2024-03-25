@@ -5,6 +5,7 @@ using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace TreasureHunter.Gameplay.UI
@@ -17,11 +18,13 @@ namespace TreasureHunter.Gameplay.UI
         [SerializeField]
         private GameObject[] _skillSlots;
 
-        [SerializeField]
-        private TextMeshProUGUI _mapNameText;
+        [FormerlySerializedAs("_mapNameText")] [SerializeField]
+        private TextMeshProUGUI _savingStatusText;
 
         [SerializeField]
         private TextMeshProUGUI _announceText;
+
+        [SerializeField] private float _savingTextDisplayTime = 0.5f; 
 
         public void SetActive(bool isActive)
         {
@@ -61,7 +64,16 @@ namespace TreasureHunter.Gameplay.UI
 
         public void UpdateMapName(string mapName)
         {
-            _mapNameText.text = mapName;
+            _savingStatusText.text = mapName;
+        }
+
+        public IEnumerator ShowSavingStatus()
+        {
+            _savingStatusText.text = "Saving...";
+            Debug.Log("Saving..");
+            yield return new WaitForSeconds(_savingTextDisplayTime);
+            _savingStatusText.text = "";
+            Debug.Log("Complete");
         }
 
         public void UpdateAnnounceText(string announceText)
@@ -83,7 +95,7 @@ namespace TreasureHunter.Gameplay.UI
             }
             if (Input.GetKeyDown(KeyCode.V))
             {
-                UpdateMapName("Map 2");
+                StartCoroutine(nameof(ShowSavingStatus));
             }
         }
     }

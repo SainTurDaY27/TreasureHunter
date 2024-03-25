@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.Player;
 using TreasureHunter.Gameplay.System;
+using TreasureHunter.Gameplay.UI;
 using TreasureHunter.Utilities;
 using UnityEngine;
 
@@ -39,6 +41,15 @@ namespace TreasureHunter.Core.Data
             var player = GameObject.FindObjectOfType<PlayerController>();
             _playerData.SetPlayerPosition(player.transform.position);
             _gameSaveManager.SaveGameData(saveGameSlot);
+            // Display UI text if possible
+            IBaseUI gameHUD;
+            if (UIManager.Instance.TryGetUIByKey(UIKey.GameHUD, out gameHUD))
+            {
+                if (gameHUD is GameHUDPanel gameHUDPanel)
+                {
+                    StartCoroutine(gameHUDPanel.ShowSavingStatus());
+                }
+            }
         }
 
         public void LoadSavedGame(SaveGameSlot saveGameSlot)

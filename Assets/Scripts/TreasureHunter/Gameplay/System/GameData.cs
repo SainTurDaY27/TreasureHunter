@@ -134,8 +134,7 @@ namespace TreasureHunter.Gameplay.System
 
         public void GainMapMarker(Vector2 mapMarkerLocation)
         {
-            // TODO: Test if reference work or not
-            _mapMarkerDatas = _mapMarkerDatas.Where(m => !(Vector2.Distance(m, mapMarkerLocation) < 0.0001)) as List<Vector2>;
+            RemoveMapMarker(mapMarkerLocation);
             OnMapMarkerChangedHandler();
         }
 
