@@ -1,5 +1,6 @@
 using System.Collections;
 using TreasureHunter.Core.Data;
+using TreasureHunter.Core.State.GameState;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +18,7 @@ namespace TreasureHunter.Gameplay.Player
         private GameManager _gameManager;
         private ProjectileLauncher _projectileLauncher;
         private Vector2 _originalScale;
+        private GameSaveManager _gameSaveManager;
 
         [SerializeField] private bool isFacingRight = true;
 
@@ -85,6 +87,11 @@ namespace TreasureHunter.Gameplay.Player
             _flash = GetComponent<Flash>();
             _originalScale = transform.localScale;
             _gameManager = GameManager.Instance;
+        }
+
+        public void MovePlayer(Vector2 position)
+        {
+            _damageable.gameObject.transform.position = position;
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -262,11 +269,13 @@ namespace TreasureHunter.Gameplay.Player
 
         public void OnSave(InputAction.CallbackContext context)
         {
-            // TODO: Implement actual saving
             if (!context.started) return;
             if (canSave)
             {
+                var dataManager = DataManager.Instance;
+                _gameSaveManager = dataManager.GameSaveManager;
                 _damageable.Health = _damageable.MaxHealth;
+                dataManager.SaveGame(dataManager.GameData.GetCurrentSaveGameSlot());
             }
         }
 

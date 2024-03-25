@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.Map;
 using UnityEngine;
-using Vector3 = UnityEngine.Vector3;
 
 namespace TreasureHunter.Gameplay.System
 {
@@ -14,45 +15,22 @@ namespace TreasureHunter.Gameplay.System
         // Collected treasure will have unique ID
         private HashSet<string> _collectedTreasures = new();
         private Dictionary<string, bool> _boolStates = new();
-        private MapAreaKey[] _exploredMapAreas;
-        private List<MapMarkerData> _mapMarkerDatas = new();
-
-        public class MapMarkerData
-        {
-            private GameObject _mapMarkerGameObject { get; set; }
-            private Vector3 _position { get; set; }
-
-            public GameObject GetMapMarkerGameObject()
-            {
-                return _mapMarkerGameObject;
-            }
-
-            public Vector3 GetPosition()
-            {
-                return _position;
-            }
-
-            public void SetMapMarkerGameObject(GameObject gameObject)
-            {
-                _mapMarkerGameObject = gameObject;
-            }
-
-            public void SetPosition(Vector3 position)
-            {
-                _position = position;
-            }
-        }
+        private List<MapAreaKey> _exploredMapAreas = new();
+        private List<Vector2> _mapMarkerDatas = new();
+        private SaveGameSlot _currentSaveGameSlot;
 
         // TODO: Set this variable later
         private MapAreaKey _currentMapArea = MapAreaKey.TheEntrance;
 
         // TODO: Config this later -> move to config data file
-        private int remainingMapMarker = 6;
 
         public int TreasureCount => _collectedTreasures.Count;
-        public int MapMarker => remainingMapMarker;
-        public MapAreaKey[] ExploredMapAreas => _exploredMapAreas;
+        public int RemainingMapMarker => MaxMapMarker - (_mapMarkerDatas?.Count ?? 0);
+        public List<MapAreaKey> ExploredMapAreas => _exploredMapAreas;
         public MapAreaKey CurrentMapArea => _currentMapArea;
+
+        // date and time when the game is saved
+        public DateTime LastPlayedTime;
 
         public bool IsMouseOverMapMarker = false;
         public event Action OnMapMarkerChanged;
@@ -62,29 +40,51 @@ namespace TreasureHunter.Gameplay.System
         {
             _collectedTreasures.Clear();
             _boolStates.Clear();
-            _exploredMapAreas = null;
+            _exploredMapAreas.Clear();
             _currentMapArea = MapAreaKey.TheEntrance;
-            remainingMapMarker = MaxMapMarker;
             _mapMarkerDatas.Clear();
+        }
+
+        public void LoadData(SaveGameData saveGameData)
+        {
+            // Load current map area
+            var _currentMapArea = saveGameData.currentMapArea;
+            SetCurrentMapArea(_currentMapArea);
+
+            // Load collected treasures
+            var collectedTreasures = saveGameData.GetCollectedTreasures();
+            foreach (var treasure in collectedTreasures)
+            {
+                CollectTreasure(treasure);
+            }
+
+            // Load explored map areas
+            var _exploredMapAreas = saveGameData.GetExploredMapAreas();
+            foreach (var mapAreaKey in _exploredMapAreas)
+            {
+                ExploreNewMapArea(mapAreaKey);
+            }
+
+            // Load map marker data
+            _mapMarkerDatas = saveGameData.GetMapMarkerData();
+
+            // Load remaining map marker
+            SetRemainingMapMarker(RemainingMapMarker);
         }
 
         public void ExploreNewMapArea(MapAreaKey mapAreaKey)
         {
-            if (_exploredMapAreas == null)
+            if (!_exploredMapAreas.Contains(mapAreaKey))
             {
-                _exploredMapAreas = new MapAreaKey[1];
-                _exploredMapAreas[0] = mapAreaKey;
+                _exploredMapAreas.Add(mapAreaKey);
             }
-            else
-            {
-                if (Array.Exists(_exploredMapAreas, element => element == mapAreaKey))
-                {
-                    return;
-                }
-                Array.Resize(ref _exploredMapAreas, _exploredMapAreas.Length + 1);
-                _exploredMapAreas[_exploredMapAreas.Length - 1] = mapAreaKey;
-            }
+
             OnMapAreaExplored?.Invoke();
+        }
+
+        public void SetCurrentSaveGameSlot(SaveGameSlot saveGameSlot)
+        {
+            _currentSaveGameSlot = saveGameSlot;
         }
 
         public void SetCurrentMapArea(MapAreaKey mapAreaKey)
@@ -92,9 +92,25 @@ namespace TreasureHunter.Gameplay.System
             _currentMapArea = mapAreaKey;
         }
 
+        public void SetRemainingMapMarker(int value)
+        {
+        }
+
         public void SetMouseOverMapMarker(bool value)
         {
             IsMouseOverMapMarker = value;
+        }
+
+        public void UpdateLastPlayedTime()
+        {
+            // update last played time to current real-time
+            LastPlayedTime = DateTime.Now;
+        }
+
+        public DateTime GetLastPlayedTime()
+        {
+            UpdateLastPlayedTime();
+            return LastPlayedTime;
         }
 
         public void CollectTreasure(string treasureId)
@@ -111,40 +127,33 @@ namespace TreasureHunter.Gameplay.System
         {
             if (CheckMapMarkerAvailable())
             {
-                remainingMapMarker--;
             }
+
             OnMapMarkerChangedHandler();
         }
 
-        public void GainMapMarker()
+        public void GainMapMarker(Vector2 mapMarkerLocation)
         {
-            remainingMapMarker++;
+            RemoveMapMarker(mapMarkerLocation);
             OnMapMarkerChangedHandler();
         }
 
         public int GetRemainingMapMarker()
         {
-            return remainingMapMarker;
+            return RemainingMapMarker;
+        }
+
+        public SaveGameSlot GetCurrentSaveGameSlot()
+        {
+            return _currentSaveGameSlot;
         }
 
         public bool CheckMapMarkerAvailable()
         {
-            return remainingMapMarker > 0;
+            return RemainingMapMarker > 0;
         }
 
-        public void AddMapMarkerData(GameObject mapMarkerGO, Vector3 position)
-        {
-            for (int i = 0; i < _mapMarkerDatas.Count; i++)
-            {
-                if (_mapMarkerDatas[i] == null)
-                {
-                    _mapMarkerDatas[i].SetMapMarkerGameObject(mapMarkerGO);
-                    _mapMarkerDatas[i].SetPosition(position);
-                }
-            }
-        }
-
-        public List<MapMarkerData> GetMapMarkerData()
+        public List<Vector2> GetMapMarkerData()
         {
             return _mapMarkerDatas;
         }
@@ -167,6 +176,21 @@ namespace TreasureHunter.Gameplay.System
         private void OnMapMarkerChangedHandler()
         {
             OnMapMarkerChanged?.Invoke();
+        }
+
+        public void AddMapMarker(Vector2 mapMarker)
+        {
+            _mapMarkerDatas.Add(mapMarker);
+        }
+
+        public void RemoveMapMarker(Vector2 mapMarker)
+        {
+            _mapMarkerDatas = _mapMarkerDatas.Where(m => !m.Equals(mapMarker)).ToList();
+        }
+
+        public List<string> GetCollectedTreasures()
+        {
+            return _collectedTreasures.ToList();
         }
     }
 }

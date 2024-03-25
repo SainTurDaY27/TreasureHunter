@@ -53,6 +53,16 @@ namespace TreasureHunter.Gameplay.Utilities
             {
                 ToggleSkill(SkillKey.Shrink);
             }
+
+            // Test save and load game
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                DataManager.Instance.SaveGame(SaveGameSlot.SlotOne);
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                DataManager.Instance.LoadSavedGame(SaveGameSlot.SlotOne);
+            }
         }
         #endif
 
