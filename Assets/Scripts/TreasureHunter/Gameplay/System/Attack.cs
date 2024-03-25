@@ -11,6 +11,7 @@ namespace TreasureHunter.Gameplay.System
         public Vector2 knockback = Vector2.zero;
         public bool isContactDamage = false;
         public bool isProjectile = false;
+        public AttackType attackType = AttackType.Melee;
 
         // localScale.x is inverted if left
         public bool startRight = true;
@@ -58,6 +59,12 @@ namespace TreasureHunter.Gameplay.System
             {
                 attackHit?.Invoke();
             }
+        }
+        
+        public enum AttackType
+        {
+            Melee,
+            Projectile
         }
     }
 }
