@@ -39,6 +39,9 @@ namespace TreasureHunter.Core.State.GameState
             GameStateManager.Instance.AddTransition(new StateTransition(
                 fromState: StateID,
                 toState: (int)GameStates.State.Map));
+            GameStateManager.Instance.AddTransition(new StateTransition(
+                fromState: StateID,
+                toState: (int)GameStates.State.Tutorial));
         }
 
         public override void OnStateIn(params object[] args)

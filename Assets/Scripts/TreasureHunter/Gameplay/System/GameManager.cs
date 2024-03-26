@@ -34,7 +34,7 @@ namespace TreasureHunter.Gameplay.System
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
                 // TODO: Use better way to check current state
                 if (GameStateManager.Instance.CurrentState.StateID == (int)GameStates.State.Game)
@@ -43,6 +43,19 @@ namespace TreasureHunter.Gameplay.System
                 
                 }
                 else if (GameStateManager.Instance.CurrentState.StateID == (int)GameStates.State.Map)
+                {
+                    GameStateManager.Instance.GoToState((int)GameStates.State.Game);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                // TODO: Use better way to check current state
+                if (GameStateManager.Instance.CurrentState.StateID == (int)GameStates.State.Game)
+                {
+                    GameStateManager.Instance.GoToState((int)GameStates.State.Tutorial);
+
+                }
+                else if (GameStateManager.Instance.CurrentState.StateID == (int)GameStates.State.Tutorial)
                 {
                     GameStateManager.Instance.GoToState((int)GameStates.State.Game);
                 }
