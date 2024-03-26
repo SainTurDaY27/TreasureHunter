@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.IO;
 using TreasureHunter.Gameplay.Player;
 using TreasureHunter.Gameplay.System;
@@ -65,7 +66,6 @@ namespace TreasureHunter.Core.Data
                     _saveGameData = JsonUtility.FromJson<SaveGameData>(saveGameDataJson);
                 }
             }
-            OnSaveGameDataChangedHandler();
             return _saveGameData;
         }
 
@@ -81,8 +81,8 @@ namespace TreasureHunter.Core.Data
             if (File.Exists(path))
             {
                 File.Delete(path);
+                OnSaveGameDataChangedHandler();
             }
-            OnSaveGameDataChangedHandler();
         }
 
         private string GetSaveGamePath(SaveGameSlot saveGameSlot)
@@ -104,7 +104,7 @@ namespace TreasureHunter.Core.Data
             return path;
         }
 
-        private void OnSaveGameDataChangedHandler()
+        public void OnSaveGameDataChangedHandler()
         {
             OnSaveGameDataChanged?.Invoke();
         }
