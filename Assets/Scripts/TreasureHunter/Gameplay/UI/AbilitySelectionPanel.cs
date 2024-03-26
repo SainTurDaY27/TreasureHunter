@@ -19,6 +19,9 @@ namespace TreasureHunter.Gameplay.UI
 
         [SerializeField]
         private Button _playButton;
+
+        [SerializeField]
+        private Button _backButton;
         
         private Button[] selectedButtons = {};
 
@@ -39,6 +42,7 @@ namespace TreasureHunter.Gameplay.UI
         }
 
         public event Action OnPlayButtonClicked;
+        public event Action OnBackButtonClicked;
         public event Action<SkillKey> OnSkillSelected;
 
         public void SetActive(bool isActive)
@@ -55,6 +59,11 @@ namespace TreasureHunter.Gameplay.UI
             }
         }
 
+        private void OnBackButtonClickedHandler()
+        {
+            OnBackButtonClicked?.Invoke();
+        }
+
         private void OnPlayButtonClickedHandler()
         {
             GetSelectedSkill();
@@ -64,11 +73,13 @@ namespace TreasureHunter.Gameplay.UI
         private void Awake()
         {
             _playButton.onClick.AddListener(OnPlayButtonClickedHandler);
+            _backButton.onClick.AddListener(OnBackButtonClickedHandler);
         }
 
         private void OnDestroy()
         {
             _playButton.onClick.RemoveListener(OnPlayButtonClickedHandler);
+            _backButton.onClick.RemoveListener(OnBackButtonClickedHandler);
         }
 
         private void Update()
