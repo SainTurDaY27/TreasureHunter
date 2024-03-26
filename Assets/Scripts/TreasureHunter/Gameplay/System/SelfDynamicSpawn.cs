@@ -6,7 +6,12 @@ using UnityEngine;
 
 namespace TreasureHunter.Gameplay.System
 {
-    public class DynamicSpawn : MonoBehaviour
+    /// <summary>
+    /// This is component for self-spawning condition.
+    /// Unlike spawners, the object will be awake first and then destroyed if
+    /// the condition does not match the current state.
+    /// </summary>
+    public class SelfDynamicSpawn : MonoBehaviour
     {
         public bool useSkillCondition = true;
         public bool useTreasureCondition = false;
@@ -23,7 +28,8 @@ namespace TreasureHunter.Gameplay.System
                 return;
             }
 
-            if (useSkillCondition && !skillConditions.All(skill => dataManager.PlayerData.GetObtainedSkills().Contains(skill)))
+            if (useSkillCondition &&
+                !skillConditions.All(skill => dataManager.PlayerData.GetObtainedSkills().Contains(skill)))
             {
                 Destroy(gameObject);
             }
