@@ -57,6 +57,12 @@ namespace TreasureHunter.Gameplay.System
             {
                 CollectTreasure(treasure);
             }
+            
+            _boolStates.Clear();
+            foreach (var stateId in saveGameData.trueBoolStates)
+            {
+                _boolStates[stateId] = true;
+            }
 
             // Load explored map areas
             var _exploredMapAreas = saveGameData.GetExploredMapAreas();
@@ -171,6 +177,11 @@ namespace TreasureHunter.Gameplay.System
         public void SetBoolState(string stateId, bool value)
         {
             _boolStates[stateId] = value;
+        }
+
+        public List<string> GetTrueBoolStates()
+        {
+            return _boolStates.Keys.Where(k => _boolStates[k]).ToList();
         }
 
         private void OnMapMarkerChangedHandler()
