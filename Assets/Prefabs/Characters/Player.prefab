@@ -413,7 +413,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8943873105033932659}
         m_TargetAssemblyTypeName: TreasureHunter.Gameplay.Player.PlayerController,
           Assembly-CSharp
-        m_MethodName: OnSave
+        m_MethodName: OnInteract
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

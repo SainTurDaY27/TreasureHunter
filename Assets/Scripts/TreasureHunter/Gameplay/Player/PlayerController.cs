@@ -48,6 +48,8 @@ namespace TreasureHunter.Gameplay.Player
         private bool _canChangeSize = false;
         private SizeChangeMode _nextSizeChangeMode = SizeChangeMode.Shrink;
         private Vector2 _sizeChangeDestination;
+        private bool _canTeleport = false;
+        private Vector2 _teleportDestination;
 
 
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
@@ -267,7 +269,7 @@ namespace TreasureHunter.Gameplay.Player
             _canChangeSize = false;
         }
 
-        public void OnSave(InputAction.CallbackContext context)
+        public void OnInteract(InputAction.CallbackContext context)
         {
             if (!context.started) return;
             if (canSave)
@@ -277,6 +279,22 @@ namespace TreasureHunter.Gameplay.Player
                 _damageable.Health = _damageable.MaxHealth;
                 dataManager.SaveGame(dataManager.GameData.GetCurrentSaveGameSlot());
             }
+
+            if (_canTeleport)
+            {
+                transform.position = _teleportDestination;
+            }
+        }
+
+        public void SetTeleportDestination(Vector2 destination)
+        {
+            _canTeleport = true;
+            _teleportDestination = destination;
+        }
+
+        public void RemoveTeleportDestination()
+        {
+            _canTeleport = false;
         }
 
         private IEnumerator SetFireCooldown()
