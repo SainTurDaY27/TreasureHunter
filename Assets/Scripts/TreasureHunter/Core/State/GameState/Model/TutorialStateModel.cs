@@ -24,7 +24,9 @@ namespace TreasureHunter.Core.State.GameState
             GameManager.Instance.PauseGame(true);
             _tutorialPanel = (TutorialPanel)UIManager.Instance.Show(UIKey.Tutorial);
             _tutorialPanel.OnBackToGameButtonClicked += BackToGame;
-            _tutorialPanel.OnMainMenuButtonClicked += BackToMenu;
+            _tutorialPanel.OnMainMenuButtonClicked += () => SetActivePopUpWarning(true);
+            _tutorialPanel.OnConfirmPopUpButtonClicked += BackToMenu;
+            _tutorialPanel.OnBackPopUpButtonClicked += () => SetActivePopUpWarning(false);
         }
 
         public override void OnStateOut()
@@ -33,7 +35,9 @@ namespace TreasureHunter.Core.State.GameState
             GameManager.Instance.PauseGame(false);
             UIManager.Instance.Hide(UIKey.Tutorial);
             _tutorialPanel.OnBackToGameButtonClicked -= BackToGame;
-            _tutorialPanel.OnMainMenuButtonClicked -= BackToMenu;
+            _tutorialPanel.OnMainMenuButtonClicked -= () => SetActivePopUpWarning(true);
+            _tutorialPanel.OnConfirmPopUpButtonClicked -= BackToMenu;
+            _tutorialPanel.OnBackPopUpButtonClicked -= () => SetActivePopUpWarning(false);
         }
 
         private void BackToGame()
@@ -44,6 +48,20 @@ namespace TreasureHunter.Core.State.GameState
         private void BackToMenu()
         {
             GameStateManager.Instance.GoToState((int)GameStates.State.Menu);
+        }
+
+        private void SetActivePopUpWarning(bool isActive)
+        {
+            if (isActive)
+            {
+                _tutorialPanel.SetTutorialPanelButtonInteractable(false);
+                _tutorialPanel.SetPopUpPanelActive(true);
+            }
+            else
+            {
+                _tutorialPanel.SetTutorialPanelButtonInteractable(true);
+                _tutorialPanel.SetPopUpPanelActive(false);
+            }
         }
     }
 }
