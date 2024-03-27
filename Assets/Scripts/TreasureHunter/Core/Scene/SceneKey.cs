@@ -14,6 +14,7 @@ namespace TreasureHunter.Core.Scene
         public const string SPEEDY_CAVE = "SpeedyCave";
         public const string SHRINKING_GROUND = "ShrinkingGround";
         public const string INTERIOR_PEAK = "InteriorPeak";
+        public const string CAVE_OF_SMALL_PEOPLE = "CaveOfSmallPeople";
 
     }
 }
