@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.UI;
@@ -36,17 +37,16 @@ namespace TreasureHunter.Core.State.GameState
             if (_condition == OnStateInCondition.NewGame)
             {
                 _chooseSaveSlotPanel = (ChooseSaveSlotPanel)UIManager.Instance.Show(UIKey.ChooseSaveSlot);
-                UpdateSavedGameDataUI();
                 _chooseSaveSlotPanel.OnContinueButtonClicked += ContinueToAbilitySelection;
                 _chooseSaveSlotPanel.OnBackButtonClicked += BackToMenu;
             }
             else
             {
                 _loadGamePanel = (LoadGamePanel)UIManager.Instance.Show(UIKey.LoadGame);
-                UpdateSavedGameDataUI();
                 _loadGamePanel.OnPlayButtonClicked += PlayLoadGame;
                 _loadGamePanel.OnBackButtonClicked += BackToMenu;
             }
+            UpdateSavedGameDataUI();
             DataManager.Instance.GameSaveManager.OnSaveGameDataChanged += UpdateSavedGameDataUI;
         }
 
