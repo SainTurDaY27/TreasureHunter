@@ -13,6 +13,11 @@ namespace TreasureHunter.Gameplay.System
 
         void Awake()
         {
+            DestroyIfAlreadyObtained();
+        }
+
+        public void DestroyIfAlreadyObtained()
+        {
             if (DataManager.Instance.GameData.IsTreasureCollected(treasureId)) Destroy(gameObject);
         }
 

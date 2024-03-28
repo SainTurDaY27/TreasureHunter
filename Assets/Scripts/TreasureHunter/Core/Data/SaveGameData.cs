@@ -17,6 +17,9 @@ namespace TreasureHunter.Core.Data
 
         // HashSet is not serializable.
         public List<string> collectTreasures = new();
+        // JsonUtility does not support dictionary. I am very sad.
+        // At least, storing anything evaluated to true should be enough.
+        public List<string> trueBoolStates = new();
 
         public List<MapAreaKey> exploredMapArea = new();
         public List<Vector2> mapMarkerData = new();
@@ -65,6 +68,7 @@ namespace TreasureHunter.Core.Data
             }
             return mapMarkerData;
         }
+
 
         public int GetRemainingMapMarker()
         {

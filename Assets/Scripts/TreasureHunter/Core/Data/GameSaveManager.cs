@@ -37,6 +37,7 @@ namespace TreasureHunter.Core.Data
                 obtainedSkill = playerData.GetObtainedSkills(),
                 lastPlayedTime = gameData.GetLastPlayedTime().ToFileTime(),
                 collectTreasures = gameData.GetCollectedTreasures(),
+                trueBoolStates =  gameData.GetTrueBoolStates(),
                 exploredMapArea = gameData.ExploredMapAreas,
                 mapMarkerData = gameData.GetMapMarkerData(),
                 remainingMapMarker = gameData.GetRemainingMapMarker()

@@ -30,11 +30,31 @@ namespace TreasureHunter.Core.Scene
                 case SceneKey.WEIRD_SPACE:
                     _sceneLoader.LoadSceneByName(SceneKey.WEIRD_SPACE, callback);
                     break;
-                
+
                 case SceneKey.SCORPION_CAVE:
                     _sceneLoader.LoadSceneByName(SceneKey.SCORPION_CAVE, callback);
                     break;
 
+                case SceneKey.DANGER_DEN:
+                    _sceneLoader.LoadSceneByName(SceneKey.DANGER_DEN, callback);
+                    break;
+                
+                case SceneKey.SPEEDY_CAVE:
+                    _sceneLoader.LoadSceneByName(SceneKey.SPEEDY_CAVE, callback);
+                    break;
+                
+                case SceneKey.SHRINKING_GROUND:
+                    _sceneLoader.LoadSceneByName(SceneKey.SHRINKING_GROUND, callback);
+                    break;
+                
+                case SceneKey.INTERIOR_PEAK:
+                    _sceneLoader.LoadSceneByName(SceneKey.INTERIOR_PEAK, callback);
+                    break;
+                
+                case SceneKey.CAVE_OF_SMALL_PEOPLE:
+                    _sceneLoader.LoadSceneByName(SceneKey.CAVE_OF_SMALL_PEOPLE, callback);
+                    break;
+                
                 default:
                     Debug.LogError("Scene not found");
                     break;

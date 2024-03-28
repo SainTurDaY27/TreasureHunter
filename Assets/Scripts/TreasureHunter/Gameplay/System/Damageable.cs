@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,15 +7,13 @@ namespace TreasureHunter.Gameplay.System
 {
     public class Damageable : MonoBehaviour
     {
-        [SerializeField] 
-        private int maxHealth = 6;
-        [SerializeField] 
-        private int health = 6;
-        [SerializeField] 
-        private bool isAlive = true;
+        [SerializeField] private int maxHealth = 6;
+        [SerializeField] private int health = 6;
+
+        [SerializeField] private bool isAlive = true;
+
         // Use for invincibility frame
-        [SerializeField] 
-        private bool isInvincible = false;
+        [SerializeField] private bool isInvincible = false;
 
         public UnityEvent<int, Vector2> damageableHit;
         public UnityEvent damageableDeath;
@@ -23,6 +22,7 @@ namespace TreasureHunter.Gameplay.System
         private GameManager _gameManager;
         private float _timeSinceHit = 0f;
         public float invicibilityTime = 0.5f;
+        public List<DamageType> immuneTypes = new ();
 
         public int MaxHealth
         {
@@ -73,6 +73,7 @@ namespace TreasureHunter.Gameplay.System
             {
                 return;
             }
+
             if (isInvincible)
             {
                 if (_timeSinceHit > invicibilityTime)
@@ -85,11 +86,13 @@ namespace TreasureHunter.Gameplay.System
             _timeSinceHit += Time.deltaTime;
         }
 
-        public bool Hit(int attackDamage, Vector2 knockback, bool bypassInvincibility = false)
+        public bool Hit(int attackDamage, Vector2 knockback, bool bypassInvincibility = false,
+            DamageType damageType = DamageType.Melee)
         {
             if (!IsAlive) return false;
             if (isInvincible && !bypassInvincibility) return false;
-            
+            if (immuneTypes.Contains(damageType)) return false;
+
             Health -= attackDamage;
             isInvincible = true; // Never been hit again
 
@@ -100,7 +103,6 @@ namespace TreasureHunter.Gameplay.System
             // TODO: Add character events
             // CharacterEvents.characterDamaged.Invoke(gameObject, damage);
             return true;
-
         }
     }
 }

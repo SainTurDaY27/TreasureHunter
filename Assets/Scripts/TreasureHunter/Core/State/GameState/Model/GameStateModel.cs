@@ -94,9 +94,9 @@ namespace TreasureHunter.Core.State.GameState
                     break;
             }
 
-            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
             _skillTestHelper.OnSkillChanged += LoadGameHUD;
-            #endif
+#endif
         }
 
         public override void OnStateOut()
@@ -105,9 +105,9 @@ namespace TreasureHunter.Core.State.GameState
             UIManager.Instance.Hide(UIKey.GameHUD);
             _player.healthChange.RemoveListener(OnPlayerHealthChange);
 
-            #if UNITY_EDITOR || DEVELOPMENT_BUILD       
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
             _skillTestHelper.OnSkillChanged -= LoadGameHUD;
-            #endif
+#endif
         }
 
         private void OnPlayerHealthChange(int health, int maxHealth)
@@ -126,6 +126,7 @@ namespace TreasureHunter.Core.State.GameState
             {
                 _gameHUDPanel = panel;
             }
+
             _gameHUDPanel.UpdateSkillSlot();
             _gameHUDPanel.UpdateHealth(_player.Health);
             _gameHUDPanel.SetActiveAnnounceText(false);
@@ -139,7 +140,8 @@ namespace TreasureHunter.Core.State.GameState
             if (_backToGameMethod == BackToGameMethod.LoadGame)
             {
                 _playerController = GameObject.FindObjectOfType<PlayerController>();
-                var playerPosition = DataManager.Instance.GetSavedGameData(DataManager.Instance.GameData.GetCurrentSaveGameSlot()).GetPlayerPosition();
+                var playerPosition = DataManager.Instance
+                    .GetSavedGameData(DataManager.Instance.GameData.GetCurrentSaveGameSlot()).GetPlayerPosition();
                 _playerController.MovePlayer(playerPosition);
             }
         }
@@ -153,24 +155,24 @@ namespace TreasureHunter.Core.State.GameState
                     return SceneKey.THE_ENTRANCE;
                 case MapAreaKey.ScorpionCave:
                     return SceneKey.SCORPION_CAVE;
-                //case MapAreaKey.SpeedyCave:
-                //    return SceneKey.SPEEDY_CAVE;
+                case MapAreaKey.SpeedyCave:
+                    return SceneKey.SPEEDY_CAVE;
                 //case MapAreaKey.ForgottenPassage:
                 //    return SceneKey.FORGOTTEN_PASSAGE;
                 //case MapAreaKey.ForgottenPlace:
                 //    return SceneKey.FORGOTTEN_PLACE;
-                //case MapAreaKey.DangerDen:
-                //    return SceneKey.DANGER_DEN;
-                //case MapAreaKey.InteriorPeak:
-                //    return SceneKey.INTERIOR_PEAK;
+                case MapAreaKey.DangerDen:
+                    return SceneKey.DANGER_DEN;
+                case MapAreaKey.InteriorPeak:
+                    return SceneKey.INTERIOR_PEAK;
                 case MapAreaKey.NormalCave:
                     return SceneKey.NORMAL_CAVE;
                 case MapAreaKey.WeirdSpace:
                     return SceneKey.WEIRD_SPACE;
-                //case MapAreaKey.ShrinkingGround:
-                //    return SceneKey.SHRINKING_GROUND;
-                //case MapAreaKey.CaveOfSmallPeople:
-                //    return SceneKey.CAVE_OF_SMALL_PEOPLE;
+                case MapAreaKey.ShrinkingGround:
+                    return SceneKey.SHRINKING_GROUND;
+                case MapAreaKey.CaveOfSmallPeople:
+                    return SceneKey.CAVE_OF_SMALL_PEOPLE;
                 case MapAreaKey.AbnormalCave:
                     return SceneKey.ABNORMAL_CAVE;
                 default:
