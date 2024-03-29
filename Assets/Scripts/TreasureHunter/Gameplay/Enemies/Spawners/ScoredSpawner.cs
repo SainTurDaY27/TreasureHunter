@@ -48,7 +48,7 @@ namespace TreasureHunter.Gameplay.Enemies.Spawners
             foreach (var spawnCondition in spawnConditions)
             {
                 // Evaluate from top to bottom
-                if (difficultyScore >= spawnCondition.minScore && difficultyScore < spawnCondition.maxScore)
+                if (difficultyScore > spawnCondition.minScore && difficultyScore <= spawnCondition.maxScore)
                 {
                     SpawnEnemy(spawnCondition.enemy);
                 }
@@ -59,7 +59,8 @@ namespace TreasureHunter.Gameplay.Enemies.Spawners
         {
             var transform1 = transform;
             Instantiate(enemy, transform1.position, transform1.rotation);
-            Destroy(gameObject);
+            // Don't destroy so it is possible to inspect the problem.
+            // Destroy(gameObject);
         }
 
         private float CalculateDifficultyScore()
