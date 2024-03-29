@@ -2,13 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TreasureHunter.Core.Data;
+using TreasureHunter.Gameplay.System;
 using UnityEngine;
 
 namespace TreasureHunter.Gameplay.Enemies.Spawners
 {
-    public class TieredSpawner : MonoBehaviour
+    [Serializable]
+    public class LinearSpawnCondition
     {
-        public List<SpawnCondition> spawnConditions;
+        public bool useSkillCondition = true;
+        public bool useTreasureCondition = false;
+        public List<SkillKey> skillConditions;
+        public int requiredTreasure = 0;
+        public GameObject enemy;
+    }
+
+    public class LinearSpawner : MonoBehaviour
+    {
+        public List<LinearSpawnCondition> spawnConditions;
         public bool useFallback;
         public GameObject fallbackEnemy;
 
