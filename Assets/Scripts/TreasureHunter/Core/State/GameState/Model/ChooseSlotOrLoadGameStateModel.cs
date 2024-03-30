@@ -58,12 +58,14 @@ namespace TreasureHunter.Core.State.GameState
                 UIManager.Instance.Hide(UIKey.ChooseSaveSlot);
                 _chooseSaveSlotPanel.OnContinueButtonClicked -= ContinueToAbilitySelection;
                 _chooseSaveSlotPanel.OnBackButtonClicked -= BackToMenu;
+                _chooseSaveSlotPanel.DeselectAllButton();
             }
             else
             {
                 UIManager.Instance.Hide(UIKey.LoadGame);
                 _loadGamePanel.OnPlayButtonClicked -= PlayLoadGame;
                 _loadGamePanel.OnBackButtonClicked -= BackToMenu;
+                _loadGamePanel.DeselectAllButton();
             }
             DataManager.Instance.GameSaveManager.OnSaveGameDataChanged -= UpdateSavedGameDataUI;
         }
