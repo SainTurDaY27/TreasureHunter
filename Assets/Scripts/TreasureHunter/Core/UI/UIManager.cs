@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using TreasureHunter.Gameplay.UI;
 using TreasureHunter.Utilities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TreasureHunter.Core.UI
@@ -18,6 +21,12 @@ namespace TreasureHunter.Core.UI
         [SerializeField] private MapPanel _mapPanel;
         [SerializeField] private ChooseSaveSlotPanel _chooseSaveSlotPanel;
         [SerializeField] private TutorialPanel _tutorialPanel;
+
+        [SerializeField] private GameObject _sceneTransitionPanel;
+
+        private Coroutine _fadeSceneTransitionCoroutine;
+        private const float _TRANSITION_DELAY_TIME = 1.0f;
+        private const float _FADE_RATIO = 0.05f;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -53,6 +62,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.Tutorial:
                     _tutorialPanel.SetActive(true);
                     return _tutorialPanel;
+                case UIKey.SceneTransition:
+                    _sceneTransitionPanel.SetActive(true);
+                    return null;
                 default:
                     return null;
             }
@@ -102,6 +114,9 @@ namespace TreasureHunter.Core.UI
                     _tutorialPanel.SetActive(false);
                     _tutorialPanel.transform.SetAsLastSibling();
                     return _tutorialPanel;
+                case UIKey.SceneTransition:
+                    _sceneTransitionPanel.SetActive(false);
+                    return null;
                 default:
                     return null;
             }
@@ -119,6 +134,42 @@ namespace TreasureHunter.Core.UI
             _mapPanel.SetActive(false);
             _chooseSaveSlotPanel.SetActive(false);
             _tutorialPanel.SetActive(false);
+        }
+
+        public void FadeSceneTransition(bool isFadeOut, Action callback=null)
+        {
+            if (_fadeSceneTransitionCoroutine != null)
+            {
+                StopCoroutine(_fadeSceneTransitionCoroutine);
+            }
+            _fadeSceneTransitionCoroutine = StartCoroutine(FadeSceneTransitionUI(isFadeOut, callback));
+        }
+
+        private IEnumerator FadeSceneTransitionUI(bool isFadeOut, Action callback)
+        {
+            if (isFadeOut)
+            {
+                Show(UIKey.SceneTransition);
+                _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = 0;
+                for (float alphaValue = 0; alphaValue <= 1; alphaValue += _FADE_RATIO)
+                {
+                    _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = alphaValue;
+                    yield return new WaitForSeconds(_FADE_RATIO);
+                }
+                callback?.Invoke();
+            }
+            else
+            {
+                _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = 1;
+                yield return new WaitForSeconds(_TRANSITION_DELAY_TIME);
+                for (float alphaValue = 1; alphaValue >= 0; alphaValue -= _FADE_RATIO)
+                {
+                    _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = alphaValue;
+                    yield return new WaitForSeconds(_FADE_RATIO);
+                }
+                Hide(UIKey.SceneTransition);
+                callback?.Invoke();
+            }
         }
 
         public bool TryGetUIByKey(UIKey uiKey, out IBaseUI ui)
@@ -173,6 +224,7 @@ namespace TreasureHunter.Core.UI
         LoadGame,
         Map,
         ChooseSaveSlot,
-        Tutorial
+        Tutorial,
+        SceneTransition
     }
 }
