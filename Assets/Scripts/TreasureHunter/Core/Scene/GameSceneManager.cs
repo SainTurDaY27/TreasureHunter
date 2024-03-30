@@ -1,5 +1,5 @@
-using TreasureHunter.Utilities;
 using System;
+using TreasureHunter.Utilities;
 using UnityEngine;
 
 namespace TreasureHunter.Core.Scene
