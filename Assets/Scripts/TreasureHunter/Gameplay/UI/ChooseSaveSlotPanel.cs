@@ -86,6 +86,14 @@ namespace TreasureHunter.Gameplay.UI
             outline.enabled = false;
         }
 
+        public void DeselectAllButton()
+        {
+            foreach (var button in _savedGameSelectionButtons)
+            {
+                DeselectButton(button);
+            }
+        }
+
         public void UpdateSavedGameDataUI()
         {
             for (int i = 0; i < _saveGameSlotUIs.Length; i++)

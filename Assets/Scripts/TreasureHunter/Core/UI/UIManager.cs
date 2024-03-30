@@ -1,12 +1,14 @@
+using System;
+using System.Collections;
 using TreasureHunter.Gameplay.UI;
 using TreasureHunter.Utilities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TreasureHunter.Core.UI
 {
     public class UIManager : MonoSingleton<UIManager>
     {
-        
         [SerializeField] private MenuPanel _menuPanel;
         [SerializeField] private AbilitySelectionPanel _abilitySelectionPanel;
         [SerializeField] private GameHUDPanel _gameHUDPanel;
@@ -18,6 +20,12 @@ namespace TreasureHunter.Core.UI
         [SerializeField] private MapPanel _mapPanel;
         [SerializeField] private ChooseSaveSlotPanel _chooseSaveSlotPanel;
         [SerializeField] private TutorialPanel _tutorialPanel;
+
+        [SerializeField] private GameObject _sceneTransitionPanel;
+
+        private Coroutine _fadeSceneTransitionCoroutine;
+        private const float TransitionDelayTime = 1.0f;
+        private const float TransitionTime = 1f;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -53,6 +61,9 @@ namespace TreasureHunter.Core.UI
                 case UIKey.Tutorial:
                     _tutorialPanel.SetActive(true);
                     return _tutorialPanel;
+                case UIKey.SceneTransition:
+                    _sceneTransitionPanel.SetActive(true);
+                    return null;
                 default:
                     return null;
             }
@@ -102,6 +113,9 @@ namespace TreasureHunter.Core.UI
                     _tutorialPanel.SetActive(false);
                     _tutorialPanel.transform.SetAsLastSibling();
                     return _tutorialPanel;
+                case UIKey.SceneTransition:
+                    _sceneTransitionPanel.SetActive(false);
+                    return null;
                 default:
                     return null;
             }
@@ -119,6 +133,36 @@ namespace TreasureHunter.Core.UI
             _mapPanel.SetActive(false);
             _chooseSaveSlotPanel.SetActive(false);
             _tutorialPanel.SetActive(false);
+        }
+
+        public void FadeSceneTransition(bool isFadeOut, Action callback = null)
+        {
+            if (_fadeSceneTransitionCoroutine != null)
+            {
+                StopCoroutine(_fadeSceneTransitionCoroutine);
+            }
+
+            _fadeSceneTransitionCoroutine = StartCoroutine(FadeSceneTransitionUI(isFadeOut, callback));
+        }
+
+        private IEnumerator FadeSceneTransitionUI(bool isFadeOut, Action callback)
+        {
+            if (isFadeOut)
+            {
+                Show(UIKey.SceneTransition);
+                LeanTween.value(gameObject, (val) => { _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = val; },
+                    0, 1, TransitionTime).setEaseInSine().setOnComplete(() => { callback?.Invoke(); });
+            }
+            else
+            {
+                yield return new WaitForSeconds(TransitionDelayTime);
+                LeanTween.value(gameObject, (val) => { _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = val; },
+                    1, 0, TransitionTime).setEaseInSine().setOnComplete(() =>
+                {
+                    Hide(UIKey.SceneTransition);
+                    callback?.Invoke();
+                });
+            }
         }
 
         public bool TryGetUIByKey(UIKey uiKey, out IBaseUI ui)
@@ -173,6 +217,7 @@ namespace TreasureHunter.Core.UI
         LoadGame,
         Map,
         ChooseSaveSlot,
-        Tutorial
+        Tutorial,
+        SceneTransition
     }
 }

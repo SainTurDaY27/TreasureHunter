@@ -23,6 +23,7 @@ namespace TreasureHunter.Core.State.GameState
             base.OnStateIn();
             GameManager.Instance.PauseGame(true);
             _tutorialPanel = (TutorialPanel)UIManager.Instance.Show(UIKey.Tutorial);
+            SetActivePopUpWarning(false);
             _tutorialPanel.OnBackToGameButtonClicked += BackToGame;
             _tutorialPanel.OnMainMenuButtonClicked += () => SetActivePopUpWarning(true);
             _tutorialPanel.OnConfirmPopUpButtonClicked += BackToMenu;
