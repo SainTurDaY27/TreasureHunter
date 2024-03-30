@@ -9,7 +9,6 @@ namespace TreasureHunter.Core.UI
 {
     public class UIManager : MonoSingleton<UIManager>
     {
-        
         [SerializeField] private MenuPanel _menuPanel;
         [SerializeField] private AbilitySelectionPanel _abilitySelectionPanel;
         [SerializeField] private GameHUDPanel _gameHUDPanel;
@@ -25,8 +24,8 @@ namespace TreasureHunter.Core.UI
         [SerializeField] private GameObject _sceneTransitionPanel;
 
         private Coroutine _fadeSceneTransitionCoroutine;
-        private const float _TRANSITION_DELAY_TIME = 1.0f;
-        private const float _FADE_RATIO = 0.05f;
+        private const float TransitionDelayTime = 1.0f;
+        private const float TransitionTime = 1f;
 
         public IBaseUI Show(UIKey uiKey)
         {
@@ -136,12 +135,13 @@ namespace TreasureHunter.Core.UI
             _tutorialPanel.SetActive(false);
         }
 
-        public void FadeSceneTransition(bool isFadeOut, Action callback=null)
+        public void FadeSceneTransition(bool isFadeOut, Action callback = null)
         {
             if (_fadeSceneTransitionCoroutine != null)
             {
                 StopCoroutine(_fadeSceneTransitionCoroutine);
             }
+
             _fadeSceneTransitionCoroutine = StartCoroutine(FadeSceneTransitionUI(isFadeOut, callback));
         }
 
@@ -150,25 +150,18 @@ namespace TreasureHunter.Core.UI
             if (isFadeOut)
             {
                 Show(UIKey.SceneTransition);
-                _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = 0;
-                for (float alphaValue = 0; alphaValue <= 1; alphaValue += _FADE_RATIO)
-                {
-                    _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = alphaValue;
-                    yield return new WaitForSeconds(_FADE_RATIO);
-                }
-                callback?.Invoke();
+                LeanTween.value(gameObject, (val) => { _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = val; },
+                    0, 1, TransitionTime).setEaseInSine().setOnComplete(() => { callback?.Invoke(); });
             }
             else
             {
-                _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = 1;
-                yield return new WaitForSeconds(_TRANSITION_DELAY_TIME);
-                for (float alphaValue = 1; alphaValue >= 0; alphaValue -= _FADE_RATIO)
+                yield return new WaitForSeconds(TransitionDelayTime);
+                LeanTween.value(gameObject, (val) => { _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = val; },
+                    1, 0, TransitionTime).setEaseInSine().setOnComplete(() =>
                 {
-                    _sceneTransitionPanel.GetComponent<CanvasGroup>().alpha = alphaValue;
-                    yield return new WaitForSeconds(_FADE_RATIO);
-                }
-                Hide(UIKey.SceneTransition);
-                callback?.Invoke();
+                    Hide(UIKey.SceneTransition);
+                    callback?.Invoke();
+                });
             }
         }
 
