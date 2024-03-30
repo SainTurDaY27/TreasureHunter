@@ -313,6 +313,11 @@ namespace TreasureHunter.Gameplay.Player
             }
         }
 
+        public void ResetVelocity()
+        {
+            _rb.velocity = new Vector2();
+        }
+
         private void FixedUpdate()
         {
             if (!_damageable.LockVelocity)
