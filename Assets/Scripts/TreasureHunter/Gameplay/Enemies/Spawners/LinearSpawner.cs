@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.System;
+using TreasureHunter.Gameplay.System.DynamicDifficulty;
 using UnityEngine;
 
 namespace TreasureHunter.Gameplay.Enemies.Spawners
 {
+
     [Serializable]
-    public class LinearSpawnCondition
+    public struct LinearSpawnCondition
     {
-        public bool useSkillCondition = true;
-        public bool useTreasureCondition = false;
-        public List<SkillKey> skillConditions;
-        public int requiredTreasure = 0;
+        public DynamicCondition condition;
         public GameObject enemy;
     }
 
@@ -26,26 +25,26 @@ namespace TreasureHunter.Gameplay.Enemies.Spawners
         public void SpawnEnemy()
         {
             var dataManager = DataManager.Instance;
-            foreach (var condition in spawnConditions)
+            foreach (var spawnCondition in spawnConditions)
             {
-                if (condition.useSkillCondition)
+                if (spawnCondition.condition.useSkillCondition)
                 {
-                    if (!condition.skillConditions.All(skill => dataManager.PlayerData.HasSkill(skill)))
+                    if (!spawnCondition.condition.skillConditions.All(skill => dataManager.PlayerData.HasSkill(skill)))
                     {
                         continue;
                     }
                 }
 
-                if (condition.useTreasureCondition)
+                if (spawnCondition.condition.useTreasureCondition)
                 {
-                    if (dataManager.GameData.TreasureCount < condition.requiredTreasure)
+                    if (dataManager.GameData.TreasureCount < spawnCondition.condition.requiredTreasure)
                     {
                         continue;
                     }
                 }
 
                 // So, the condition finally met.
-                Instantiate(condition.enemy, transform.position, transform.rotation);
+                Instantiate(spawnCondition.enemy, transform.position, transform.rotation);
                 Debug.Log("Spawn enemy from condition");
                 return;
             }

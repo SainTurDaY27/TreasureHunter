@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TreasureHunter.Core.Data;
-using TreasureHunter.Gameplay.System;
+using TreasureHunter.Gameplay.System.DynamicDifficulty;
 using UnityEngine;
 
 namespace TreasureHunter.Gameplay.Enemies.Spawners
@@ -14,25 +14,11 @@ namespace TreasureHunter.Gameplay.Enemies.Spawners
         public float maxScore;
     }
 
-    [Serializable]
-    public struct SkillScoreWeight
-    {
-        public float weight;
-        public SkillKey skill;
-    }
-
-    [Serializable]
-    public struct TreasureWeight
-    {
-        public int amountOfTreasureObtained;
-        public float weight;
-    }
-
     public class ScoredSpawner : MonoBehaviour
     {
         public List<ScoredSpawnCondition> spawnConditions;
         public List<SkillScoreWeight> skillScoreWeights;
-        public List<TreasureWeight> treasureWeights;
+        public List<TreasureScoreWeight> treasureWeights;
         public bool useFallback;
         public GameObject fallbackEnemy;
 

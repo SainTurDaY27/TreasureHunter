@@ -61,8 +61,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8223782104806076087, guid: 5980165f055af45fb90eb08915aaf9cd, type: 3}
+      propertyPath: spawnConditions.Array.data[0].condition.requiredTreasure
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223782104806076087, guid: 5980165f055af45fb90eb08915aaf9cd, type: 3}
       propertyPath: spawnConditions.Array.data[0].skillConditions.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223782104806076087, guid: 5980165f055af45fb90eb08915aaf9cd, type: 3}
+      propertyPath: spawnConditions.Array.data[1].condition.requiredTreasure
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223782104806076087, guid: 5980165f055af45fb90eb08915aaf9cd, type: 3}
+      propertyPath: spawnConditions.Array.data[0].condition.useTreasureCondition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223782104806076087, guid: 5980165f055af45fb90eb08915aaf9cd, type: 3}
+      propertyPath: spawnConditions.Array.data[1].condition.useTreasureCondition
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8234082095526192515, guid: 5980165f055af45fb90eb08915aaf9cd, type: 3}
       propertyPath: m_LocalPosition.x
