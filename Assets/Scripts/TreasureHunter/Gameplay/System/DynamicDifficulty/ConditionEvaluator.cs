@@ -3,7 +3,7 @@ using TreasureHunter.Core.Data;
 
 namespace TreasureHunter.Gameplay.System.DynamicDifficulty
 {
-    public class ConditionEvaluator
+    public static class ConditionEvaluator
     {
         public static bool EvaluateDynamicCondition(DynamicCondition condition)
         {
