@@ -201,8 +201,8 @@ MonoBehaviour:
   noColliderRemains:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9144299086578253752}
-        m_TargetAssemblyTypeName: TreasureHunter.Gameplay.Enemies.Movements.SimpleWalkingMovement,
+      - m_Target: {fileID: 8094980265652018841}
+        m_TargetAssemblyTypeName: TreasureHunter.Gameplay.Enemies.Movements.PatrolWalkingMovement,
           Assembly-CSharp
         m_MethodName: FlipDirection
         m_Mode: 1
@@ -414,8 +414,8 @@ GameObject:
   - component: {fileID: 2277165314215306052}
   - component: {fileID: 3032330626905205171}
   - component: {fileID: 192913388066090963}
-  - component: {fileID: 9144299086578253752}
   - component: {fileID: 865957691576924244}
+  - component: {fileID: 8094980265652018841}
   m_Layer: 8
   m_Name: DeathBringer
   m_TagString: Untagged
@@ -641,20 +641,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolName: hasTarget
   attackDetectionZone: {fileID: 4875289413500805128}
---- !u!114 &9144299086578253752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8867572287178564465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efed415aa12ac4752ac1c2c36b960180, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 3
-  _walkDirection: 0
 --- !u!61 &865957691576924244
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -700,3 +686,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0328712, y: 3.4092922}
   m_EdgeRadius: 0
+--- !u!114 &8094980265652018841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8867572287178564465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa7549f8a8e47d29519148cf9f5eb96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 3
+  patrolDistance: 3
+  targetReachedThreshold: 0.2
+  patrolWaitTime: 5
+  walkDirection: 0
