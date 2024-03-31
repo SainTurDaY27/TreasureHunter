@@ -27,22 +27,11 @@ namespace TreasureHunter.Gameplay.Enemies.Spawners
             var dataManager = DataManager.Instance;
             foreach (var spawnCondition in spawnConditions)
             {
-                if (spawnCondition.condition.useSkillCondition)
-                {
-                    if (!spawnCondition.condition.skillConditions.All(skill => dataManager.PlayerData.HasSkill(skill)))
-                    {
-                        continue;
-                    }
-                }
-
-                if (spawnCondition.condition.useTreasureCondition)
-                {
-                    if (dataManager.GameData.TreasureCount < spawnCondition.condition.requiredTreasure)
-                    {
-                        continue;
-                    }
-                }
-
+                var shouldSpawn = ConditionEvaluator.EvaluateDynamicCondition(spawnCondition.condition);
+                
+                if (!shouldSpawn) continue;
+                
+                
                 // So, the condition finally met.
                 Instantiate(spawnCondition.enemy, transform.position, transform.rotation);
                 Debug.Log("Spawn enemy from condition");

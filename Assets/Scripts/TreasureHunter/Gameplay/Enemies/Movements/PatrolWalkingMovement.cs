@@ -91,6 +91,18 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
             SetTargetX();
         }
 
+        private void OnEnable()
+        {
+            SetOrigin();
+            SetTargetX();
+            _animator.SetBool(AnimationStrings.CanMove, true);
+        }
+
+        private void OnDisable()
+        {
+            _animator.SetBool(AnimationStrings.CanMove, false);
+        }
+
         private void SetOrigin()
         {
             _originalPosition = transform.position;
