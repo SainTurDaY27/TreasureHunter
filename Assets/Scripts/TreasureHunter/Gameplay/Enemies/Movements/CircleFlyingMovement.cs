@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TreasureHunter.Gameplay.Enemies.Movements
 {
-    public class CircleFlyingMovement : MonoBehaviour
+    public class CircleFlyingMovement : MonoBehaviour, ITargetable
     {
         public Transform target;
         // Tangential speed
@@ -40,6 +40,11 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
             _rb.velocity = direction * movingSpeed;
 
             _angle += AngularSpeed * Time.fixedDeltaTime;
+        }
+
+        public void SetTarget(Transform theTarget)
+        {
+            this.target = theTarget;
         }
     }
 }

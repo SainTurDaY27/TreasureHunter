@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TreasureHunter.Gameplay.Enemies.Attacks
 {
-    public class FlyingChargeAttack : MonoBehaviour
+    public class FlyingChargeAttack : MonoBehaviour, ITargetable
     {
-        public Transform chargingTarget;
+        [FormerlySerializedAs("chargingTarget")] public Transform target;
         public float chargingVelocity = 20f;
         public float chargingDistance = 8f;
         public float chargingDelayTime = 2f;
@@ -46,7 +47,7 @@ namespace TreasureHunter.Gameplay.Enemies.Attacks
         {
             _animator.SetBool(AnimationStrings.CanMove, false);
             _animator.SetBool(AnimationStrings.LockedInTarget, true);
-            Vector2 directionToTarget = (chargingTarget.transform.position - transform.position).normalized;
+            Vector2 directionToTarget = (target.transform.position - transform.position).normalized;
             Vector2 reversedDirection = -directionToTarget;
             // Prepare
             _rb.velocity = reversedDirection * (chargingDistance / chargingDelayTime);
@@ -58,6 +59,11 @@ namespace TreasureHunter.Gameplay.Enemies.Attacks
             _animator.SetBool(AnimationStrings.LockedInTarget, false);
             _chargingTimer = 0;
             _chargingCoroutine = null;
+        }
+
+        public void SetTarget(Transform theTarget)
+        {
+            target = theTarget;
         }
     }
 }

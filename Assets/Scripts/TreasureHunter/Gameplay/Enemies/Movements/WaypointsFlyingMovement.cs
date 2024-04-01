@@ -5,7 +5,7 @@ using TreasureHunter.Gameplay.System;
 
 namespace TreasureHunter.Gameplay.Enemies.Movements
 {
-    public class WaypointsFlyingMovement : MonoBehaviour
+    public class WaypointsFlyingMovement : MonoBehaviour, ISetWaypointable
     {
         public float flyingSpeed = 3f;
 
@@ -76,6 +76,11 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
             {
                 transform.localScale = new Vector3(localScale.x * -1, localScale.y, localScale.z);
             }
+        }
+
+        public void SetWaypoints(List<Transform> newWaypoints)
+        {
+            waypoints = newWaypoints;
         }
 
         public void ResetWaypoint()
