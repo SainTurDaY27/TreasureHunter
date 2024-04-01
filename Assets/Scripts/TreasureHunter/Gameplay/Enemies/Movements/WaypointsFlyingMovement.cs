@@ -77,5 +77,11 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
                 transform.localScale = new Vector3(localScale.x * -1, localScale.y, localScale.z);
             }
         }
+
+        public void ResetWaypoint()
+        {
+            waypointNumber = 0;
+            _nextWaypoint = waypoints[0];
+        }
     }
 }
