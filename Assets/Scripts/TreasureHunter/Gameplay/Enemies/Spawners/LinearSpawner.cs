@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace TreasureHunter.Gameplay.Enemies.Spawners
 {
-
     [Serializable]
     public struct LinearSpawnCondition
     {
@@ -16,37 +15,36 @@ namespace TreasureHunter.Gameplay.Enemies.Spawners
         public GameObject enemy;
     }
 
-    public class LinearSpawner : MonoBehaviour
+    public class LinearSpawner : Spawner
     {
         public List<LinearSpawnCondition> spawnConditions;
         public bool useFallback;
         public GameObject fallbackEnemy;
 
-        public void SpawnEnemy()
+        private void Start()
         {
-            var dataManager = DataManager.Instance;
+            SpawnEnemy();
+        }
+
+        public override void SpawnEnemy()
+        {
             foreach (var spawnCondition in spawnConditions)
             {
                 var shouldSpawn = ConditionEvaluator.EvaluateDynamicCondition(spawnCondition.condition);
-                
+
                 if (!shouldSpawn) continue;
-                
-                
+
+
                 // So, the condition finally met.
-                Instantiate(spawnCondition.enemy, transform.position, transform.rotation);
+                SpawnEnemyIntoScene(spawnCondition.enemy);
                 Debug.Log("Spawn enemy from condition");
                 return;
             }
 
             // If this is reached, spawn fallback.
             if (!useFallback) return;
-            Instantiate(fallbackEnemy, transform.position, transform.rotation);
+            SpawnEnemyIntoScene(fallbackEnemy);
             Debug.Log("Spawn enemy from fallback");
-        }
-
-        private void Start()
-        {
-            SpawnEnemy();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace TreasureHunter.Gameplay.Enemies.Spawners
         public float maxScore;
     }
 
-    public class ScoredSpawner : MonoBehaviour
+    public class ScoredSpawner : Spawner
     {
         public List<ScoredSpawnCondition> spawnConditions;
         public List<SkillScoreWeight> skillScoreWeights;
@@ -24,21 +24,7 @@ namespace TreasureHunter.Gameplay.Enemies.Spawners
 
         private void Start()
         {
-            var difficultyScore = CalculateDifficultyScore();
-            if (difficultyScore < 0)
-            {
-                Debug.Log("DataManager not found");
-                if (useFallback) SpawnEnemy(fallbackEnemy);
-            }
-
-            foreach (var spawnCondition in spawnConditions)
-            {
-                // Evaluate from top to bottom
-                if (difficultyScore > spawnCondition.minScore && difficultyScore <= spawnCondition.maxScore)
-                {
-                    SpawnEnemy(spawnCondition.enemy);
-                }
-            }
+            SpawnEnemy();
         }
 
         private void SpawnEnemy(GameObject enemy)
@@ -86,6 +72,25 @@ namespace TreasureHunter.Gameplay.Enemies.Spawners
 
             // TODO: Add map score
             return currentScore;
+        }
+
+        public override void SpawnEnemy()
+        {
+            var difficultyScore = CalculateDifficultyScore();
+            if (difficultyScore < 0)
+            {
+                Debug.Log("DataManager not found");
+                if (useFallback) SpawnEnemy(fallbackEnemy);
+            }
+
+            foreach (var spawnCondition in spawnConditions)
+            {
+                // Evaluate from top to bottom
+                if (difficultyScore > spawnCondition.minScore && difficultyScore <= spawnCondition.maxScore)
+                {
+                    SpawnEnemy(spawnCondition.enemy);
+                }
+            }
         }
     }
 }
