@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1432949179153002756, guid: 73a2afec4e97542afbe0066dc0a9f224, type: 3}
+      propertyPath: health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432949179153002756, guid: 73a2afec4e97542afbe0066dc0a9f224, type: 3}
+      propertyPath: maxHealth
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5721326255184684247, guid: 73a2afec4e97542afbe0066dc0a9f224, type: 3}
       propertyPath: m_Name
       value: MiniSkull Variant
