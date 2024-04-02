@@ -32,6 +32,14 @@ namespace TreasureHunter.Gameplay.Enemies.Attacks
             _rb = GetComponent<Rigidbody2D>();
         }
 
+        private void Start()
+        {
+            if (target == null)
+            {
+                target = GameObject.FindWithTag("Player").transform;
+            }
+        }
+
         private void FixedUpdate()
         {
             // Charge
