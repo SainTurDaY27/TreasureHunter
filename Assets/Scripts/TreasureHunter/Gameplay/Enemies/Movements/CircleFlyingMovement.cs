@@ -8,9 +8,11 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
     {
         public Transform target;
         // Tangential speed
+        // Angular speed is calculated from it.
         public float movingSpeed = 3f;
-        // public float rotationSpeed = .75f;
         public float radius = 3f;
+        public bool lookAtTarget = true;
+        public bool startRight = true;
 
         private Animator _animator;
         private Rigidbody2D _rb;
@@ -37,6 +39,23 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
             Vector2 offset = new Vector2(Mathf.Sin(_angle), Mathf.Cos(_angle)) * radius;
             Vector2 destination = center + offset;
             Vector2 direction = (destination - position).normalized;
+            
+            // flip direction
+            if (lookAtTarget)
+            {
+                Vector2 vectorToTarget = center - position;
+                var directionX = Mathf.Sign(vectorToTarget.x);
+                var localScale = transform.localScale;
+                var localScaleX = localScale.x;
+                // Assume start right
+                if (Math.Abs(directionX - Mathf.Sign(localScaleX)) > 0.001 && startRight)
+                {
+                    localScaleX *= -1;
+                }
+
+                transform.localScale = new Vector3(localScaleX, localScale.y, localScale.z);
+
+            }
             _rb.velocity = direction * movingSpeed;
 
             _angle += AngularSpeed * Time.fixedDeltaTime;
@@ -46,5 +65,6 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
         {
             this.target = theTarget;
         }
+
     }
 }
