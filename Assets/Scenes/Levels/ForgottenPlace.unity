@@ -23447,7 +23447,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 53
-      m_TileSpriteIndex: 53
+      m_TileSpriteIndex: 124
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -23457,7 +23457,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 54
-      m_TileSpriteIndex: 54
+      m_TileSpriteIndex: 123
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -23527,7 +23527,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 66
-      m_TileSpriteIndex: 66
+      m_TileSpriteIndex: 122
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -23537,7 +23537,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 67
-      m_TileSpriteIndex: 67
+      m_TileSpriteIndex: 121
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -43356,10 +43356,10 @@ Tilemap:
     m_Data: {fileID: 1228291016, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: 346042895, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 1856224599, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 506043403, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 5
     m_Data: {fileID: -793948846, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
   - m_RefCount: 9
@@ -43382,10 +43382,10 @@ Tilemap:
     m_Data: {fileID: 440432434, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
   - m_RefCount: 7
     m_Data: {fileID: -710009794, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -93687765, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -492986940, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 5
     m_Data: {fileID: -172060444, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
   - m_RefCount: 4
@@ -43492,14 +43492,14 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -492986940, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -93687765, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 506043403, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 1856224599, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
   - m_RefCount: 11
     m_Data: {fileID: -643910045, guid: 6d28f55f1b0572546b2632db94416d69, type: 3}
   - m_RefCount: 10
@@ -45985,6 +45985,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50b81dd635b2c4f68b153b004e765825, type: 3}
+--- !u!1001 &1235447898
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5639264410591469109, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_Name
+      value: AbilityPickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427774178511633423, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: skill
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427774178511633423, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: skillName
+      value: Fireball
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427774178511633423, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: skillToolTip
+      value: Press <Q> to fire. Wait for a flash to fire again.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -15.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581491562603737823, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072989541028613061, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 67f8c15dce41da84f9b301d2ce3ec823, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0f9dfa7c066234bb0ad7b8e5f04bb41e, type: 3}
 --- !u!1001 &1298686123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47335,3 +47408,4 @@ SceneRoots:
   - {fileID: 167207944}
   - {fileID: 1788068520}
   - {fileID: 1784096626}
+  - {fileID: 1235447898}
