@@ -9,7 +9,7 @@ namespace TreasureHunter.Gameplay.System
 {
     public class GameData
     {
-        public static readonly int MaxTreasure = 3;
+        public static readonly int MaxTreasure = 5;
         public static readonly int MaxMapMarker = 6;
 
         // Collected treasure will have unique ID
