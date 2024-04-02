@@ -28,6 +28,15 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
             _animator = GetComponent<Animator>();
         }
 
+        private void Start()
+        {
+            // no target? = target player
+            if (target == null)
+            {
+                target = GameObject.FindWithTag("Player").transform;
+            }
+        }
+
         private void FixedUpdate()
         {
             if (LockVelocity) return;
