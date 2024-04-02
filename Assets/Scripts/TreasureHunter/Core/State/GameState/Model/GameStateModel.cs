@@ -59,7 +59,7 @@ namespace TreasureHunter.Core.State.GameState
             switch (_backToGameMethod)
             {
                 case BackToGameMethod.NewGame:
-                    GameSceneManager.Instance.GoToScene(SceneKey.ABNORMAL_CAVE, () =>
+                    GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
                     {
                         LoadPlayer();
                         LoadGameHUD();
