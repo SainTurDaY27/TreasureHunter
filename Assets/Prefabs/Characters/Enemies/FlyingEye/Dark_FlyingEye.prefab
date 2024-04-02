@@ -94,7 +94,7 @@ MonoBehaviour:
   knockback: {x: 3, y: 0}
   isContactDamage: 1
   isProjectile: 0
-  attackType: 0
+  damageType: 0
   startRight: 1
   attackHit:
     m_PersistentCalls:
@@ -193,7 +193,7 @@ MonoBehaviour:
   knockback: {x: 3, y: 0}
   isContactDamage: 0
   isProjectile: 0
-  attackType: 0
+  damageType: 0
   startRight: 1
   attackHit:
     m_PersistentCalls:
@@ -283,7 +283,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: -4795363162621231457, guid: 6d7cd4f7505dc674c891ca8946cfd98b, type: 3}
-  m_Color: {r: 0.3160377, g: 0.4093768, b: 1, a: 0.78039217}
+  m_Color: {r: 0.3160377, g: 0.4093768, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -366,6 +366,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invicibilityTime: 2
+  immuneTypes: 
 --- !u!114 &7717469263537677330
 MonoBehaviour:
   m_ObjectHideFlags: 0

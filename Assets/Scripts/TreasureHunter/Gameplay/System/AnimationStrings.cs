@@ -16,5 +16,10 @@ namespace TreasureHunter.Gameplay.System
         internal static readonly string CanMove = "canMove";
         internal static readonly string HasTarget = "hasTarget";
         internal static readonly string ZeroGravity = "zeroGravity";
+        // internal static readonly string BecomeActive = "becomeActive";
+        // internal static readonly string BecomeInactive = "becomeInactive";
+        internal static readonly string IsActive = "isActive";
+        internal static readonly string LockedInTarget = "lockedInTarget";
+        internal static readonly string Summon = "summon";
     }
 }

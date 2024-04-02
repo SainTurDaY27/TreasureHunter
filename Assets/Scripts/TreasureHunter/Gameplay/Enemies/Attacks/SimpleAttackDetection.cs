@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using TreasureHunter.Gameplay.System;
+using UnityEngine.Events;
 
 namespace TreasureHunter.Gameplay.Enemies.Attacks
 {
@@ -8,6 +9,7 @@ namespace TreasureHunter.Gameplay.Enemies.Attacks
     public class SimpleAttackDetection : MonoBehaviour
     {
         public string boolName = AnimationStrings.HasTarget;
+        public UnityEvent afterDetectPlayer;
         public DetectionZone attackDetectionZone;
         private Animator _animator;
 
@@ -18,7 +20,12 @@ namespace TreasureHunter.Gameplay.Enemies.Attacks
 
         private void Update()
         {
-            _animator.SetBool(boolName, attackDetectionZone.detected.Count > 0);
+            var detected = attackDetectionZone.detected.Count > 0;
+            _animator.SetBool(boolName, detected);
+            if (detected)
+            {
+                afterDetectPlayer?.Invoke();
+            }
         }
     }
 }
