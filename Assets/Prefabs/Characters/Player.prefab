@@ -529,6 +529,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invicibilityTime: 4
+  immuneTypes: 
 --- !u!114 &723244731713996264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,6 +674,7 @@ MonoBehaviour:
   knockback: {x: 2, y: 0}
   isContactDamage: 0
   isProjectile: 0
+  damageType: 0
   startRight: 1
   attackHit:
     m_PersistentCalls:
@@ -778,6 +780,7 @@ MonoBehaviour:
   knockback: {x: 2, y: 3}
   isContactDamage: 0
   isProjectile: 0
+  damageType: 0
   startRight: 1
   attackHit:
     m_PersistentCalls:

@@ -310,6 +310,7 @@ namespace TreasureHunter.Gameplay.Player
             if (IsAlive)
             {
                 _rb.velocity = new Vector2(knockback.x, _rb.velocity.y + knockback.y);
+                _animator.SetInteger(AnimationStrings.DamageReceived, damage);
             }
         }
 
