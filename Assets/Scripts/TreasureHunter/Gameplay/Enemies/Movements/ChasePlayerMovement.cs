@@ -24,11 +24,12 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
 
         private void FixedUpdate()
         {
+            if (!CanMove) return;
             if (CanMove && !LockVelocity)
             {
                 Chase();
             }
-            else
+            else 
             {
                 _rb.velocity = Vector2.zero;
             }
