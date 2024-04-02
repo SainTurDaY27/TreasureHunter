@@ -20,5 +20,6 @@ namespace TreasureHunter.Gameplay.System
         // internal static readonly string BecomeInactive = "becomeInactive";
         internal static readonly string IsActive = "isActive";
         internal static readonly string LockedInTarget = "lockedInTarget";
+        internal static readonly string Summon = "summon";
     }
 }
