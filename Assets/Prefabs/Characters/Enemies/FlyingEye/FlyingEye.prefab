@@ -93,7 +93,12 @@ MonoBehaviour:
   attackDamage: 1
   knockback: {x: 3, y: 0}
   isContactDamage: 1
+  isProjectile: 0
+  damageType: 0
   startRight: 1
+  attackHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2245206226709138444
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +192,12 @@ MonoBehaviour:
   attackDamage: 1
   knockback: {x: 3, y: 0}
   isContactDamage: 0
+  isProjectile: 0
+  damageType: 0
   startRight: 1
+  attackHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3983246612539395059
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,8 +340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5d409004a4d4c1e84413cc9c42bee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
-  health: 4
+  maxHealth: 3
+  health: 3
   isAlive: 1
   isInvincible: 0
   damageableHit:
@@ -356,6 +366,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invicibilityTime: 2
+  immuneTypes: 
 --- !u!114 &7717469263537677330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +455,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5431a8c0fdd4d62a1a14a231b256f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boolName: hasTarget
+  afterDetectPlayer:
+    m_PersistentCalls:
+      m_Calls: []
   attackDetectionZone: {fileID: 6767048315020875916}
 --- !u!1 &4855388099106149584
 GameObject:

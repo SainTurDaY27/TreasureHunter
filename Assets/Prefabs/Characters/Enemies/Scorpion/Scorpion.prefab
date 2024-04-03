@@ -189,7 +189,12 @@ MonoBehaviour:
   attackDamage: 1
   knockback: {x: 3, y: 0}
   isContactDamage: 1
+  isProjectile: 0
+  damageType: 0
   startRight: 0
+  attackHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6278574706338492791
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,8 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5d409004a4d4c1e84413cc9c42bee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 6
-  health: 6
+  maxHealth: 2
+  health: 2
   isAlive: 1
   isInvincible: 0
   damageableHit:
@@ -355,6 +360,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   invicibilityTime: 0.5
+  immuneTypes: 
 --- !u!114 &5915659760076561911
 MonoBehaviour:
   m_ObjectHideFlags: 0
