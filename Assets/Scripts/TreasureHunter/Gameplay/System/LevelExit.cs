@@ -24,6 +24,7 @@ namespace TreasureHunter.Gameplay.System
                 oldDamageable.LockVelocity = true;
                 oldPlayerController.ResetVelocity();
                 oldPlayerController.ZeroGravity = true;
+                oldDamageable.BecomeInvincible();
 
                 UIManager.Instance.FadeSceneTransition(true, ()=>
                 {
