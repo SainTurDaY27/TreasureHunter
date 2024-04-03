@@ -53,7 +53,11 @@ namespace TreasureHunter.Gameplay.Player
 
 
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
-        public bool ZeroGravity => _animator.GetBool(AnimationStrings.ZeroGravity);
+        public bool ZeroGravity
+        {
+            get  => _animator.GetBool(AnimationStrings.ZeroGravity);
+            set => _animator.SetBool(AnimationStrings.ZeroGravity, value);
+        }
 
 
         public float CurrentSpeed =>

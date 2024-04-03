@@ -23,6 +23,7 @@ namespace TreasureHunter.Gameplay.System
                 // lock player movement
                 oldDamageable.LockVelocity = true;
                 oldPlayerController.ResetVelocity();
+                oldPlayerController.ZeroGravity = true;
 
                 UIManager.Instance.FadeSceneTransition(true, ()=>
                 {

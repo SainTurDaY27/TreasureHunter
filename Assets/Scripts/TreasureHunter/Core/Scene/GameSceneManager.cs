@@ -55,6 +55,14 @@ namespace TreasureHunter.Core.Scene
                     _sceneLoader.LoadSceneByName(SceneKey.CAVE_OF_SMALL_PEOPLE, callback);
                     break;
                 
+                case SceneKey.FORGOTTEN_PASSAGE:
+                    _sceneLoader.LoadSceneByName(SceneKey.FORGOTTEN_PASSAGE, callback);
+                    break;
+                
+                case SceneKey.FORGOTTEN_PLACE:
+                    _sceneLoader.LoadSceneByName(SceneKey.FORGOTTEN_PLACE, callback);
+                    break;
+                
                 default:
                     Debug.LogError("Scene not found");
                     break;

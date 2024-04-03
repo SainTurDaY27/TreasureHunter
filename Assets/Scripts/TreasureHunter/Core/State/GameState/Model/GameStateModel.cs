@@ -59,7 +59,7 @@ namespace TreasureHunter.Core.State.GameState
             switch (_backToGameMethod)
             {
                 case BackToGameMethod.NewGame:
-                    GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
+                    GameSceneManager.Instance.GoToScene(SceneKey.FORGOTTEN_PLACE, () =>
                     {
                         LoadPlayer();
                         LoadGameHUD();
@@ -157,10 +157,10 @@ namespace TreasureHunter.Core.State.GameState
                     return SceneKey.SCORPION_CAVE;
                 case MapAreaKey.SpeedyCave:
                     return SceneKey.SPEEDY_CAVE;
-                //case MapAreaKey.ForgottenPassage:
-                //    return SceneKey.FORGOTTEN_PASSAGE;
-                //case MapAreaKey.ForgottenPlace:
-                //    return SceneKey.FORGOTTEN_PLACE;
+                case MapAreaKey.ForgottenPassage:
+                    return SceneKey.FORGOTTEN_PASSAGE;
+                case MapAreaKey.ForgottenPlace:
+                    return SceneKey.FORGOTTEN_PLACE;
                 case MapAreaKey.DangerDen:
                     return SceneKey.DANGER_DEN;
                 case MapAreaKey.InteriorPeak:
