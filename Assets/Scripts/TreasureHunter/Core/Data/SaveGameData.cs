@@ -13,6 +13,7 @@ namespace TreasureHunter.Core.Data
         public MapAreaKey currentMapArea;
         public Vector2 playerPosition;
         public List<SkillKey> obtainedSkill;
+        public List<SkillKey> startingSkill;
         public long lastPlayedTime;
 
         // HashSet is not serializable.
@@ -38,6 +39,11 @@ namespace TreasureHunter.Core.Data
         public List<SkillKey> GetObtainedSkills()
         {
             return obtainedSkill;
+        }
+
+        public List<SkillKey> GetStartingSkills()
+        {
+            return startingSkill;
         }
 
         public long GetLastPlayedTime()

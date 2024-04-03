@@ -22,7 +22,8 @@ namespace TreasureHunter.Gameplay.System
 
         private void Start()
         {
-            if (_dataManager.PlayerData.HasSkill(skill))
+            // Replace starting skill with treasure
+            if (_dataManager.PlayerData.HasSkill(skill, startingSkill: true))
             {
                 Debug.Log("Already has skill. Spawn treasure");
                 var transform1 = transform;
@@ -35,6 +36,11 @@ namespace TreasureHunter.Gameplay.System
                 }
                 treasure.treasureId = skillName;
                 treasure.DestroyIfAlreadyObtained();
+                Destroy(gameObject);
+            }
+            // Already has skill => destroy
+            if (_dataManager.PlayerData.HasSkill(skill, startingSkill: false))
+            {
                 Destroy(gameObject);
             }
         }
