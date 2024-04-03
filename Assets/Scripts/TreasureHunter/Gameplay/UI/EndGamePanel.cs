@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using TreasureHunter.Core.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ namespace TreasureHunter.Gameplay.UI
     public class EndGamePanel : MonoBehaviour, IBaseUI
     {
         [SerializeField]
+        private TextMeshProUGUI _displayText;
+
+        [SerializeField]
         private Button _backToMenuButton;
 
         public event Action OnMainMenuButtonClicked;
@@ -15,6 +19,11 @@ namespace TreasureHunter.Gameplay.UI
         public void SetActive(bool isActive)
         {
             gameObject.SetActive(isActive);
+        }
+
+        public void SetDisplayText(string text)
+        {
+            _displayText.text = text;
         }
 
         private void OnMainMenuButtonClickedHandler()

@@ -65,7 +65,7 @@ namespace TreasureHunter.Gameplay.System
         private IEnumerator EndGameDelay()
         {
             yield return new WaitForSeconds(_END_GAME_DELAY);
-            GameStateManager.Instance.GoToState((int)GameStates.State.End);
+            GameStateManager.Instance.GoToState((int)GameStates.State.End, EndGameType.Lose);
         }
     }
 }

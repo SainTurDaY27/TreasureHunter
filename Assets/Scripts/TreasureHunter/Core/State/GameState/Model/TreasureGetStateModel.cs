@@ -63,7 +63,7 @@ namespace TreasureHunter.Core.State.GameState
         {
             if (_treasureCount == GameData.MaxTreasure)
             {
-                GameStateManager.Instance.GoToState((int)GameStates.State.End);
+                GameStateManager.Instance.GoToState((int)GameStates.State.End, EndGameType.Win);
             }
             else
             {
