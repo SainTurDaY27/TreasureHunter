@@ -9,6 +9,7 @@ namespace TreasureHunter.Core.State.GameState
         private EndGamePanel _endGamePanel;
         private MapPanel _mapPanel;
         private DataManager _dataManager;
+        private EndGameType _endGameType;
 
         public EndStateModel() : base((int)GameStates.State.End, nameof(GameStateModel))
         {
@@ -23,6 +24,12 @@ namespace TreasureHunter.Core.State.GameState
         public override void OnStateIn(params object[] args)
         {
             base.OnStateIn();
+            _endGameType = EndGameType.Lose;
+            if (args.Length > 0)
+            {
+                _endGameType = (EndGameType)args[0];
+            }
+
             _endGamePanel = (EndGamePanel)UIManager.Instance.Show(UIKey.EndGame);
             if (UIManager.Instance.TryGetUIByKey(UIKey.Map, out IBaseUI ui) && (ui is MapPanel panel))
             {
@@ -30,6 +37,7 @@ namespace TreasureHunter.Core.State.GameState
             }
             _dataManager = DataManager.Instance;
             _endGamePanel.OnMainMenuButtonClicked += MainMenu;
+            SetEndGameDisplayText();
 
             // TODO: Change remove map marker logic when save system was implemented
             _mapPanel.RemoveAllMapMarker();
@@ -48,5 +56,23 @@ namespace TreasureHunter.Core.State.GameState
         {
             GameStateManager.Instance.GoToState((int)GameStates.State.Menu);
         }
+
+        private void SetEndGameDisplayText()
+        {
+            if (_endGameType == EndGameType.Win)
+            {
+                _endGamePanel.SetDisplayText("Congratulations! You are now so rich.");
+            }
+            else
+            {
+                _endGamePanel.SetDisplayText("Game Over. You are dead.");
+            }
+        }
+    }
+
+    public enum EndGameType
+    {
+        Win,
+        Lose
     }
 }
