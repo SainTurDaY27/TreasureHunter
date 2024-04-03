@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
@@ -65,6 +66,33 @@ namespace TreasureHunter.Gameplay.System
         {
             _animator = GetComponent<Animator>();
             _gameManager = GameManager.Instance;
+        }
+
+        public void BecomeInvincible()
+        {
+            // Manually, adjust
+            isInvincible = true;
+        }
+
+        public void BecomeInvincible(float time)
+        {
+            // This is for manual i frame.
+            // Useful for spike or environmental damage.
+            StartCoroutine(ManualInvincibility(time));
+
+        }
+
+        public void BecomeVulnerable()
+        {
+            isInvincible = false;
+        }
+
+        private IEnumerator ManualInvincibility(float time)
+        {
+            isInvincible = true;
+            yield return new WaitForSeconds(time);
+            isInvincible = false;
+
         }
 
         private void Update()
