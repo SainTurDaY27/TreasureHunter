@@ -1,3 +1,4 @@
+using TreasureHunter.Core.Data;
 using TreasureHunter.Core.Scene;
 using TreasureHunter.Core.UI;
 using TreasureHunter.Gameplay.UI;
@@ -46,6 +47,7 @@ namespace TreasureHunter.Core.State.GameState
                 _menuPanel.OnLoadButtonClicked += LoadGame;
                 _menuPanel.OnExitButtonClicked += ExitGame;
             });
+            DataManager.Instance.ResetData();
         }
 
         public override void OnStateOut()
