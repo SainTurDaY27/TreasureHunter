@@ -39,7 +39,7 @@ namespace TreasureHunter.Core.State.GameState
 
         private void AddSelectedSkill(SkillKey skillKey)
         {
-            DataManager.Instance.PlayerData.ObtainSkill(skillKey);
+            DataManager.Instance.PlayerData.ObtainSkill(skillKey, startingSkill: true);
         }
 
         private void PlayGame()
