@@ -11,22 +11,26 @@ namespace TreasureHunter.Gameplay.Player
     public class PlayerData
     {
         private List<SkillKey> _obtainedSkills;
+        private List<SkillKey> _startingSkills;
         private Vector2 _playerPosition;
         private PlayerController _playerController;
         public event Action OnSkillObtained;
 
         public PlayerData()
         {
-            _obtainedSkills = new List<SkillKey>
+            _obtainedSkills = new List<SkillKey>();
+            _startingSkills = new List<SkillKey>();
             {
                 // GroudSlam is the default skill player obtains
                 //SkillKey.GroundSlam
-            };
+            }
+            ;
         }
 
         public void ResetData()
         {
             _obtainedSkills.Clear();
+            _startingSkills.Clear();
         }
 
         public void LoadData(SaveGameData saveGameData)
@@ -35,6 +39,12 @@ namespace TreasureHunter.Gameplay.Player
             var playerPosition = saveGameData.GetPlayerPosition();
             //_playerController = GameObject.FindObjectOfType<PlayerController>();
             //_playerController.MovePlayer(playerPosition);
+            var startingSkills = saveGameData.GetStartingSkills();
+            foreach (var skill in startingSkills)
+            {
+                ObtainSkill(skill, startingSkill: true);
+            }
+
             var obtainedSkills = saveGameData.GetObtainedSkills();
             foreach (var skill in obtainedSkills)
             {
@@ -42,12 +52,18 @@ namespace TreasureHunter.Gameplay.Player
             }
         }
 
-        public void ObtainSkill(SkillKey skillKey)
+        public void ObtainSkill(SkillKey skillKey, bool startingSkill = false)
         {
             if (_obtainedSkills.Contains(skillKey))
             {
                 return;
             }
+
+            if (startingSkill)
+            {
+                _startingSkills.Add(skillKey);
+            }
+
             _obtainedSkills.Add(skillKey);
             OnSkillObtainedHandler();
         }
@@ -72,14 +88,19 @@ namespace TreasureHunter.Gameplay.Player
             }
         }
 
-        public bool HasSkill(SkillKey skillKey)
+        public bool HasSkill(SkillKey skillKey, bool startingSkill = false)
         {
-            return _obtainedSkills.Contains(skillKey);
+            return startingSkill ? _startingSkills.Contains(skillKey) : _obtainedSkills.Contains(skillKey);
         }
 
         public List<SkillKey> GetObtainedSkills()
         {
             return _obtainedSkills;
+        }
+
+        public List<SkillKey> GetStartingSkills()
+        {
+            return _startingSkills;
         }
 
         public void SetPlayerPosition(Vector2 position)
