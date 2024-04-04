@@ -16,6 +16,7 @@ namespace TreasureHunter.Gameplay.System
 
         // Use for invincibility frame
         [SerializeField] private bool isInvincible = false;
+        public bool IsInvincible => isInvincible;
 
         public UnityEvent<int, Vector2> damageableHit;
         public UnityEvent damageableDeath;
