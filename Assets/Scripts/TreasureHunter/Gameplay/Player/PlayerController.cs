@@ -19,6 +19,7 @@ namespace TreasureHunter.Gameplay.Player
         private ProjectileLauncher _projectileLauncher;
         private Vector2 _originalScale;
         private GameSaveManager _gameSaveManager;
+        private SpriteRenderer _spriteRenderer;
 
         [SerializeField] private bool isFacingRight = true;
 
@@ -37,6 +38,7 @@ namespace TreasureHunter.Gameplay.Player
         public Vector2 fireKnockback = new(10, 0);
         public float shrinkScale = 0.5f;
         public bool canSave = false;
+        public float invincibilityAlpha = 0.5f;
 
         private bool _isRunning = false;
         private int jumpCount = 0;
@@ -93,6 +95,7 @@ namespace TreasureHunter.Gameplay.Player
             _flash = GetComponent<Flash>();
             _originalScale = transform.localScale;
             _gameManager = GameManager.Instance;
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         public void MovePlayer(Vector2 position)
@@ -314,6 +317,7 @@ namespace TreasureHunter.Gameplay.Player
             if (IsAlive)
             {
                 _rb.velocity = new Vector2(knockback.x, _rb.velocity.y + knockback.y);
+                _animator.SetInteger(AnimationStrings.DamageReceived, damage);
             }
         }
 
@@ -386,6 +390,15 @@ namespace TreasureHunter.Gameplay.Player
             if (_isWallJumping && Time.time - _wallJumpStartTime > wallJumpTime)
             {
                 _isWallJumping = false;
+            }
+
+            if (_damageable.IsInvincible)
+            {
+                _spriteRenderer.color = new Color(1, 1, 1, invincibilityAlpha);
+            }
+            else
+            {
+                _spriteRenderer.color = Color.white;
             }
         }
 

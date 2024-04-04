@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TreasureHunter.Gameplay.System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace TreasureHunter.Gameplay.System
 {
@@ -15,6 +16,7 @@ namespace TreasureHunter.Gameplay.System
 
         // Use for invincibility frame
         [SerializeField] private bool isInvincible = false;
+        public bool IsInvincible => isInvincible;
 
         public UnityEvent<int, Vector2> damageableHit;
         public UnityEvent damageableDeath;
@@ -22,8 +24,9 @@ namespace TreasureHunter.Gameplay.System
         private Animator _animator;
         private GameManager _gameManager;
         private float _timeSinceHit = 0f;
-        public float invicibilityTime = 0.5f;
-        public List<DamageType> immuneTypes = new ();
+        [FormerlySerializedAs("invicibilityTime")]
+        public float invincibilityTime = 0.5f;
+        public List<DamageType> immuneTypes = new();
 
         public int MaxHealth
         {
@@ -79,7 +82,6 @@ namespace TreasureHunter.Gameplay.System
             // This is for manual i frame.
             // Useful for spike or environmental damage.
             StartCoroutine(ManualInvincibility(time));
-
         }
 
         public void BecomeVulnerable()
@@ -92,7 +94,6 @@ namespace TreasureHunter.Gameplay.System
             isInvincible = true;
             yield return new WaitForSeconds(time);
             isInvincible = false;
-
         }
 
         private void Update()
@@ -104,7 +105,7 @@ namespace TreasureHunter.Gameplay.System
 
             if (isInvincible)
             {
-                if (_timeSinceHit > invicibilityTime)
+                if (_timeSinceHit > invincibilityTime)
                 {
                     isInvincible = false;
                     _timeSinceHit = 0;
@@ -121,6 +122,7 @@ namespace TreasureHunter.Gameplay.System
             if (isInvincible && !bypassInvincibility) return false;
             if (immuneTypes.Contains(damageType)) return false;
 
+            _timeSinceHit = 0;
             Health -= attackDamage;
             isInvincible = true; // Never been hit again
 
