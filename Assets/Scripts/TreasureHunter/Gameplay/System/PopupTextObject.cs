@@ -1,4 +1,3 @@
-using TreasureHunter.Gameplay.Player;
 using UnityEngine;
 
 namespace TreasureHunter.Gameplay.System
@@ -16,25 +15,12 @@ namespace TreasureHunter.Gameplay.System
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
-            var playerController = GetPlayerController(other);
-            if (playerController == null) return;
             popupText.SetActive(true);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             popupText.SetActive(false);
-        }
-
-        private PlayerController GetPlayerController(Collider2D other)
-        {
-            var playerController = other.GetComponent<PlayerController>();
-            if (playerController == null)
-            {
-                Debug.LogWarning("The player somehow has no player controller");
-                return playerController;
-            };
-            return playerController;
         }
     }
 }
