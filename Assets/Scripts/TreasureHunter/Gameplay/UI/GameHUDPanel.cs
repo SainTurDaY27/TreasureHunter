@@ -88,6 +88,7 @@ namespace TreasureHunter.Gameplay.UI
 
         private void Update()
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
             // TODO: For testing purposes only
             if (Input.GetKeyDown(KeyCode.U))
             {
@@ -97,6 +98,7 @@ namespace TreasureHunter.Gameplay.UI
             {
                 StartCoroutine(nameof(ShowSavingStatus));
             }
+#endif
         }
     }
 }
