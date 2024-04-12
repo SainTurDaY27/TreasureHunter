@@ -47,4 +47,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/ForgottenPlace.unity
     guid: df485325ca911184d8cc1000f80e44fe
+  - enabled: 1
+    path: Assets/Scenes/Levels/TheSurface.unity
+    guid: 8d919f7580b30473ca1de0e12dbe7334
   m_configObjects: {}
