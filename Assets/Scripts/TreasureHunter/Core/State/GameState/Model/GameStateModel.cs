@@ -150,7 +150,8 @@ namespace TreasureHunter.Core.State.GameState
         {
             switch (mapAreaKey)
             {
-                // The surface is not included in the map area
+                case MapAreaKey.TheSurface:
+                    return SceneKey.THE_SURFACE;
                 case MapAreaKey.TheEntrance:
                     return SceneKey.THE_ENTRANCE;
                 case MapAreaKey.ScorpionCave:
