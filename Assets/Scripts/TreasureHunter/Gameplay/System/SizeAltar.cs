@@ -18,7 +18,6 @@ namespace TreasureHunter.Gameplay.System
         private void Awake()
         {
             _collider2D = GetComponent<Collider2D>();
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
             _popupTextObject.SetPopupAvailability(false);
         }
 
@@ -59,7 +58,6 @@ namespace TreasureHunter.Gameplay.System
             {
                 return;
             }
-            gameObject.GetComponent<SpriteRenderer>().enabled = true;
             _popupTextObject.SetPopupAvailability(true);
         }
     }
