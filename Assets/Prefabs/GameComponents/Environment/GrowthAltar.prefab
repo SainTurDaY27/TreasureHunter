@@ -371,6 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccff540a47d48d5ab1840b557121147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _popupTextObject: {fileID: 7592173975346433621}
   destinationAltar: {fileID: 0}
   mode: 1
 --- !u!114 &7592173975346433621

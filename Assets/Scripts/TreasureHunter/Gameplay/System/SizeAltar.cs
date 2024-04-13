@@ -1,4 +1,5 @@
 using System;
+using TreasureHunter.Core.Data;
 using TreasureHunter.Gameplay.Player;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ namespace TreasureHunter.Gameplay.System
     [RequireComponent(typeof(Collider2D))]
     public class SizeAltar : MonoBehaviour
     {
+        [SerializeField]
+        private PopupTextObject _popupTextObject;
+
         private Collider2D _collider2D;
         public Transform destinationAltar;
         public SizeChangeMode mode = SizeChangeMode.Shrink;
@@ -14,6 +18,8 @@ namespace TreasureHunter.Gameplay.System
         private void Awake()
         {
             _collider2D = GetComponent<Collider2D>();
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            _popupTextObject.SetPopupAvailability(false);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -22,7 +28,6 @@ namespace TreasureHunter.Gameplay.System
             var playerController = GetPlayerController(other);
             if (playerController == null) return;
             playerController.OnEnterAltar(mode, destinationAltar.position);
-
         }
 
         private PlayerController GetPlayerController(Collider2D other)
@@ -44,5 +49,18 @@ namespace TreasureHunter.Gameplay.System
             playerController.OnExitAltar();
         }
 
+        private void Update()
+        {
+            if (!DataManager.Instance.PlayerData.HasSkill(SkillKey.Shrink))
+            {
+                return;
+            }
+            if (_popupTextObject.IsPopupAvailable == true)
+            {
+                return;
+            }
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            _popupTextObject.SetPopupAvailability(true);
+        }
     }
 }
