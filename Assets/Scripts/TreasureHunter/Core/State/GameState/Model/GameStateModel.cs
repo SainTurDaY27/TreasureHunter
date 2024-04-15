@@ -59,14 +59,11 @@ namespace TreasureHunter.Core.State.GameState
             switch (_backToGameMethod)
             {
                 case BackToGameMethod.NewGame:
-                    GameSceneManager.Instance.GoToScene(SceneKey.THE_ENTRANCE, () =>
+                    GameSceneManager.Instance.GoToScene(SceneKey.THE_SURFACE, () =>
                     {
                         LoadPlayer();
                         LoadGameHUD();
 
-                        // TODO: Move this to a better place later
-                        _dataManager.GameData.ExploreNewMapArea(MapAreaKey.TheSurface);
-                        _dataManager.GameData.ExploreNewMapArea(MapAreaKey.TheEntrance);
 
                         Debug.Log("Start new game");
                     });
@@ -150,7 +147,8 @@ namespace TreasureHunter.Core.State.GameState
         {
             switch (mapAreaKey)
             {
-                // The surface is not included in the map area
+                case MapAreaKey.TheSurface:
+                    return SceneKey.THE_SURFACE;
                 case MapAreaKey.TheEntrance:
                     return SceneKey.THE_ENTRANCE;
                 case MapAreaKey.ScorpionCave:

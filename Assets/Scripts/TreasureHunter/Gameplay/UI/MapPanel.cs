@@ -12,44 +12,34 @@ namespace TreasureHunter.Gameplay.UI
 {
     public class MapPanel : MonoBehaviour, IBaseUI
     {
-        [SerializeField]
-        private GameObject _mapAreaPanel;
+        [SerializeField] private GameObject _mapAreaPanel;
 
-        [SerializeField]
-        private MapBlockUI[] _mapBlockUIs;
+        [SerializeField] private MapBlockUI[] _mapBlockUIs;
 
-        [SerializeField]
-        private MapArrowUI[] _mapArrowUIs;
+        [SerializeField] private MapArrowUI[] _mapArrowUIs;
 
-        [SerializeField]
-        private GameObject _mapMarkerPrefab;
+        [SerializeField] private GameObject _mapMarkerPrefab;
 
-        [SerializeField]
-        private Color _normalMapBlockTextColor;
+        [SerializeField] private Color _normalMapBlockTextColor;
 
-        [SerializeField]
-        private Color _currentMapBlockTextColor;
+        [SerializeField] private Color _currentMapBlockTextColor;
 
-        [SerializeField]
-        private TextMeshProUGUI _markerRemainingText;
+        [SerializeField] private TextMeshProUGUI _markerRemainingText;
 
-        [SerializeField]
-        private Image[] _treasureImageUIs;
+        [SerializeField] private Image[] _treasureImageUIs;
 
         [Serializable]
         protected class MapArrowUI
         {
-            [SerializeField]
-            private MapAreaKey _mapAreaKey;
+            [SerializeField] private MapAreaKey _mapAreaKey;
 
-            [SerializeField]
-            private GameObject _arrowUI;
+            [SerializeField] private GameObject _arrowUI;
 
             public MapAreaKey MapAreaKey => _mapAreaKey;
             public GameObject ArrowUI => _arrowUI;
         }
 
-        private List<GameObject> _mapMarkers = new ();
+        private List<GameObject> _mapMarkers = new();
         private DataManager _dataManager;
         public event Action<Vector2> OnMapMarkerPlaced;
         public event Action<Vector2> OnMapMarkerRemoved;
@@ -109,11 +99,9 @@ namespace TreasureHunter.Gameplay.UI
             foreach (var mapBlockUI in _mapBlockUIs)
             {
                 mapBlockUI.SetActiveMapBlockUI(false);
-                if (mapBlockUI.MapAreaKey != MapAreaKey.TheSurface)
-                {
-                    mapBlockUI.ChangeMapNameTextColor(_normalMapBlockTextColor);
-                }
+                mapBlockUI.ChangeMapNameTextColor(_normalMapBlockTextColor);
             }
+
             foreach (var mapArrowUI in _mapArrowUIs)
             {
                 mapArrowUI.ArrowUI.SetActive(false);
@@ -189,7 +177,6 @@ namespace TreasureHunter.Gameplay.UI
             // Actual data
             if (modifyData) OnMapMarkerPlaced?.Invoke(position);
             SetMapMarkerRemaining(_dataManager.GameData.RemainingMapMarker);
-            
         }
 
         private void Awake()
@@ -205,6 +192,7 @@ namespace TreasureHunter.Gameplay.UI
                 {
                     return;
                 }
+
                 if (_dataManager.GameData.CheckMapMarkerAvailable())
                 {
                     PlaceMapMarker(Input.mousePosition);
