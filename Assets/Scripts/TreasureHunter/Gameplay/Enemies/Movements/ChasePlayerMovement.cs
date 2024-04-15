@@ -8,6 +8,8 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
     {
         public float chasingSpeed = 3f;
         public float playerReachedDistance = 0.2f;
+        public float chaseRange = 50f;
+        public bool useRange = false;
 
         private Animator _animator;
         private Rigidbody2D _rb;
@@ -48,7 +50,7 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
             var currentPosition = transform.position;
             var direction = (playerPosition - currentPosition).normalized;
             float distance = Vector2.Distance(playerPosition, currentPosition);
-            if (distance <= playerReachedDistance)
+            if (distance <= playerReachedDistance || useRange && (distance >= chaseRange))
             {
                 _rb.velocity = Vector2.zero;
             }
