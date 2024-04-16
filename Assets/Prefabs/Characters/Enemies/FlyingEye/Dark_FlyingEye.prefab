@@ -365,7 +365,7 @@ MonoBehaviour:
   healthChange:
     m_PersistentCalls:
       m_Calls: []
-  invicibilityTime: 2
+  invincibilityTime: 2
   immuneTypes: 
 --- !u!114 &7717469263537677330
 MonoBehaviour:
@@ -441,6 +441,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boolName: hasTarget
+  afterDetectPlayer:
+    m_PersistentCalls:
+      m_Calls: []
   attackDetectionZone: {fileID: 6767048315020875916}
 --- !u!114 &3563616627428078667
 MonoBehaviour:
@@ -454,8 +457,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6492371294e247f39cb01ef7b5907e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chasingSpeed: 5
+  chasingSpeed: 2
   playerReachedDistance: 0.2
+  chaseRange: 50
+  useRange: 1
 --- !u!1 &4855388099106149584
 GameObject:
   m_ObjectHideFlags: 0
