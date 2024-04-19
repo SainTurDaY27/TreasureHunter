@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skillIconVisualData: {fileID: 11400000, guid: 06bb2cbc0d0987040bc6148e791cb8ce, type: 2}
+  _mapVisualData: {fileID: 11400000, guid: f314b4c983e9d0e4c88433a1bf3489ae, type: 2}

@@ -16,7 +16,7 @@ namespace TreasureHunter.Gameplay.System
         private HashSet<string> _collectedTreasures = new();
         private Dictionary<string, bool> _boolStates = new();
         private List<MapAreaKey> _exploredMapAreas = new();
-        private List<Vector2> _mapMarkerDatas = new();
+        private List<MapMarkerData> _mapMarkerDatas = new();
         private SaveGameSlot _currentSaveGameSlot;
 
         // TODO: Set this variable later
@@ -138,9 +138,9 @@ namespace TreasureHunter.Gameplay.System
             OnMapMarkerChangedHandler();
         }
 
-        public void GainMapMarker(Vector2 mapMarkerLocation)
+        public void GainMapMarker(MapMarkerData mapMarkerData)
         {
-            RemoveMapMarker(mapMarkerLocation);
+            RemoveMapMarker(mapMarkerData);
             OnMapMarkerChangedHandler();
         }
 
@@ -159,7 +159,7 @@ namespace TreasureHunter.Gameplay.System
             return RemainingMapMarker > 0;
         }
 
-        public List<Vector2> GetMapMarkerData()
+        public List<MapMarkerData> GetMapMarkerData()
         {
             return _mapMarkerDatas;
         }
@@ -189,14 +189,24 @@ namespace TreasureHunter.Gameplay.System
             OnMapMarkerChanged?.Invoke();
         }
 
-        public void AddMapMarker(Vector2 mapMarker)
+        public void AddMapMarker(MapMarkerData mapMarkerData)
         {
-            _mapMarkerDatas.Add(mapMarker);
+            _mapMarkerDatas.Add(mapMarkerData);
+            DebugAllMapmarker();
         }
 
-        public void RemoveMapMarker(Vector2 mapMarker)
+        public void RemoveMapMarker(MapMarkerData mapMarkerData)
         {
-            _mapMarkerDatas = _mapMarkerDatas.Where(m => !m.Equals(mapMarker)).ToList();
+            _mapMarkerDatas.RemoveAll(m => m.position == mapMarkerData.position && m.mapAreaKey == mapMarkerData.mapAreaKey);
+            DebugAllMapmarker();
+        }
+
+        private void DebugAllMapmarker()
+        {
+            foreach (var mapMarker in _mapMarkerDatas)
+            {
+                Debug.Log($"Map marker at {mapMarker.position} in {mapMarker.mapAreaKey}");
+            }
         }
 
         public List<string> GetCollectedTreasures()
