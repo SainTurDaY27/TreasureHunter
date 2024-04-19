@@ -45,6 +45,7 @@ namespace TreasureHunter.Core.State.GameState
             _dataManager.GameData.OnMapMarkerChanged -= UpdateRemainingMarkerAmount;
             _dataManager.GameData.OnMapAreaExplored -= UpdateInGameMap;
             _mapPanel.ResetAllMarkers();
+            _mapPanel.RemovePlayerIcon();
             _mapPanel.OnMapMarkerPlaced -= AddMapMarker;
             _mapPanel.OnMapMarkerRemoved -= RemoveMapMarker;
             UIManager.Instance.Hide(UIKey.Map);
@@ -61,6 +62,7 @@ namespace TreasureHunter.Core.State.GameState
         {
             _mapPanel.UpdateMapUI(DataManager.Instance.GameData.ExploredMapAreas);
             _mapPanel.LoadMapMarkerFromData();
+            _mapPanel.RenderPlayerLocationOnMap();
         }
 
         private void UpdateRemainingMarkerAmount()
@@ -69,15 +71,15 @@ namespace TreasureHunter.Core.State.GameState
             _mapPanel.SetMapMarkerRemaining(_markerCount);
         }
 
-        private void AddMapMarker(Vector2 mapMarker)
+        private void AddMapMarker(MapMarkerData mapMarkerData)
         {
-            _dataManager.GameData.AddMapMarker(mapMarker);
+            _dataManager.GameData.AddMapMarker(mapMarkerData);
             UpdateRemainingMarkerAmount();
         }
 
-        private void RemoveMapMarker(Vector2 mapMarker)
+        private void RemoveMapMarker(MapMarkerData mapMarkerData)
         {
-            _dataManager.GameData.RemoveMapMarker(mapMarker);
+            _dataManager.GameData.RemoveMapMarker(mapMarkerData);
             UpdateRemainingMarkerAmount();
         }
     }
