@@ -12,7 +12,7 @@ namespace TreasureHunter.Gameplay.Enemies.Movements
         // Not sure if interface should be used.
         public MonoBehaviour movementScript;
 
-        private bool _isActive = false;
+        //private bool _isActive = false;
         private Animator _animator;
         private float _activeTime = 0f;
 
