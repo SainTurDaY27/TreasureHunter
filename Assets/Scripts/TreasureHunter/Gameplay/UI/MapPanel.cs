@@ -237,20 +237,27 @@ namespace TreasureHunter.Gameplay.UI
                     return;
                 }
                 var player = GameObject.FindObjectOfType<PlayerController>();
-                Vector2 mapSize = mapBorder.GetComponent<BoxCollider2D>().size;
+                // Player position based on Unity engine
+                Vector2 playerPosition = player.transform.position;
+                var boxCollider2D = mapBorder.GetComponent<BoxCollider2D>();
+                Vector2 mapSize = boxCollider2D.size;
                 Vector2 detailedMapSize = _detailedMapImage.rectTransform.sizeDelta;
 
-                Vector2 mapPosition = mapBorder.gameObject.transform.position;
-                Vector2 detailedMapPosition = _detailedMapImage.rectTransform.position;
+                // Vector2 mapPosition = mapBorder.gameObject.transform.position;
+                // Map position = center of the map
+                Vector2 mapPosition = (Vector2) mapBorder.transform.position + boxCollider2D.offset;
+                Vector2 detailedMapPosition = _detailedMapImage.rectTransform.anchoredPosition;
+                Debug.Log($"detailed map position {detailedMapPosition}");
+                Vector2 relativeMapPosition = playerPosition - mapPosition; 
 
                 var convertedRatio = new Vector2(detailedMapSize.x / mapSize.x, detailedMapSize.y / mapSize.y);
-                var playerPosition = player.transform.position;
 
                 //float additionalYPosition = 168.04F;
                 //float additionalYPosition = 0;
 
                 // TODO: fix this
-                var playerIconPosition = new Vector2((playerPosition.x + mapPosition.x) * convertedRatio.x, (playerPosition.y + mapPosition.y) * convertedRatio.y);
+                var playerIconPosition = new Vector2((relativeMapPosition.x ) * convertedRatio.x, (relativeMapPosition.y ) * convertedRatio.y);
+                playerIconPosition += _detailedMapImage.rectTransform.anchoredPosition;
                 //var playerIconPosition = new Vector2((playerPosition.x * convertedRatio.x) + mapBorder.gameObject.transform.position.x, ((playerPosition.y * convertedRatio.y) + mapBorder.gameObject.transform.position.y));
                 //var playerIconPosition = new Vector2((playerPosition.x + mapBorder.gameObject.transform.position.x) * convertedRatio.x, (playerPosition.y + mapBorder.gameObject.transform.position.y) * convertedRatio.y);
 
