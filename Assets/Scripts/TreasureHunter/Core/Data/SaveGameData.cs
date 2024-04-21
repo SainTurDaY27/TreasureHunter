@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TreasureHunter.Gameplay.Map;
 using TreasureHunter.Gameplay.System;
@@ -77,6 +78,7 @@ namespace TreasureHunter.Core.Data
         }
     }
 
+    [Serializable]
     public class MapMarkerData
     {
         public Vector2 position;
