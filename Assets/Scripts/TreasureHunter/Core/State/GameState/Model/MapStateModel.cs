@@ -61,7 +61,6 @@ namespace TreasureHunter.Core.State.GameState
         private void UpdateInGameMap()
         {
             _mapPanel.UpdateMapUI(DataManager.Instance.GameData.ExploredMapAreas);
-            _mapPanel.LoadMapMarkerFromData();
             _mapPanel.RenderPlayerLocationOnMap();
         }
 

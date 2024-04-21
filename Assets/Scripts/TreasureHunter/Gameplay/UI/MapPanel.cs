@@ -71,11 +71,7 @@ namespace TreasureHunter.Gameplay.UI
                 if (mapMarker != null)
                 {
                     Debug.Log("MapMarker: " + mapMarker);
-                    // TODO: Add map marker data.
-                    // _dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
                 }
-                //Debug.Log("MapMarker: " + mapMarker);
-                //_dataManager.GameData.AddMapMarkerData(mapMarker, mapMarker.transform.position);
             }
         }
 
@@ -89,11 +85,6 @@ namespace TreasureHunter.Gameplay.UI
                     PlaceMapMarker(mapMarkerData.position, modifyData: false);
                     Debug.Log("Place map marker to " + _currentViewDetailedMap.ToString());
                 }
-                else
-                {
-                    
-                }
-                //PlaceMapMarker(mapMarkerData, modifyData: false);
             }
         }
 
@@ -135,7 +126,7 @@ namespace TreasureHunter.Gameplay.UI
         {
             // Destroy all GUI map marker
             _mapMarkers.ForEach(Destroy);
-            _mapMarkers.Clear();
+            //_mapMarkers.Clear();
         }
 
         public void UpdateMapUI(List<MapAreaKey> exploredMapAreas)
@@ -184,11 +175,11 @@ namespace TreasureHunter.Gameplay.UI
                 if (_mapMarkers[i] != null)
                 {
                     Destroy(_mapMarkers[i]);
-                    //_dataManager.GameData.GainMapMarker(_mapMarkers[i].transform.position);
                     _dataManager.GameData.GainMapMarker(new MapMarkerData(_mapMarkers[i].transform.position, _currentViewDetailedMap));
                 }
             }
         }
+
         public void OpenDetailedMapPanel(MapAreaKey mapAreaKey)
         {
             _currentViewDetailedMap = mapAreaKey;
@@ -204,7 +195,7 @@ namespace TreasureHunter.Gameplay.UI
             _detailedMapPanel.SetActive(false);
             _mapAreaPanel.SetActive(true);
             ResetAllMarkers();
-            Destroy(_playerIcon);
+            RemovePlayerIcon();
         }
 
         public void RemovePlayerIcon()
@@ -227,13 +218,13 @@ namespace TreasureHunter.Gameplay.UI
 
         public void RenderPlayerLocationOnMap()
         {
-            Debug.Log("Render map of " + _currentViewDetailedMap.ToString());
+            RemovePlayerIcon();
             if (_dataManager.GameData.CurrentMapArea == _currentViewDetailedMap)
             {
                 var mapBorder = GameObject.FindGameObjectWithTag("MapBorder");
                 if (mapBorder == null)
                 {
-                    Debug.LogError("Map border not found!");
+                    Debug.Log("Map border not found!");
                     return;
                 }
                 var player = GameObject.FindObjectOfType<PlayerController>();
@@ -242,35 +233,14 @@ namespace TreasureHunter.Gameplay.UI
                 var boxCollider2D = mapBorder.GetComponent<BoxCollider2D>();
                 Vector2 mapSize = boxCollider2D.size;
                 Vector2 detailedMapSize = _detailedMapImage.rectTransform.sizeDelta;
-
-                // Vector2 mapPosition = mapBorder.gameObject.transform.position;
                 // Map position = center of the map
                 Vector2 mapPosition = (Vector2) mapBorder.transform.position + boxCollider2D.offset;
                 Vector2 detailedMapPosition = _detailedMapImage.rectTransform.anchoredPosition;
-                Debug.Log($"detailed map position {detailedMapPosition}");
                 Vector2 relativeMapPosition = playerPosition - mapPosition; 
-
                 var convertedRatio = new Vector2(detailedMapSize.x / mapSize.x, detailedMapSize.y / mapSize.y);
-
-                //float additionalYPosition = 168.04F;
-                //float additionalYPosition = 0;
-
-                // TODO: fix this
                 var playerIconPosition = new Vector2((relativeMapPosition.x ) * convertedRatio.x, (relativeMapPosition.y ) * convertedRatio.y);
                 playerIconPosition += _detailedMapImage.rectTransform.anchoredPosition;
-                //var playerIconPosition = new Vector2((playerPosition.x * convertedRatio.x) + mapBorder.gameObject.transform.position.x, ((playerPosition.y * convertedRatio.y) + mapBorder.gameObject.transform.position.y));
-                //var playerIconPosition = new Vector2((playerPosition.x + mapBorder.gameObject.transform.position.x) * convertedRatio.x, (playerPosition.y + mapBorder.gameObject.transform.position.y) * convertedRatio.y);
-
                 _playerIcon = Instantiate(_playerIconPrefab, _detailedMapPanel.transform);
-
-                Debug.Log($"Map border at {mapPosition.x}, {mapPosition.y}");
-                Debug.Log($"Detailed map at {detailedMapPosition.x}, {detailedMapPosition.y}");
-                //Debug.Log("Real Map Size: " + mapSize);
-                //Debug.Log("Detailed Map Size: " + detailedMapSize);
-                Debug.Log("ConvertedRatio: " + convertedRatio);
-                Debug.Log("Real Player Position: " + playerPosition);
-                Debug.Log("Detailed Map Player Position: " + playerIconPosition);
-
                 // set player icon position on detailed map's image
                 _playerIcon.transform.localPosition = playerIconPosition;
             }
