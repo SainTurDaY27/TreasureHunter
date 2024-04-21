@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TreasureHunter.Gameplay.Map;
 using TreasureHunter.Gameplay.System;
@@ -23,7 +24,7 @@ namespace TreasureHunter.Core.Data
         public List<string> trueBoolStates = new();
 
         public List<MapAreaKey> exploredMapArea = new();
-        public List<Vector2> mapMarkerData = new();
+        public List<MapMarkerData> mapMarkerData = new();
         public int remainingMapMarker;
 
         public MapAreaKey GetMapAreaKey()
@@ -58,19 +59,14 @@ namespace TreasureHunter.Core.Data
 
         public List<MapAreaKey> GetExploredMapAreas()
         {
-            foreach (var mapAreaKey in exploredMapArea)
-            {
-                Debug.Log("Explored map area: " + mapAreaKey);
-            }
-
             return exploredMapArea;
         }
 
-        public List<Vector2> GetMapMarkerData()
+        public List<MapMarkerData> GetMapMarkerData()
         {
             if (mapMarkerData == null)
             {
-                return new List<Vector2>();
+                return new List<MapMarkerData>();
             }
             return mapMarkerData;
         }
@@ -79,6 +75,19 @@ namespace TreasureHunter.Core.Data
         public int GetRemainingMapMarker()
         {
             return remainingMapMarker;
+        }
+    }
+
+    [Serializable]
+    public class MapMarkerData
+    {
+        public Vector2 position;
+        public MapAreaKey mapAreaKey;
+
+        public MapMarkerData(Vector2 position, MapAreaKey mapAreaKey)
+        {
+            this.position = position;
+            this.mapAreaKey = mapAreaKey;
         }
     }
 }

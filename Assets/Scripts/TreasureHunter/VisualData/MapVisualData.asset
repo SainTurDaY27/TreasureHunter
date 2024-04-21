@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35982c402e29e0c4ba20ae4a0c1df73c, type: 3}
+  m_Name: MapVisualData
+  m_EditorClassIdentifier: 
+  _mapImages:
+  - _key: 0
+    _imageSprite: {fileID: 21300000, guid: 0ce96aa6462620e47ac56eccbb027deb, type: 3}
+  - _key: 1
+    _imageSprite: {fileID: 21300000, guid: e0851eff987f9ee469adc1f83205143f, type: 3}
+  - _key: 2
+    _imageSprite: {fileID: 21300000, guid: bfbca39a4bdc5304bb96cb78e4cf33fe, type: 3}
+  - _key: 3
+    _imageSprite: {fileID: 21300000, guid: 02aa536aae05d6f4abcf1e7519f59578, type: 3}
+  - _key: 4
+    _imageSprite: {fileID: 21300000, guid: e95ef122d4a949042a3e507f7939231c, type: 3}
+  - _key: 5
+    _imageSprite: {fileID: 21300000, guid: 8bbaecb3df7343042a691edf0ae8251c, type: 3}
+  - _key: 6
+    _imageSprite: {fileID: 21300000, guid: 3d97cd69ee1f9d64b9131481d7cd7de3, type: 3}
+  - _key: 7
+    _imageSprite: {fileID: 21300000, guid: ca95cd04a631e3a4eba715134e0ad7ba, type: 3}
+  - _key: 8
+    _imageSprite: {fileID: 21300000, guid: 79b34b6f141ae964c9004f708f572fd8, type: 3}
+  - _key: 9
+    _imageSprite: {fileID: 21300000, guid: 5ec5b35ffc299ea46bac627d4342e047, type: 3}
+  - _key: 10
+    _imageSprite: {fileID: 21300000, guid: 3a679772a9fcf484db3689b57c0da033, type: 3}
+  - _key: 11
+    _imageSprite: {fileID: 21300000, guid: 9d775ab89ba02a6408cd480e9e4cc1ea, type: 3}
+  - _key: 12
+    _imageSprite: {fileID: 21300000, guid: fd12dca6d0785994ea00807e5e354df2, type: 3}

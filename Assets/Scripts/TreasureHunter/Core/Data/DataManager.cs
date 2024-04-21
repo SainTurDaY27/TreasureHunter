@@ -12,15 +12,16 @@ namespace TreasureHunter.Core.Data
     public class DataManager : MonoSingleton<DataManager>
     {
         [SerializeField] private SkillIconVisualData _skillIconVisualData;
+        [SerializeField] private MapVisualData _mapVisualData;
 
         private PlayerData _playerData = new PlayerData();
         private GameData _gameData = new GameData();
         private GameSaveManager _gameSaveManager = new GameSaveManager();
         public SkillIconVisualData SkillIconVisualData => _skillIconVisualData;
+        public MapVisualData MapVisualData => _mapVisualData;
         public PlayerData PlayerData => _playerData;
         public GameData GameData => _gameData;
         public GameSaveManager GameSaveManager => _gameSaveManager;
-        public PlayerController PlayerController;
 
         public override void Awake()
         {
