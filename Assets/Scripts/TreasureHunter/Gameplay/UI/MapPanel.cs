@@ -132,16 +132,28 @@ namespace TreasureHunter.Gameplay.UI
         public void UpdateMapUI(List<MapAreaKey> exploredMapAreas)
         {
             ResetMapUI();
+            var currentMapArea = _dataManager.GameData.CurrentMapArea;
             for (int i = 0; i < _mapBlockUIs.Length; i++)
             {
-                if (exploredMapAreas.Contains(_mapBlockUIs[i].MapAreaKey))
+                MapAreaKey mapAreaFromMapBox = _mapBlockUIs[i].MapAreaKey;
+                if (exploredMapAreas.Contains(mapAreaFromMapBox))
                 {
-                    SetActiveMapBlockUI(_mapBlockUIs[i].MapAreaKey, true);
-                    SetActiveArrowUI(_mapBlockUIs[i].MapAreaKey, true);
-                    if (_mapBlockUIs[i].MapAreaKey == _dataManager.GameData.CurrentMapArea)
+                    SetActiveMapBlockUI(mapAreaFromMapBox, true);
+                    SetActiveArrowUI(mapAreaFromMapBox, true);
+
+                    if (mapAreaFromMapBox == currentMapArea)
                     {
                         _mapBlockUIs[i].ChangeMapNameTextColor(_currentMapBlockTextColor);
                     }
+                }
+
+                if (CheckHasMapMarkerOnMap(mapAreaFromMapBox))
+                {
+                    _mapBlockUIs[i].SetMapMarkerImageActive(true);
+                }
+                else
+                {
+                    _mapBlockUIs[i].SetMapMarkerImageActive(false);
                 }
             }
         }
@@ -196,6 +208,7 @@ namespace TreasureHunter.Gameplay.UI
             _mapAreaPanel.SetActive(true);
             ResetAllMarkers();
             RemovePlayerIcon();
+            UpdateMapUI(DataManager.Instance.GameData.ExploredMapAreas);
         }
 
         public void RemovePlayerIcon()
@@ -209,11 +222,6 @@ namespace TreasureHunter.Gameplay.UI
         public void SetIsMouseOverDetailedMap(bool isMouseOverDetailedMap)
         {
             _isMouseOverDetailedMap = isMouseOverDetailedMap;
-        }
-
-        private void SetDetailedMapImage(MapAreaKey mapAreaKey)
-        {
-            _detailedMapImage.sprite = _dataManager.MapVisualData.GetMapImage(mapAreaKey);
         }
 
         public void RenderPlayerLocationOnMap()
@@ -245,6 +253,25 @@ namespace TreasureHunter.Gameplay.UI
                 _playerIcon.transform.localPosition = playerIconPosition;
             }
             LoadMapMarkerFromData();
+        }
+
+        private void SetDetailedMapImage(MapAreaKey mapAreaKey)
+        {
+            _detailedMapImage.sprite = _dataManager.MapVisualData.GetMapImage(mapAreaKey);
+        }
+
+        private bool CheckHasMapMarkerOnMap(MapAreaKey mapAreaKey)
+        {
+            // Check if there is map marker on the map
+            var mapMarkerData = _dataManager.GameData.GetMapMarkerData();
+            foreach (var mapMarker in mapMarkerData)
+            {
+                if (mapMarker.mapAreaKey == mapAreaKey)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void PlaceMapMarker(Vector3 position, bool modifyData = true)

@@ -17,6 +17,9 @@ namespace TreasureHunter.Gameplay.UI
         [SerializeField]
         private Button _mapBlockButton;
 
+        [SerializeField]
+        private GameObject _mapMarkerImage;
+
         private MapPanel _mapPanel;
 
         public MapAreaKey MapAreaKey => _mapAreaKey;
@@ -24,6 +27,11 @@ namespace TreasureHunter.Gameplay.UI
         public void SetActiveMapBlockUI(bool isActive)
         {
             gameObject.SetActive(isActive);
+        }
+
+        public void SetMapMarkerImageActive(bool isActive)
+        {
+            _mapMarkerImage.SetActive(isActive);
         }
 
         public void ChangeMapNameTextColor(Color color)
