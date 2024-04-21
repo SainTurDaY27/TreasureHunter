@@ -43,10 +43,6 @@ namespace TreasureHunter.Core.Data
                 mapMarkerData = gameData.GetMapMarkerData(),
                 remainingMapMarker = gameData.GetRemainingMapMarker()
             };
-            foreach (var data in saveGameData.mapMarkerData)
-            {
-                Debug.Log($"Map marker : {data.position} + {data.mapAreaKey}");
-            }
             string saveGameDataJson = JsonUtility.ToJson(saveGameData);
             File.WriteAllText(path, saveGameDataJson);
             Debug.Log("Saved game data: " + saveGameDataJson);
@@ -70,13 +66,6 @@ namespace TreasureHunter.Core.Data
                         return _saveGameData;
                     }
                     _saveGameData = JsonUtility.FromJson<SaveGameData>(saveGameDataJson);
-                    Debug.Log("Map data count " + _saveGameData.mapMarkerData);
-                    Debug.Log("Map data load " + _saveGameData.mapMarkerData.Count);
-
-                    foreach (var data in _saveGameData.mapMarkerData)
-                    {
-                        Debug.Log($"Map marker : {data.position} + {data.mapAreaKey}");
-                    }
                 }
             }
             return _saveGameData;
