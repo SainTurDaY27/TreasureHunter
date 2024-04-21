@@ -58,11 +58,6 @@ namespace TreasureHunter.Core.Data
 
         public List<MapAreaKey> GetExploredMapAreas()
         {
-            foreach (var mapAreaKey in exploredMapArea)
-            {
-                Debug.Log("Explored map area: " + mapAreaKey);
-            }
-
             return exploredMapArea;
         }
 
