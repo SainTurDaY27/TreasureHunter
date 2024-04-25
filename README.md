@@ -34,3 +34,8 @@ To contribute, please follow theese guildelines:
 If you have any questions or need any assistance, you can reach it out to us.
 
 We are very thankful for your time and effort in making this project getting better!
+
+
+## Credits
+
+We added the author of the resources we used in [credits](CREDITS.md)
