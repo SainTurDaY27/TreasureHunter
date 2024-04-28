@@ -11,7 +11,7 @@ Before you begin, ensure that you have the following prerequisites installed:
 You can download Unity from the official Unity website: <a href="https://unity.com/" target="_new">unity.com</a>
 
 ## Installation
-To install the antique-store Video Game, please follow these steps:
+To install the TreasureHunter Video Game, please follow these steps:
 
 1. Clone the repository or download the project file to your local machine.
 2. Open Unity Hub and click on the "Projects" tab.
@@ -34,3 +34,8 @@ To contribute, please follow theese guildelines:
 If you have any questions or need any assistance, you can reach it out to us.
 
 We are very thankful for your time and effort in making this project getting better!
+
+
+## Credits
+
+We added the author of the resources we used in [credits](CREDITS.md)
